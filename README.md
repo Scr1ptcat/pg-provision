@@ -55,6 +55,25 @@ PostgreSQL 16 remains the default for this release. PostgreSQL 18 is explicitly 
 pgprovision --pg-version 18 --dry-run
 ```
 
+## Contributing
+
+Use [uv](https://docs.astral.sh/uv/) for the contributor environment. The end-user install path remains `pip install pg-provision`.
+
+```bash
+uv sync --dev
+uv run pytest -q
+bash -n src/pgprovision/_sh/provision.sh src/pgprovision/_sh/os/*.sh
+uv run pre-commit run --all-files
+uv build
+```
+
+Install hooks with `uv run pre-commit install`. During development, run the CLI through the project environment:
+
+```bash
+uv run pgprovision --dry-run
+uv run pgprovision --user-mode --dry-run
+```
+
 ## Common scenarios (copy/paste)
 
 ### 1) **Hardened (RHEL/Rocky/Alma): socket‑only, local peer auth**
@@ -287,14 +306,14 @@ On RHEL family (RHEL/Rocky/Alma/Fedora/Amazon Linux), the provisioner preflights
 | -------------------------------- | -------------------------------------------------------------------------------- | -------------- |
 | `pre-commit`                     | Repository hygiene hooks                                                         | Yes            |
 | `unit`                           | Python matrix plus packaged shell artifact and CLI dry-run checks                | Yes            |
-| `rocky-smoke`                    | Rocky Linux container dry-run smoke                                              | Yes            |
+| `fedora-smoke`                   | Fedora 42 container dry-run smoke                                                | Yes            |
 | `build`                          | sdist/wheel build, install, and CLI dry-run smoke                                | Yes            |
-| `integration-ubuntu-smoke`       | Ubuntu PGDG provision, `SHOW server_version`, logical destroy, uninstall dry-run | Yes            |
-| `user-mode-smoke`                | Ubuntu user-mode provision/stamp/destroy and uninstall dry-run                   | Yes            |
+| `integration-ubuntu-smoke`       | Ubuntu PGDG provision, `SHOW server_version`, logical destroy, uninstall dry-run | No             |
+| `user-mode-smoke`                | Ubuntu user-mode provision/stamp/destroy and uninstall dry-run                   | No             |
 | `integration-ubuntu-destructive` | Nightly/manual preserve-PGDATA and full package/PGDATA uninstall for PG 16/18    | No             |
 | RHEL full integration            | Manual/self-hosted runner until RHEL-like systemd/PGDG coverage is stable        | No             |
 
-Tag publishes require the publish-gated jobs above; destructive Ubuntu and full RHEL integration do not block release publication.
+Tag publishes require `pre-commit`, `unit`, `fedora-smoke`, and `build`. Ubuntu integration and full RHEL integration remain schedule/manual coverage and do not block release publication.
 
 ## Notes
 

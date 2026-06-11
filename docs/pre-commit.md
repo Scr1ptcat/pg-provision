@@ -11,21 +11,26 @@ What runs
 
 Install locally
 
-- pipx install pre-commit # or: pip install --user pre-commit
-- pre-commit install
+- Install uv: <https://docs.astral.sh/uv/getting-started/installation/>
+- uv sync --dev
+- uv run pre-commit install
 
 First run
 
-- pre-commit run --all-files
+- uv run pre-commit run --all-files
 
 Secrets baseline maintenance
 
 - The baseline lives at .secrets.baseline
+
 - To update after legitimate changes:
-  - pipx install detect-secrets # or: pip install --user detect-secrets
-  - detect-secrets scan --all-files \
-    --exclude-files '(node_modules|vendor|dist|build|\\.venv|\\.tox|\\.mypy_cache|\\.ruff_cache|\\.git|\\.idea|\\.vscode|coverage|\\.pytest_cache|\\.terraform|target)/' \\
+
+  ```bash
+  uvx detect-secrets scan --all-files \
+    --exclude-files '(node_modules|vendor|dist|build|\\.venv|\\.tox|\\.mypy_cache|\\.ruff_cache|\\.git|\\.idea|\\.vscode|coverage|\\.pytest_cache|\\.terraform|target)/' \
     > .secrets.baseline
+  ```
+
 - Review the diff before committing the updated baseline.
 
 Notes
