@@ -29,6 +29,10 @@ def pytest_configure(config):
         "integration: requires systemd/psql; may query live service",
         "requires_psql: skips if psql not available",
         "requires_systemd: skips if systemctl not available",
+        "privileged: requires root or passwordless sudo on a disposable host",
+        "user_mode: exercises user-mode provisioner behavior",
+        "destructive: may remove PostgreSQL clusters, packages, or PGDATA",
+        "requires_pgvector: requires pgvector extension/package availability",
     ]:
         config.addinivalue_line("markers", m)
 
