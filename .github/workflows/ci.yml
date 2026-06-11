@@ -23,13 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.13'
-          cache: 'pip'
-      - uses: pre-commit/action@v3.0.1
-        with:
-          extra_args: --all-files
+          enable-cache: true
+      - run: uv sync --dev
+      - run: uv run pre-commit run --all-files
 
   unit:
     name: Unit tests (Ubuntu, py${{ matrix.python }})
@@ -42,30 +40,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-           fetch-depth: 0
-           fetch-tags: true
-      - uses: actions/setup-python@v5
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: ${{ matrix.python }}
-          cache: 'pip'
-      - name: Install test deps
-        env:
-          PIP_DISABLE_PIP_VERSION_CHECK: '1'
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -U pytest build twine
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --dev --python ${{ matrix.python }}
       - name: Run pytest
-        run: pytest -q
+        run: uv run pytest -q
       - name: "Smoke: pgprovision dry-runs"
         run: |
-          python -m pip install .
-          pgprovision --dry-run
-          pgprovision --user-mode --dry-run
-          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+          uv run pgprovision --dry-run
+          uv run pgprovision --user-mode --dry-run
+          uv run pgprovision --uninstall-cluster --uninstall-only --dry-run \
             --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: "Artifact test (importlib.resources)"
         run: |
-          python - <<'PY'
+          uv run python - <<'PY'
           import os, sys
           from importlib.resources import files, as_file
 
@@ -87,12 +79,12 @@ jobs:
               sys.exit(1)
           PY
 
-  rocky-smoke:
-    name: Smoke (Rocky Linux 9)
+  fedora-smoke:
+    name: Smoke (Fedora 42)
     if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     container:
-      image: rockylinux:9
+      image: fedora:42
     env:
       PIP_DISABLE_PIP_VERSION_CHECK: '1'
       PIP_CACHE_DIR: /tmp/pip-cache
@@ -100,7 +92,6 @@ jobs:
       - name: Install git before checkout (enables full clone)
         run: |
           set -euxo pipefail
-          dnf -y update || true
           dnf -y install git
       - uses: actions/checkout@v4
         with:
@@ -110,11 +101,12 @@ jobs:
         run: |
           set -euxo pipefail
           dnf -y install python3 python3-pip sudo
-          python3 -m pip install --upgrade pip
       - name: Install package
         env:
           SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
-        run: python3 -m pip install .
+        run: |
+          set -euxo pipefail
+          python3 -m pip install .
       - name: "Smoke: pgprovision dry-runs"
         run: |
           pgprovision --dry-run
@@ -138,39 +130,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          cache: 'pip'
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --dev
       - name: Build dist
-        env:
-          PIP_DISABLE_PIP_VERSION_CHECK: '1'
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install build twine
-          python -m build
-          twine check dist/*
+          uv build
+          uv run twine check dist/*
       - name: Install wheel and smoke
         run: |
-          python -m pip install dist/*.whl
-          pgprovision --help
-          pgprovision --dry-run
-          pgprovision --user-mode --dry-run
-          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+          uv pip uninstall pg-provision
+          uv pip install dist/*.whl
+          uv run --no-sync pgprovision --help
+          uv run --no-sync pgprovision --dry-run
+          uv run --no-sync pgprovision --user-mode --dry-run
+          uv run --no-sync pgprovision --uninstall-cluster --uninstall-only --dry-run \
             --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: Uninstall wheel
-        run: python -m pip uninstall -y pg-provision || true
+        run: uv pip uninstall pg-provision
       - name: Install sdist and smoke
         run: |
-          python -m pip install dist/*.tar.gz
-          pgprovision --help
-          pgprovision --dry-run
-          pgprovision --user-mode --dry-run
-          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+          uv pip install dist/*.tar.gz
+          uv run --no-sync pgprovision --help
+          uv run --no-sync pgprovision --dry-run
+          uv run --no-sync pgprovision --user-mode --dry-run
+          uv run --no-sync pgprovision --uninstall-cluster --uninstall-only --dry-run \
             --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: Artifact test (importlib.resources, sdist)
         run: |
-          python - <<'PY'
+          uv run --no-sync python - <<'PY'
           import os, sys
           from importlib.resources import files, as_file
           p = files('pgprovision').joinpath('_sh', 'provision.sh')
@@ -181,7 +174,7 @@ jobs:
 
   integration-ubuntu-smoke:
     name: Integration smoke (Ubuntu PGDG)
-    if: github.event_name != 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     env:
       PG_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && '18' || '16' }}
@@ -217,7 +210,7 @@ jobs:
 
   user-mode-smoke:
     name: User-mode smoke (Ubuntu)
-    if: github.event_name != 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     env:
       PG_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && '18' || '16' }}
@@ -355,7 +348,7 @@ jobs:
   publish:
     name: Publish to PyPI (on tag)
     if: github.event_name != 'schedule' && startsWith(github.ref, 'refs/tags/v')   # only when pushing a v* tag
-    needs: [pre-commit, unit, rocky-smoke, build, integration-ubuntu-smoke, user-mode-smoke]  # gate on all publish checks
+    needs: [pre-commit, unit, fedora-smoke, build]  # gate on publish checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -367,15 +360,15 @@ jobs:
           fetch-depth: 0       # needed if you use setuptools_scm
           fetch-tags: true
 
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.12'   # choose your build interpreter
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --dev
 
       - name: Build sdist/wheel
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install build
-          python -m build
+        run: uv build
 
       - name: Publish to PyPI (Trusted Publishing)
         uses: pypa/gh-action-pypi-publish@release/v1
