@@ -157,6 +157,75 @@ def test_hba_socket_only_rejects_loopback(tmp_path, bash):
 
 
 @pytest.mark.unit
+def test_hba_user_mode_loopback_requires_password_auth(tmp_path, bash):
+    hba = tmp_path / "pg_hba.conf"
+    hba.touch()
+
+    r = bash(
+        """
+      RUNTIME_MODE=user
+      apply_hba_policy "$HBA"
+        """,
+        env={"HBA": str(hba)},
+    )
+
+    assert r.rc == 0, r.stderr
+    text = hba.read_text(encoding="utf-8")
+    assert has_hba_line(text, "local", "all", "all", "trust")
+    assert has_hba_line(text, "host", "all", "all", "127.0.0.1/32", "scram-sha-256")
+    assert has_hba_line(text, "host", "all", "all", "::1/128", "scram-sha-256")
+    assert has_hba_line(
+        text, "host", "replication", "all", "127.0.0.1/32", "scram-sha-256"
+    )
+    assert has_hba_line(text, "host", "replication", "all", "::1/128", "scram-sha-256")
+    assert not has_hba_line(text, "host", "all", "all", "127.0.0.1/32", "trust")
+    assert not has_hba_line(text, "host", "all", "all", "::1/128", "trust")
+
+
+@pytest.mark.unit
+def test_hba_user_mode_socket_only_rejects_replication_loopback(tmp_path, bash):
+    hba = tmp_path / "pg_hba.conf"
+    hba.touch()
+
+    r = bash(
+        """
+      RUNTIME_MODE=user
+      SOCKET_ONLY=true
+      apply_hba_policy "$HBA"
+        """,
+        env={"HBA": str(hba)},
+    )
+
+    assert r.rc == 0, r.stderr
+    text = hba.read_text(encoding="utf-8")
+    assert has_hba_line(text, "host", "replication", "all", "127.0.0.1/32", "reject")
+    assert has_hba_line(text, "host", "replication", "all", "::1/128", "reject")
+
+
+@pytest.mark.unit
+def test_hba_user_socket_only_policy(tmp_path, bash):
+    hba = tmp_path / "pg_hba.conf"
+    hba.touch()
+
+    r = bash(
+        """
+      RUNTIME_MODE=user
+      SOCKET_ONLY=true
+      apply_hba_policy "$HBA"
+        """,
+        env={"HBA": str(hba)},
+    )
+
+    assert r.rc == 0, r.stderr
+    text = hba.read_text(encoding="utf-8")
+    assert has_hba_line(text, "local", "all", "all", "trust")
+    assert has_hba_line(text, "host", "all", "all", "127.0.0.1/32", "reject")
+    assert has_hba_line(text, "host", "all", "all", "::1/128", "reject")
+    assert not has_hba_line(text, "host", "all", "all", "127.0.0.1/32", "scram-sha-256")
+    assert not has_hba_line(text, "host", "all", "all", "::1/128", "scram-sha-256")
+
+
+@pytest.mark.unit
 def test_hba_ipv6_allow_with_tls(tmp_path, bash):
     """
     When ALLOWED_CIDR_V6 is provided and TLS is enabled, ensure a hostssl rule

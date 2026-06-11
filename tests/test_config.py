@@ -207,7 +207,7 @@ def test_apply_dropin_core_keys_idempotent(tmp_path, bash):
     apply_dropin_config must set core keys exactly once and be idempotent.
     We verify a subset that are critical defaults irrespective of TLS:
       - password_encryption = scram-sha-256
-      - shared_preload_libraries includes 'pg_stat_statements'
+      - shared_preload_libraries is omitted unless explicitly requested
       - log_line_prefix has the expected format
     """
     conf = tmp_path / "postgresql.conf"
@@ -232,16 +232,7 @@ def test_apply_dropin_core_keys_idempotent(tmp_path, bash):
         )
         == 1
     )
-    assert (
-        len(
-            re.findall(
-                r"^\s*shared_preload_libraries\s*=\s*'pg_stat_statements'\s*$",
-                content,
-                re.M,
-            )
-        )
-        == 1
-    )
+    assert not re.search(r"^\s*shared_preload_libraries\s*=", content, re.M)
     assert (
         len(
             re.findall(
@@ -255,6 +246,64 @@ def test_apply_dropin_core_keys_idempotent(tmp_path, bash):
 
 
 @pytest.mark.unit
+def test_apply_dropin_writes_pgss_spl_only_when_requested(tmp_path, bash):
+    """
+    pg_stat_statements belongs in SPL only when explicitly requested.
+    """
+    conf = tmp_path / "postgresql.conf"
+    conf.touch()
+
+    env = {
+        "CONF": str(conf),
+        "DATA": str(tmp_path),
+        "INIT_PG_STAT_STATEMENTS": "true",
+    }
+    r = bash('apply_dropin_config "$CONF" "$DATA"', env=env)
+    assert r.rc == 0, r.stderr
+
+    content = "\n".join(
+        f.read_text(encoding="utf-8") for f in (tmp_path / "conf.d").glob("*.conf")
+    )
+    assert re.search(
+        r"^\s*shared_preload_libraries\s*=\s*'pg_stat_statements'\s*$",
+        content,
+        re.M,
+    )
+
+
+@pytest.mark.unit
+def test_apply_dropin_merges_pgss_with_profile_spl(tmp_path, bash):
+    """
+    An explicit profile SPL is preserved and gains pgss only when requested.
+    """
+    conf = tmp_path / "postgresql.conf"
+    conf.touch()
+
+    env = {
+        "CONF": str(conf),
+        "DATA": str(tmp_path),
+        "INIT_PG_STAT_STATEMENTS": "true",
+    }
+    r = bash(
+        """
+      PROFILE_OVERRIDES=("shared_preload_libraries='auto_explain'")
+      apply_dropin_config "$CONF" "$DATA"
+        """,
+        env=env,
+    )
+    assert r.rc == 0, r.stderr
+
+    content = "\n".join(
+        f.read_text(encoding="utf-8") for f in (tmp_path / "conf.d").glob("*.conf")
+    )
+    assert re.search(
+        r"^\s*shared_preload_libraries\s*=\s*'auto_explain,pg_stat_statements'\s*$",
+        content,
+        re.M,
+    )
+
+
+@pytest.mark.unit
 def test_parse_args_flags_and_unknown(tmp_path, bash):
     """
     parse_args should map common flags to variables and reject unknown flags.
@@ -262,9 +311,10 @@ def test_parse_args_flags_and_unknown(tmp_path, bash):
     r = bash(
         """
       parse_args --enable-tls --allow-network --socket-only \
+                 --init-pgvector --pgvector-db vecdb \
                  --port 5555 --listen-addresses '*' \
                  --local-peer-map map1 --local-map-entry alice:db1
-      echo "TLS=${ENABLE_TLS} AN=${ALLOW_NETWORK} SO=${SOCKET_ONLY} PORT=${PORT} LISTEN=${LISTEN_ADDRESSES} LPM=${LOCAL_PEER_MAP} LME=${LOCAL_MAP_ENTRIES[*]}"
+      echo "TLS=${ENABLE_TLS} AN=${ALLOW_NETWORK} SO=${SOCKET_ONLY} INITV=${INIT_PGVECTOR} VDB=${PGVECTOR_DB} PORT=${PORT} LISTEN=${LISTEN_ADDRESSES} LPM=${LOCAL_PEER_MAP} LME=${LOCAL_MAP_ENTRIES[*]}"
         """
     )
     assert r.rc == 0, r.stderr
@@ -272,6 +322,8 @@ def test_parse_args_flags_and_unknown(tmp_path, bash):
     assert "TLS=true" in out
     assert "AN=true" in out
     assert "SO=true" in out
+    assert "INITV=true" in out
+    assert "VDB=vecdb" in out
     assert "PORT=5555" in out
     assert "LISTEN=*" in out
     assert "LPM=map1" in out
@@ -279,6 +331,46 @@ def test_parse_args_flags_and_unknown(tmp_path, bash):
 
     r2 = bash("parse_args --unknown-flag")
     assert r2.rc != 0
+
+
+@pytest.mark.unit
+def test_parse_args_pg_version_sets_major(bash):
+    """
+    parse_args should accept an explicit PostgreSQL major version.
+    """
+    r = bash(
+        """
+      parse_args --pg-version 18
+      echo "PG_VERSION=${PG_VERSION}"
+        """
+    )
+    assert r.rc == 0, r.stderr
+    assert r.stdout.strip() == "PG_VERSION=18"
+
+
+@pytest.mark.unit
+def test_parse_args_pg_version_requires_value(bash):
+    """
+    --pg-version must have a numeric major version argument.
+    """
+    missing = bash("parse_args --pg-version")
+    assert missing.rc == 2
+    assert "--pg-version requires" in missing.stderr
+
+    nonnumeric = bash("parse_args --pg-version eighteen")
+    assert nonnumeric.rc == 2
+    assert "--pg-version must be" in nonnumeric.stderr
+
+
+@pytest.mark.unit
+def test_usage_includes_pg_version_and_generic_banner(bash):
+    """
+    Help text should advertise --pg-version without implying a PG16-only tool.
+    """
+    r = bash("usage")
+    assert r.rc == 0, r.stderr
+    assert "--pg-version N" in r.stdout
+    assert "PG16" not in r.stdout
 
 
 @pytest.mark.unit

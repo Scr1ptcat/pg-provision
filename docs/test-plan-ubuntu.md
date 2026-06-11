@@ -7,7 +7,7 @@ ______________________________________________________________________
 ## 0) Prerequisites
 
 - Ubuntu VM with internet access.
-- Willingness to install PostgreSQL 16 (PGDG).
+- Willingness to install PostgreSQL via PGDG. The default major is 16; set `PGV=18` to run the same guide against PostgreSQL 18.
 - Install the package (system or venv):
 
 ```bash
@@ -28,10 +28,11 @@ ______________________________________________________________________
 sudo -s                                 # run tests as root for a quiet session
 set -euxo pipefail
 export DEBIAN_FRONTEND=noninteractive
+export PGV="${PGV:-16}"
 ```
 
 > Non-root runs require passwordless sudo and helpers that use sudo for writes under `/etc/postgresql/...`.
-> **Important — CLI behavior:** `pgprovision` prints usage and exits if called with **no arguments**. Environment variables alone do **not** trigger execution. Include at least one flag in every call. This guide uses **CLI flags that mirror the shell defaults** (e.g., `--pg-version 16`) so behavior matches `provision.sh` with no args.
+> **Important — CLI behavior:** `pgprovision` prints usage and exits if called with **no arguments**. Environment variables alone do **not** trigger execution. Include at least one flag in every call. This guide uses **CLI flags that mirror the shell defaults** (e.g., `--pg-version "${PGV}"`) so behavior matches `provision.sh` with no args.
 
 **CLI ⇄ Env quick map**
 
@@ -42,6 +43,9 @@ export DEBIAN_FRONTEND=noninteractive
 - `--enable-tls` ⇄ `ENABLE_TLS=true`
 - `--data-dir PATH|auto` ⇄ `DATA_DIR=...`
 - `--create-user/--create-db/--create-password` ⇄ `CREATE_USER/CREATE_DB/CREATE_PASSWORD` (prefer `CREATE_PASSWORD_FILE` for secrets)
+- `--destroy-db/--destroy-user/--destroy-only` ⇄ `DESTROY_DB/DESTROY_USER/DESTROY_ONLY`; confirmation uses `PGPROVISION_CONFIRM_DESTROY_DB`
+- `--uninstall-cluster/--uninstall-only/--confirm-uninstall` ⇄ `UNINSTALL_CLUSTER/UNINSTALL_ONLY/PGPROVISION_CONFIRM_UNINSTALL`
+- `--remove-pgdata/--purge-packages/--remove-pgdg-repo` ⇄ `REMOVE_PGDATA/PURGE_PACKAGES/REMOVE_PGDG_REPO`
 
 ______________________________________________________________________
 
@@ -62,9 +66,9 @@ ______________________________________________________________________
 Use an explicit default flag to trigger execution without changing behavior:
 
 ```bash
-pgprovision --pg-version 16 | tee ./pgprov_install.log
+pgprovision --pg-version "${PGV}" | tee ./pgprov_install.log
 
-systemctl status postgresql@16-main --no-pager || true
+systemctl status "postgresql@${PGV}-main" --no-pager || true
 psql --version
 sudo -u postgres psql -At -c "SELECT version();"
 ```
@@ -72,11 +76,11 @@ sudo -u postgres psql -At -c "SELECT version();"
 **If service didn’t start:**
 
 ```bash
-systemctl status postgresql@16-main --no-pager -l || true
-journalctl -xeu postgresql@16-main --no-pager | tail -n 100 || true
+systemctl status "postgresql@${PGV}-main" --no-pager -l || true
+journalctl -xeu "postgresql@${PGV}-main" --no-pager | tail -n 100 || true
 pg_lsclusters || true
-sudo pg_createcluster 16 main || true
-sudo pg_ctlcluster 16 main start || true
+sudo pg_createcluster "${PGV}" main || true
+sudo pg_ctlcluster "${PGV}" main start || true
 ```
 
 ______________________________________________________________________
@@ -86,7 +90,7 @@ ______________________________________________________________________
 ### 3.1 View managed block
 
 ```bash
-HBA=/etc/postgresql/16/main/pg_hba.conf
+HBA="/etc/postgresql/${PGV}/main/pg_hba.conf"
 awk '/^# pgprovision:hba begin \(managed\)/,/^# pgprovision:hba end/' "$HBA"
 ```
 
@@ -125,7 +129,7 @@ track_io_timing=on
 EOF
 
 pgprovision --profile xl-32c-256g
-DROPIN=/etc/postgresql/16/main/conf.d/99-pgprovision.conf
+DROPIN="/etc/postgresql/${PGV}/main/conf.d/99-pgprovision.conf"
 grep -E 'shared_buffers|max_wal_size|track_io_timing' "$DROPIN"
 ```
 
@@ -145,6 +149,30 @@ sudo -u postgres psql -At -c "SELECT datname, pg_get_userbyid(datdba) FROM pg_da
 
 ______________________________________________________________________
 
+## 5.5) Logical destroy safety smoke
+
+Drops only logical objects on a running cluster; it does not remove PGDATA, packages, services, or cluster metadata. Confirmation must exactly match the final `DESTROY_DB`.
+
+```bash
+DB=pgprov_destroy_smoke
+ROLE=pgprov_destroy_smoke
+PASSFILE=$(mktemp)
+trap 'rm -f "$PASSFILE"' EXIT
+printf '%s\n' 'not-secret-for-disposable-test' > "$PASSFILE"
+sudo -n env CREATE_PASSWORD_FILE="$PASSFILE" pgprovision \
+  --create-db "$DB" --create-user "$ROLE"
+pgprovision --destroy-db "$DB" --dry-run
+set +e
+pgprovision --destroy-db "$DB" --destroy-only
+echo "unconfirmed destroy RC=$?"
+set -e
+PGPROVISION_CONFIRM_DESTROY_DB="$DB" \
+  pgprovision --destroy-db "$DB" --destroy-user "$ROLE" --destroy-only
+sudo -u postgres psql -XAt -c "SELECT 1 FROM pg_database WHERE datname='${DB}'" | grep -q '^1$' && exit 1 || true
+```
+
+______________________________________________________________________
+
 ## 6) Socket group & local peer map
 
 ```bash
@@ -157,6 +185,21 @@ sudo -u postgres psql -At -c "SELECT rolname FROM pg_roles WHERE rolname = 'dev_
 ```
 
 > Your current shell may not reflect new group membership until you re‑login. `getent` confirms membership.
+
+______________________________________________________________________
+
+## 6.5) pgvector extension (PGDG)
+
+```bash
+DB=pgprov_vector_smoke
+pgprovision --pg-version "${PGV}" --repo pgdg \
+  --create-db "$DB" \
+  --init-pgvector --pgvector-db "$DB"
+sudo -u postgres psql -XAt -d "$DB" -c "SELECT extname FROM pg_extension WHERE extname='vector';" | grep '^vector$'
+sudo -u postgres psql -XAt -c "SHOW shared_preload_libraries;" | grep -v vector
+```
+
+**Expect:** `vector` exists in the target database, and `shared_preload_libraries` does not include `vector`. If `--init-pg-stat-statements` is not set, pg-provision does not force `pg_stat_statements` into SPL.
 
 ______________________________________________________________________
 
@@ -192,7 +235,7 @@ ______________________________________________________________________
 > Destructive to the default `main` cluster.
 
 ```bash
-NEW_DATA="/var/lib/postgresql/16/custom-data"
+NEW_DATA="/var/lib/postgresql/${PGV}/custom-data"
 pgprovision --data-dir "$NEW_DATA"
 sudo -u postgres psql -At -c "SHOW data_directory;" | grep -F "$NEW_DATA"
 ```
@@ -212,8 +255,8 @@ ______________________________________________________________________
 ## 10) Restart sanity
 
 ```bash
-systemctl restart postgresql@16-main
-systemctl is-active --quiet postgresql@16-main && echo "service up"
+systemctl restart "postgresql@${PGV}-main"
+systemctl is-active --quiet "postgresql@${PGV}-main" && echo "service up"
 sudo -u postgres psql -At -c "SELECT 1;"
 ```
 
@@ -225,19 +268,19 @@ ______________________________________________________________________
 
   ```bash
   sudo rm -f /tmp/pgprov_install.log
-  pgprovision --pg-version 16 | tee ./pgprov_install.log
+  pgprovision --pg-version "${PGV}" | tee ./pgprov_install.log
   # or:
-  pgprovision --pg-version 16 | sudo tee /tmp/pgprov_install.log >/dev/null
+  pgprovision --pg-version "${PGV}" | sudo tee /tmp/pgprov_install.log >/dev/null
   ```
 
 - **Service didn’t start**:
 
   ```bash
-  systemctl status postgresql@16-main --no-pager -l
-  journalctl -xeu postgresql@16-main --no-pager | tail -n 100
+  systemctl status "postgresql@${PGV}-main" --no-pager -l
+  journalctl -xeu "postgresql@${PGV}-main" --no-pager | tail -n 100
   pg_lsclusters
-  sudo pg_createcluster 16 main || true
-  sudo pg_ctlcluster 16 main start || true
+  sudo pg_createcluster "${PGV}" main || true
+  sudo pg_ctlcluster "${PGV}" main start || true
   ```
 
 - **PGDG key error** (`NO_PUBKEY …ACCC4CF8`): ensure `/etc/apt/keyrings/postgresql.gpg` exists and is world‑readable (`chmod 0644`). Re-run `apt-get update`.
@@ -248,11 +291,45 @@ ______________________________________________________________________
 
 ## Cleanup (optional)
 
+Scripted uninstall is the primary cleanup path. Always preview first and extract the `confirm_token=` from the dry-run output. Re-run the preview if you change `PGV`, `--data-dir`, or any env file that affects the resolved target.
+
+### Preserve PGDATA, remove cluster service metadata
+
 ```bash
-apt-get purge -y "postgresql-16*" "postgresql-client-16*" postgresql-contrib
+PREVIEW_LOG=./pgprov_uninstall_preview.log
+pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only --dry-run | tee "$PREVIEW_LOG"
+TOKEN="$(sed -n 's/^confirm_token=//p' "$PREVIEW_LOG" | tail -n1)"
+test -n "$TOKEN"
+
+sudo pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only \
+  --confirm-uninstall "$TOKEN"
+```
+
+### Full teardown, including PGDATA and packages
+
+```bash
+PREVIEW_LOG=./pgprov_uninstall_full_preview.log
+pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only --dry-run | tee "$PREVIEW_LOG"
+TOKEN="$(sed -n 's/^confirm_token=//p' "$PREVIEW_LOG" | tail -n1)"
+test -n "$TOKEN"
+
+sudo pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only \
+  --remove-pgdata --purge-packages --remove-pgdg-repo \
+  --confirm-uninstall "$TOKEN"
+```
+
+Manual fallback is secondary, for recovery when the scripted path cannot run:
+
+```bash
+systemctl stop "postgresql@${PGV}-main" || true
+apt-get purge -y "postgresql-${PGV}*" "postgresql-client-${PGV}*" postgresql-contrib
 rm -f /etc/apt/sources.list.d/pgdg.list /etc/apt/keyrings/postgresql.gpg
 apt-get autoremove -y
-rm -rf /var/lib/postgresql /etc/postgresql /var/log/postgresql
+rm -rf "/var/lib/postgresql/${PGV}" "/etc/postgresql/${PGV}" /var/log/postgresql
 groupdel pgclients || true
 ```
 

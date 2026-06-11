@@ -5,8 +5,8 @@ load_profile_overrides() {
 	[[ -z "${PROFILE:-}" ]] && return 0
 	local p="${SCRIPT_DIR}/profiles/${PROFILE}.conf"
 	if [[ ! -r "$p" ]]; then
-		warn "Profile not found: $PROFILE ($p)"
-		return 0
+		err "Profile not found: $PROFILE ($p)"
+		exit 2
 	fi
 	while IFS= read -r line; do
 		[[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue

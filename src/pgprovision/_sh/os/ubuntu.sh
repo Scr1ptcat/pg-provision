@@ -65,6 +65,17 @@ os_install_packages() {
 	run "${SUDO[@]}" apt-get install -y "postgresql-${PG_VERSION}" "postgresql-client-${PG_VERSION}" postgresql-contrib
 }
 
+os_install_extension_packages() {
+	[[ "${INIT_PGVECTOR:-false}" != "true" ]] && return 0
+	local repo_kind="${REPO_KIND:-pgdg}"
+	if [[ "$repo_kind" != "pgdg" ]]; then
+		err "pgvector installation on Ubuntu requires --repo pgdg; --repo ${repo_kind} is unsupported"
+		exit 2
+	fi
+	local pkg="${PGVECTOR_PACKAGE:-postgresql-${PG_VERSION}-pgvector}"
+	run "${SUDO[@]}" apt-get install -y "$pkg"
+}
+
 #pgdata is valid if:
 #1.) Directory exists.
 #2.) Version marker exists.
@@ -81,6 +92,25 @@ _is_valid_pgdata() {
 	return 0
 }
 
+_is_valid_pgdata_elevated() {
+	local d="${1:?}"
+	if _is_valid_pgdata "$d"; then
+		return 0
+	fi
+	if ((${#SUDO[@]} == 0)); then
+		return 1
+	fi
+	"${SUDO[@]}" test -d "$d" || return 1
+	"${SUDO[@]}" test -f "$d/PG_VERSION" || return 1
+	"${SUDO[@]}" test -d "$d/global" || return 1
+	"${SUDO[@]}" test -f "$d/global/pg_control" || return 1
+	"${SUDO[@]}" test -d "$d/base" || return 1
+	"${SUDO[@]}" test -d "$d/pg_wal" ||
+		"${SUDO[@]}" test -L "$d/pg_wal" ||
+		"${SUDO[@]}" test -d "$d/pg_xlog" ||
+		"${SUDO[@]}" test -L "$d/pg_xlog"
+}
+
 _current_cluster_datadir() {
 	local d=""
 	if command -v pg_lsclusters >/dev/null 2>&1; then
@@ -93,10 +123,10 @@ _current_cluster_datadir() {
 	printf '%s\n' "$d"
 }
 
-# Ubuntu self-heal preflight: detect and repair broken default cluster safely
+# Ubuntu self-heal check: detect and repair broken default cluster safely
 # Non-destructive: never delete a directory that looks like valid PGDATA.
 _ubuntu_self_heal_cluster() {
-	log "Ubuntu self-heal preflight: scanning ${PG_VERSION}/main"
+	log "Ubuntu self-heal check: scanning ${PG_VERSION}/main"
 
 	local conf="/etc/postgresql/${PG_VERSION}/main/postgresql.conf"
 	local etcdir="/etc/postgresql/${PG_VERSION}/main"
@@ -288,6 +318,10 @@ _ubuntu_self_heal_cluster() {
 	warn "Ubuntu self-heal: detected broken cluster (${reason[*]})"
 }
 
+os_self_heal() {
+	_ubuntu_self_heal_cluster
+}
+
 os_init_cluster() {
 	local data_dir="${1:-auto}"
 	# Ubuntu auto-creates the default cluster when postgresql-${PG_VERSION} is installed via PGDG.
@@ -329,6 +363,11 @@ os_init_cluster() {
 			# Nothing to relocate; just ensure the service is enabled and running.
 			os_enable_and_start "postgresql@${PG_VERSION}-main"
 			return 0
+		fi
+
+		if [[ -n "$cur" ]] && _is_valid_pgdata_elevated "$cur"; then
+			err "Refusing to relocate PostgreSQL ${PG_VERSION}/main from valid PGDATA at ${cur} to ${data_dir}; normal provision is non-destructive. Use uninstall/remove flags before requesting relocation."
+			exit 2
 		fi
 
 		# We need to (re)create the cluster pointing at the requested data_dir.
@@ -398,12 +437,149 @@ os_restart() {
 	fi
 }
 
-os_stop() {
+os_stop_cluster() {
 	local svc="${1:-postgresql@${PG_VERSION}-main}"
 	if command -v systemctl >/dev/null 2>&1; then
-		run "${SUDO[@]}" systemctl stop "$svc"
+		if systemctl cat "$svc" >/dev/null 2>&1; then
+			run "${SUDO[@]}" systemctl stop "$svc" || return $?
+			run "${SUDO[@]}" systemctl disable "$svc" || return $?
+		else
+			warn "Service unit ${svc} not found; skipping stop/disable."
+		fi
 	else
-		run "${SUDO[@]}" pg_ctlcluster "${PG_VERSION}" main stop
+		run "${SUDO[@]}" pg_ctlcluster "${PG_VERSION}" main stop || return $?
+	fi
+}
+
+os_stop() {
+	os_stop_cluster "$@"
+}
+
+_ubuntu_cluster_row_exists() {
+	command -v pg_lsclusters >/dev/null 2>&1 || return 1
+	pg_lsclusters --no-header 2>/dev/null | awk -v v="$PG_VERSION" '$1==v && $2=="main"{found=1} END{exit found ? 0 : 1}'
+}
+
+_ubuntu_cluster_data_dir() {
+	command -v pg_lsclusters >/dev/null 2>&1 || return 1
+	pg_lsclusters --no-header 2>/dev/null | awk -v v="$PG_VERSION" '$1==v && $2=="main"{print $6; found=1; exit} END{exit found ? 0 : 1}'
+}
+
+_ubuntu_verify_registered_target() {
+	local registered=""
+	if ! registered="$(_ubuntu_cluster_data_dir)"; then
+		err "PostgreSQL ${PG_VERSION}/main is not registered; refusing Ubuntu cluster uninstall for confirmed DATA_DIR ${DATA_DIR:?}"
+		return 1
+	fi
+	if [[ "$registered" != "${DATA_DIR:?}" ]]; then
+		err "Registered PostgreSQL ${PG_VERSION}/main data directory does not match confirmed uninstall target."
+		err "Registered data directory: ${registered}"
+		err "Confirmed uninstall target: ${DATA_DIR}"
+		return 1
+	fi
+}
+
+_ubuntu_fail_on_registered_target_mismatch() {
+	local registered=""
+	if ! registered="$(_ubuntu_cluster_data_dir)"; then
+		return 0
+	fi
+	if [[ "$registered" != "${DATA_DIR:?}" ]]; then
+		err "Registered PostgreSQL ${PG_VERSION}/main data directory does not match confirmed uninstall target."
+		err "Registered data directory: ${registered}"
+		err "Confirmed uninstall target: ${DATA_DIR}"
+		return 1
+	fi
+}
+
+_ubuntu_remove_pgdata_stamp() {
+	local stamp="${DATA_DIR:?}/.pgprovision_provisioned.json"
+	if [[ -e "$stamp" ]]; then
+		run "${SUDO[@]}" rm -f -- "$stamp" || return $?
+	fi
+}
+
+os_uninstall_cluster() {
+	local etcdir="${PGPROVISION_UBUNTU_CLUSTER_CONFIG_DIR:-/etc/postgresql/${PG_VERSION}/main}"
+	local quarantine_root="${PGPROVISION_UBUNTU_QUARANTINE_ROOT:-/var/lib/postgresql/.pgprovision-quarantine}"
+	local quarantine_path=""
+
+	if [[ "${REMOVE_PGDATA:-false}" == "true" ]]; then
+		_ubuntu_verify_registered_target || return $?
+		run "${SUDO[@]}" pg_dropcluster --stop "${PG_VERSION}" main || return $?
+		if [[ -e "${DATA_DIR:?}" ]]; then
+			err "PGDATA still exists after pg_dropcluster: ${DATA_DIR}"
+			return 1
+		fi
+		return 0
+	fi
+
+	_ubuntu_fail_on_registered_target_mismatch || return $?
+
+	if [[ -d "$etcdir" ]]; then
+		quarantine_path="${quarantine_root}/${PG_VERSION}-main-uninstall-$(date +%s)"
+		# shellcheck disable=SC2034 # consumed by provision.sh recovery diagnostics
+		UNINSTALL_QUARANTINE_PATH="$quarantine_path"
+		run "${SUDO[@]}" install -d -m 0700 -- "$quarantine_root" || return $?
+		run "${SUDO[@]}" mv -T -- "$etcdir" "$quarantine_path" || return $?
+	fi
+
+	if _ubuntu_cluster_row_exists; then
+		if [[ -n "$quarantine_path" ]]; then
+			run "${SUDO[@]}" mv -T -- "$quarantine_path" "$etcdir" || true
+		fi
+		err "pg_lsclusters still reports PostgreSQL ${PG_VERSION}/main after config quarantine"
+		return 1
+	fi
+
+	if ! _is_valid_pgdata_elevated "${DATA_DIR:?}"; then
+		if [[ -n "$quarantine_path" && ! -d "$etcdir" ]]; then
+			run "${SUDO[@]}" mv -T -- "$quarantine_path" "$etcdir" || true
+		fi
+		err "Preserve-PGDATA uninstall refused: invalid PostgreSQL layout at ${DATA_DIR}"
+		return 1
+	fi
+
+	_ubuntu_remove_pgdata_stamp || return $?
+	return 0
+}
+
+os_purge_packages() {
+	local pgvector_pkg="postgresql-${PG_VERSION}-pgvector"
+	local -a packages=(
+		"postgresql-${PG_VERSION}"
+		"postgresql-client-${PG_VERSION}"
+	)
+	if dpkg -l "$pgvector_pkg" 2>/dev/null | awk -v pkg="$pgvector_pkg" '$1 == "ii" && $2 == pkg { found = 1 } END { exit found ? 0 : 1 }'; then
+		packages+=("$pgvector_pkg")
+	else
+		warn "Package ${pgvector_pkg} is not installed; skipping package-specific purge."
+	fi
+	run "${SUDO[@]}" apt-get purge -y "${packages[@]}" || return $?
+	local -a cache_files=()
+	shopt -s nullglob
+	cache_files=(
+		/var/cache/apt/archives/postgresql-"${PG_VERSION}"_*.deb
+		/var/cache/apt/archives/postgresql-client-"${PG_VERSION}"_*.deb
+		/var/cache/apt/archives/postgresql-"${PG_VERSION}"-pgvector_*.deb
+	)
+	shopt -u nullglob
+	if ((${#cache_files[@]} > 0)); then
+		run "${SUDO[@]}" rm -f -- "${cache_files[@]}" || return $?
+	fi
+	run "${SUDO[@]}" apt-get autoremove -y || return $?
+}
+
+os_cleanup_repo() {
+	local repo_list="${PGPROVISION_UBUNTU_PGDG_LIST:-/etc/apt/sources.list.d/pgdg.list}"
+	local keyring="${PGPROVISION_UBUNTU_PGDG_KEYRING:-/etc/apt/keyrings/postgresql.gpg}"
+	local -a repo_files=(
+		"$repo_list"
+		"$keyring"
+	)
+	run "${SUDO[@]}" rm -f -- "${repo_files[@]}" || return $?
+	if command -v apt-get >/dev/null 2>&1; then
+		run "${SUDO[@]}" apt-get update || return $?
 	fi
 }
 

@@ -23,38 +23,36 @@ run_quiet() {
 must_run() {
 	local msg="$1"
 	shift
-	if ! run "$@"; then
-		local rc=$?
+	local rc=0
+	run "$@" || {
+		rc=$?
 		err "$msg (rc=$rc)"
 		exit "$rc"
-	fi
+	}
 }
 
 soft_run() {
 	local msg="$1"
 	shift
-	if ! run "$@"; then
-		local rc=$?
+	local rc=0
+	run "$@" || {
+		rc=$?
 		warn "$msg (rc=$rc)"
 		return 0
-	fi
+	}
 }
 
 _as_root() {
-	if [[ $(id -u) -eq 0 ]]; then
-		run "$@"
-	else
-		run sudo -n "$@"
-	fi
+	runtime_elevate "$@"
 }
 
 write_key_value_dropin() {
 	local f="$1" key="$2" val="$3"
-	_as_root touch "$f"
-	if _as_root grep -E -q "^[[:space:]]*${key}[[:space:]]*=" "$f"; then
-		_as_root sed -i -E "s|^[[:space:]]*(${key})[[:space:]]*=.*$|\1 = ${val}|" "$f"
+	runtime_elevate touch "$f"
+	if runtime_elevate grep -E -q "^[[:space:]]*${key}[[:space:]]*=" "$f"; then
+		runtime_elevate sed -i -E "s|^[[:space:]]*(${key})[[:space:]]*=.*$|\1 = ${val}|" "$f"
 	else
-		_as_root bash -c "printf '%s\n' \"${key} = ${val}\" >> \"$f\""
+		printf '%s\n' "${key} = ${val}" | runtime_elevate tee -a "$f" >/dev/null
 	fi
 }
 
@@ -62,7 +60,10 @@ ensure_line() {
 	local f="$1"
 	shift
 	local line="$*"
-	_as_root bash -c "grep -Fqx -- \"$line\" \"$f\" 2>/dev/null || printf '%s\n' \"$line\" >> \"$f\""
+	runtime_elevate touch "$f"
+	if ! runtime_elevate grep -Fqx -- "$line" "$f" 2>/dev/null; then
+		printf '%s\n' "$line" | runtime_elevate tee -a "$f" >/dev/null
+	fi
 }
 
 ensure_dir() {
@@ -75,8 +76,8 @@ ensure_dir() {
 		echo "+ install -d -m 0755 $d"
 		return 0
 	fi
-	if [[ $(id -u) -ne 0 ]] && command -v sudo >/dev/null 2>&1; then
-		must_run "create directory $d" sudo -n install -d -m 0755 "$d"
+	if runtime_elevate install -d -m 0755 "$d"; then
+		return 0
 	else
 		err "Cannot create directory $d (no permission or sudo)"
 		exit 1

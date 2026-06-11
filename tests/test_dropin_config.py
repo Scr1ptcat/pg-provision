@@ -53,4 +53,4 @@ exit 0
     body = dropin.read_text(encoding="utf-8")
     assert "port = 5433" in body
     assert "listen_addresses = '*'" in body
-    assert "shared_preload_libraries = 'pg_stat_statements'" in body
+    assert "shared_preload_libraries" not in body

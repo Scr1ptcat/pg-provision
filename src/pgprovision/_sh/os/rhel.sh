@@ -216,6 +216,10 @@ _rhel_self_heal_cluster() {
 	log "RHEL self-heal: created cluster at $target_new"
 }
 
+os_self_heal() {
+	_rhel_self_heal_cluster
+}
+
 os_prepare_repos() {
 	local repo_kind="${1:-${REPO_KIND}}"
 	local pm
@@ -257,15 +261,27 @@ os_install_packages() {
 	fi
 }
 
+os_install_extension_packages() {
+	[[ "${INIT_PGVECTOR:-false}" != "true" ]] && return 0
+	local repo_kind="${REPO_KIND}"
+	if [[ "$repo_kind" != "pgdg" ]]; then
+		err "pgvector installation on RHEL-family systems requires --repo pgdg; --repo ${repo_kind} is unsupported"
+		exit 2
+	fi
+	local pm
+	pm="$(_pkgmgr)" || {
+		err "No dnf/yum found"
+		exit 2
+	}
+	local PM=("${SUDO[@]}" "$pm")
+	local pkg="${PGVECTOR_PACKAGE:-pgvector_${PG_VERSION}}"
+	must_run "install pgvector package" "${PM[@]}" -y install "$pkg"
+}
+
 os_init_cluster() {
 	local data_dir="${1:-auto}"
 	local svc
 	svc="$(_rhel_service_name)"
-
-	# Self-heal before any init logic
-	if [[ "${SELF_HEAL:-true}" == "true" ]]; then
-		_rhel_self_heal_cluster || true
-	fi
 
 	# If default path is valid and auto mode, ensure service and return
 	if [[ "$data_dir" == "auto" ]]; then
@@ -335,4 +351,84 @@ os_restart() {
 	local svc
 	svc="$(_rhel_service_name)"
 	run "${SUDO[@]}" systemctl restart "$svc"
+}
+
+os_stop_cluster() {
+	local svc
+	svc="$(_rhel_service_name)"
+	if systemctl cat "$svc" >/dev/null 2>&1; then
+		run "${SUDO[@]}" systemctl stop "$svc" || return $?
+		run "${SUDO[@]}" systemctl disable "$svc" || return $?
+	else
+		warn "Service unit ${svc} not found; skipping stop/disable."
+	fi
+}
+
+_rhel_uninstall_safe_pgdata_path() {
+	case "${DATA_DIR:-}" in
+	"" | "/" | "/var" | "/var/lib" | "/var/lib/pgsql")
+		err "Refusing unsafe PGDATA removal path: ${DATA_DIR:-<empty>}"
+		return 1
+		;;
+	esac
+	_is_valid_pgdata "${DATA_DIR:?}" || {
+		err "Refusing to remove invalid PostgreSQL data directory: ${DATA_DIR}"
+		return 1
+	}
+}
+
+os_uninstall_cluster() {
+	local svc override dropin
+	svc="$(_rhel_service_name)"
+	dropin="${PGPROVISION_RHEL_SYSTEMD_DIR:-/etc/systemd/system}/${svc}.service.d"
+	override="${dropin}/override.conf"
+	if [[ -e "$override" ]]; then
+		run "${SUDO[@]}" rm -f -- "$override" || return $?
+		run "${SUDO[@]}" systemctl daemon-reload || return $?
+		run "${SUDO[@]}" rmdir --ignore-fail-on-non-empty -- "$dropin" || return $?
+	fi
+
+	if [[ "${REMOVE_PGDATA:-false}" == "true" ]]; then
+		_rhel_uninstall_safe_pgdata_path || return $?
+		run "${SUDO[@]}" rm -rf -- "${DATA_DIR:?}" || return $?
+	else
+		if [[ -e "${DATA_DIR:?}/.pgprovision_provisioned.json" ]]; then
+			run "${SUDO[@]}" rm -f -- "${DATA_DIR}/.pgprovision_provisioned.json" || return $?
+		fi
+		if [[ -e "${DATA_DIR}/conf.d/99-pgprovision.conf" ]]; then
+			run "${SUDO[@]}" rm -f -- "${DATA_DIR}/conf.d/99-pgprovision.conf" || return $?
+		fi
+	fi
+}
+
+os_purge_packages() {
+	local pm
+	pm="$(_pkgmgr)" || {
+		err "No dnf/yum found"
+		return 2
+	}
+	local -a PM=("${SUDO[@]}" "$pm")
+	run "${PM[@]}" -y remove "postgresql${PG_VERSION}*" "pgvector_${PG_VERSION}" || return $?
+}
+
+os_cleanup_repo() {
+	local pm repo_dir="${PGPROVISION_RHEL_REPO_DIR:-/etc/yum.repos.d}" gpg_key_dir="${PGPROVISION_RHEL_GPG_KEY_DIR:-/etc/pki/rpm-gpg}"
+	pm="$(_pkgmgr)" || {
+		err "No dnf/yum found"
+		return 2
+	}
+	local -a PM=("${SUDO[@]}" "$pm")
+	local -a repo_files=(
+		"${repo_dir}/pgdg-redhat-all.repo"
+		"${repo_dir}/pgdg-redhat.repo"
+	)
+	local -a gpg_keys=()
+	run "${PM[@]}" -y remove pgdg-redhat-repo || return $?
+	run "${SUDO[@]}" rm -f -- "${repo_files[@]}" || return $?
+	shopt -s nullglob
+	gpg_keys=("${gpg_key_dir}"/PGDG-RPM-GPG-KEY*)
+	shopt -u nullglob
+	if ((${#gpg_keys[@]} > 0)); then
+		run "${SUDO[@]}" rm -f -- "${gpg_keys[@]}" || return $?
+	fi
 }

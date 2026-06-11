@@ -7,7 +7,7 @@ ______________________________________________________________________
 ## 0) Prerequisites
 
 - RHEL 8/9, Rocky 8/9, or Alma 8/9 VM with internet access.
-- Willingness to install PostgreSQL 16 (PGDG).
+- Willingness to install PostgreSQL via PGDG. The default major is 16; set `PGV=18` to run the same guide against PostgreSQL 18.
 - Install the package (system or venv):
   ```bash
   pip install pg-provision
@@ -20,10 +20,11 @@ ______________________________________________________________________
 ```bash
 sudo -s                           # run tests as root
 set -euxo pipefail
+export PGV="${PGV:-16}"
 ```
 
 > If non-root, ensure passwordless sudo and that helpers writing under `$PGDATA` and `/var/lib/pgsql/...` use sudo.
-> **Important — CLI behavior:** `pgprovision` prints usage and exits if called with **no arguments**. Environment variables alone do **not** trigger execution. Include at least one flag. This guide uses **CLI flags that mirror defaults** (e.g., `--pg-version 16`) to match `provision.sh` with no args.
+> **Important — CLI behavior:** `pgprovision` prints usage and exits if called with **no arguments**. Environment variables alone do **not** trigger execution. Include at least one flag. This guide uses **CLI flags that mirror defaults** (e.g., `--pg-version "${PGV}"`) to match `provision.sh` with no args.
 
 **CLI ⇄ Env quick map**
 
@@ -34,6 +35,9 @@ set -euxo pipefail
 - `--enable-tls` ⇄ `ENABLE_TLS=true`
 - `--data-dir PATH|auto` ⇄ `DATA_DIR=...`
 - `--create-user/--create-db/--create-password` ⇄ `CREATE_USER/CREATE_DB/CREATE_PASSWORD` (prefer `CREATE_PASSWORD_FILE` for secrets)
+- `--destroy-db/--destroy-user/--destroy-only` ⇄ `DESTROY_DB/DESTROY_USER/DESTROY_ONLY`; confirmation uses `PGPROVISION_CONFIRM_DESTROY_DB`
+- `--uninstall-cluster/--uninstall-only/--confirm-uninstall` ⇄ `UNINSTALL_CLUSTER/UNINSTALL_ONLY/PGPROVISION_CONFIRM_UNINSTALL`
+- `--remove-pgdata/--purge-packages/--remove-pgdg-repo` ⇄ `REMOVE_PGDATA/PURGE_PACKAGES/REMOVE_PGDG_REPO`
 
 ______________________________________________________________________
 
@@ -53,40 +57,40 @@ The provisioner should:
 
 - Install PGDG repo RPM.
 - Disable the AppStream PostgreSQL module.
-- Install `postgresql16`, `postgresql16-server`, and `postgresql16-contrib`.
+- Install `postgresql${PGV}`, `postgresql${PGV}-server`, and `postgresql${PGV}-contrib`.
 - Initialize and start the service.
 
 Run (include a neutral default flag to trigger execution):
 
 ```bash
-pgprovision --pg-version 16 | tee ./pgprov_install_rhel.log
+pgprovision --pg-version "${PGV}" | tee ./pgprov_install_rhel.log
 
-systemctl status postgresql-16 --no-pager || true
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SELECT version();"
+systemctl status "postgresql-${PGV}" --no-pager || true
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SELECT version();"
 ```
 
 **If service didn’t start:**
 
 ```bash
-systemctl status postgresql-16 --no-pager -l || true
-journalctl -xeu postgresql-16 --no-pager | tail -n 100 || true
+systemctl status "postgresql-${PGV}" --no-pager -l || true
+journalctl -xeu "postgresql-${PGV}" --no-pager | tail -n 100 || true
 # Initialize cluster manually if needed:
-sudo /usr/pgsql-16/bin/postgresql-16-setup initdb || true
-systemctl enable --now postgresql-16 || true
+sudo "/usr/pgsql-${PGV}/bin/postgresql-${PGV}-setup" initdb || true
+systemctl enable --now "postgresql-${PGV}" || true
 ```
 
 **Paths (PGDG on RHEL)**
 
-- Data dir: `/var/lib/pgsql/16/data`
-- Configs: `/var/lib/pgsql/16/data/postgresql.conf` (plus `pg_hba.conf`, `pg_ident.conf`)
-- Service: `postgresql-16`
+- Data dir: `/var/lib/pgsql/${PGV}/data`
+- Configs: `/var/lib/pgsql/${PGV}/data/postgresql.conf` (plus `pg_hba.conf`, `pg_ident.conf`)
+- Service: `postgresql-${PGV}`
 
 ______________________________________________________________________
 
 ## 3) HBA policy
 
 ```bash
-HBA=/var/lib/pgsql/16/data/pg_hba.conf
+HBA="/var/lib/pgsql/${PGV}/data/pg_hba.conf"
 awk '/^# pgprovision:hba begin \(managed\)/,/^# pgprovision:hba end/' "$HBA"
 ```
 
@@ -127,7 +131,7 @@ track_io_timing=on
 EOF
 
 pgprovision --profile xl-32c-256g
-DROPIN=/var/lib/pgsql/16/data/conf.d/99-pgprovision.conf
+DROPIN="/var/lib/pgsql/${PGV}/data/conf.d/99-pgprovision.conf"
 grep -E 'shared_buffers|max_wal_size|track_io_timing' "$DROPIN"
 ```
 
@@ -138,8 +142,33 @@ ______________________________________________________________________
 ```bash
 pgprovision --create-user devuser --create-password 'pAs$123' --create-db devdb
 
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SELECT rolname, rolcanlogin FROM pg_roles WHERE rolname='devuser';"
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SELECT datname, pg_get_userbyid(datdba) FROM pg_database WHERE datname='devdb';"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SELECT rolname, rolcanlogin FROM pg_roles WHERE rolname='devuser';"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SELECT datname, pg_get_userbyid(datdba) FROM pg_database WHERE datname='devdb';"
+```
+
+______________________________________________________________________
+
+## 5.5) Logical destroy safety smoke
+
+Drops only logical objects on a running cluster; it does not remove PGDATA, packages, services, or cluster metadata. Confirmation must exactly match the final `DESTROY_DB`.
+
+```bash
+DB=pgprov_destroy_smoke
+ROLE=pgprov_destroy_smoke
+PSQL="$(command -v psql || echo /usr/pgsql-${PGV}/bin/psql)"
+PASSFILE=$(mktemp)
+trap 'rm -f "$PASSFILE"' EXIT
+printf '%s\n' 'not-secret-for-disposable-test' > "$PASSFILE"
+sudo -n env CREATE_PASSWORD_FILE="$PASSFILE" pgprovision \
+  --create-db "$DB" --create-user "$ROLE"
+pgprovision --destroy-db "$DB" --dry-run
+set +e
+pgprovision --destroy-db "$DB" --destroy-only
+echo "unconfirmed destroy RC=$?"
+set -e
+PGPROVISION_CONFIRM_DESTROY_DB="$DB" \
+  pgprovision --destroy-db "$DB" --destroy-user "$ROLE" --destroy-only
+sudo -u postgres "$PSQL" -XAt -c "SELECT 1 FROM pg_database WHERE datname='${DB}'" | grep -q '^1$' && exit 1 || true
 ```
 
 ______________________________________________________________________
@@ -152,8 +181,23 @@ pgprovision --local-peer-map localmap --local-map-entry "${ME}:dev_role" --unix-
 
 getent group pgclients
 getent group pgclients | grep -E "(^|,|\\s)${ME}(\\s|,|$)" || true
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SELECT rolname FROM pg_roles WHERE rolname = 'dev_role';"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SELECT rolname FROM pg_roles WHERE rolname = 'dev_role';"
 ```
+
+______________________________________________________________________
+
+## 6.5) pgvector extension (PGDG)
+
+```bash
+DB=pgprov_vector_smoke
+pgprovision --pg-version "${PGV}" --repo pgdg \
+  --create-db "$DB" \
+  --init-pgvector --pgvector-db "$DB"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -XAt -d "$DB" -c "SELECT extname FROM pg_extension WHERE extname='vector';" | grep '^vector$'
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -XAt -c "SHOW shared_preload_libraries;" | grep -v vector
+```
+
+**Expect:** `vector` exists in the target database, and `shared_preload_libraries` does not include `vector`. AppStream/OS repository pgvector packages are not assumed; use `--repo pgdg` for this smoke.
 
 ______________________________________________________________________
 
@@ -171,15 +215,15 @@ set -e
 ### 7.2 Self-signed certs and TLS enablement
 
 ```bash
-DATA_DIR=/var/lib/pgsql/16/data
+DATA_DIR="/var/lib/pgsql/${PGV}/data"
 install -o postgres -g postgres -m 0700 -d "$DATA_DIR"
 openssl req -x509 -newkey rsa:2048 -nodes -keyout "$DATA_DIR/server.key" -out "$DATA_DIR/server.crt" -subj "/CN=localhost" -days 365
 chown postgres:postgres "$DATA_DIR/server.crt" "$DATA_DIR/server.key"
 chmod 0600 "$DATA_DIR/server.key"
 
 pgprovision --enable-tls
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SHOW ssl;"
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SHOW ssl_min_protocol_version;"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SHOW ssl;"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SHOW ssl_min_protocol_version;"
 ```
 
 ______________________________________________________________________
@@ -189,9 +233,9 @@ ______________________________________________________________________
 > Destructive to the default cluster.
 
 ```bash
-NEW_DATA="/var/lib/pgsql/16/custom-data"
+NEW_DATA="/var/lib/pgsql/${PGV}/custom-data"
 pgprovision --data-dir "$NEW_DATA"
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SHOW data_directory;" | grep -F "$NEW_DATA"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SHOW data_directory;" | grep -F "$NEW_DATA"
 ```
 
 **If SELinux blocks startup**, label and restore contexts:
@@ -203,8 +247,8 @@ dnf -y install policycoreutils-python-utils || yum -y install policycoreutils-py
 semanage fcontext -a -t postgresql_db_t "${NEW_DATA}(/.*)?"
 restorecon -Rv "${NEW_DATA}"
 
-systemctl restart postgresql-16
-systemctl is-active --quiet postgresql-16 && echo "service up"
+systemctl restart "postgresql-${PGV}"
+systemctl is-active --quiet "postgresql-${PGV}" && echo "service up"
 ```
 
 ______________________________________________________________________
@@ -212,7 +256,7 @@ ______________________________________________________________________
 ## 9) Stamp file & permissions
 
 ```bash
-STAMP="${NEW_DATA:-/var/lib/pgsql/16/data}/.pgprovision_provisioned.json"
+STAMP="${NEW_DATA:-/var/lib/pgsql/${PGV}/data}/.pgprovision_provisioned.json"
 ls -l "$STAMP"
 cat "$STAMP"
 ```
@@ -222,9 +266,9 @@ ______________________________________________________________________
 ## 10) Restart sanity
 
 ```bash
-systemctl restart postgresql-16
-systemctl is-active --quiet postgresql-16 && echo "service up"
-sudo -u postgres /usr/pgsql-16/bin/psql -At -c "SELECT 1;"
+systemctl restart "postgresql-${PGV}"
+systemctl is-active --quiet "postgresql-${PGV}" && echo "service up"
+sudo -u postgres "/usr/pgsql-${PGV}/bin/psql" -At -c "SELECT 1;"
 ```
 
 ______________________________________________________________________
@@ -234,8 +278,8 @@ ______________________________________________________________________
 - **Service didn’t start**:
 
   ```bash
-  systemctl status postgresql-16 --no-pager -l
-  journalctl -xeu postgresql-16 --no-pager | tail -n 100
+  systemctl status "postgresql-${PGV}" --no-pager -l
+  journalctl -xeu "postgresql-${PGV}" --no-pager | tail -n 100
   ```
 
 ______________________________________________________________________
@@ -303,7 +347,7 @@ sudo -u postgres "$PSQL" -At -c "SHOW data_directory;" | grep -Fx "$REAL_DATA"
   # fix contexts:
   semanage fcontext -a -t postgresql_db_t "/path/to/data(/.*)?"
   restorecon -Rv /path/to/data
-  systemctl restart postgresql-16
+  systemctl restart "postgresql-${PGV}"
   ```
 
 - **firewalld blocks remote connections** (if you allowed networks in HBA):
@@ -315,18 +359,52 @@ sudo -u postgres "$PSQL" -At -c "SHOW data_directory;" | grep -Fx "$REAL_DATA"
   firewall-cmd --add-port=5432/tcp --permanent && firewall-cmd --reload
   ```
 
-- **Permission denied writing under `$PGDATA`**: run as root or ensure helpers use sudo for writes under `/var/lib/pgsql/16/data`.
+- **Permission denied writing under `$PGDATA`**: run as root or ensure helpers use sudo for writes under `/var/lib/pgsql/${PGV}/data`.
 
 ______________________________________________________________________
 
 ## Cleanup (optional)
 
+Scripted uninstall is the primary cleanup path. Always preview first and extract the `confirm_token=` from the dry-run output. Re-run the preview if you change `PGV`, `--data-dir`, or any env file that affects the resolved target. RHEL-family PGDG installs do not provide an Ubuntu-style `pg_lsclusters` preview source, and default stamp files under `/var/lib/pgsql/` are postgres-owned; use `sudo` for default cleanup previews, or pass an explicit `--data-dir` when previewing without sudo.
+
+### Preserve PGDATA, remove service metadata
+
 ```bash
-systemctl stop postgresql-16 || true
-dnf -y remove postgresql16\* || yum -y remove postgresql16\*
-rm -rf /var/lib/pgsql /etc/yum.repos.d/pgdg-redhat-all.repo /var/log/pgsql
-# If you installed the PGDG repo RPM explicitly and want to remove it:
-rpm -qa | grep -i pgdg | xargs -r dnf -y remove || true
+PREVIEW_LOG=./pgprov_uninstall_preview_rhel.log
+sudo pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only --dry-run | tee "$PREVIEW_LOG"
+TOKEN="$(sed -n 's/^confirm_token=//p' "$PREVIEW_LOG" | tail -n1)"
+test -n "$TOKEN"
+
+sudo pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only \
+  --confirm-uninstall "$TOKEN"
+```
+
+### Full teardown, including PGDATA and packages
+
+```bash
+PREVIEW_LOG=./pgprov_uninstall_full_preview_rhel.log
+sudo pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only --dry-run | tee "$PREVIEW_LOG"
+TOKEN="$(sed -n 's/^confirm_token=//p' "$PREVIEW_LOG" | tail -n1)"
+test -n "$TOKEN"
+
+sudo pgprovision --pg-version "${PGV}" \
+  --uninstall-cluster --uninstall-only \
+  --remove-pgdata --purge-packages --remove-pgdg-repo \
+  --confirm-uninstall "$TOKEN"
+```
+
+Manual dnf/yum cleanup is secondary, for recovery when the scripted path cannot run:
+
+```bash
+systemctl stop "postgresql-${PGV}" || systemctl stop postgresql || true
+rm -f "/etc/systemd/system/postgresql-${PGV}.service.d/override.conf"
+systemctl daemon-reload || true
+dnf -y remove "postgresql${PGV}"\* "pgvector_${PGV}" pgdg-redhat-repo || \
+  yum -y remove "postgresql${PGV}"\* "pgvector_${PGV}" pgdg-redhat-repo || true
+rm -rf "/var/lib/pgsql/${PGV}" /etc/yum.repos.d/pgdg-redhat-all.repo /var/log/pgsql
 groupdel pgclients || true
 ```
 

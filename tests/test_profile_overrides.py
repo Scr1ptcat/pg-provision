@@ -83,3 +83,17 @@ def test_load_profile_overrides_integration_and_dropin(tmp_path, bash):
     # Check a couple of representative keys from the built-in profile
     assert len(re.findall(r"^\s*work_mem\s*=\s*32MB\s*$", content, re.M)) == 1
     assert len(re.findall(r"^\s*shared_buffers\s*=\s*64GB\s*$", content, re.M)) == 1
+
+
+@pytest.mark.unit
+def test_missing_explicit_profile_fails(bash):
+    r = bash(
+        """
+      PROFILE=definitely-missing-phase-4-profile
+      load_profile_overrides
+        """
+    )
+
+    assert r.rc == 2
+    assert "Profile not found" in r.stderr
+    assert "definitely-missing-phase-4-profile" in r.stderr
