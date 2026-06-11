@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
     tags: ['v*.*.*']
   pull_request:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -16,6 +19,7 @@ permissions:
 jobs:
   pre-commit:
     name: Pre-commit
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +33,7 @@ jobs:
 
   unit:
     name: Unit tests (Ubuntu, py${{ matrix.python }})
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -51,23 +56,40 @@ jobs:
           python -m pip install -U pytest build twine
       - name: Run pytest
         run: pytest -q
-      - name: "Smoke: pgprovision --dry-run"
+      - name: "Smoke: pgprovision dry-runs"
         run: |
           python -m pip install .
           pgprovision --dry-run
+          pgprovision --user-mode --dry-run
+          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+            --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: "Artifact test (importlib.resources)"
         run: |
           python - <<'PY'
           import os, sys
           from importlib.resources import files, as_file
-          p = files('pgprovision').joinpath('_sh', 'provision.sh')
-          with as_file(p) as f:
-              print(f)
-              sys.exit(0 if os.path.exists(f) else 1)
+
+          required = [
+              ('_sh', 'provision.sh'),
+              ('_sh', 'lib', 'runtime.sh'),
+              ('_sh', 'lib', 'bootstrap.sh'),
+              ('_sh', 'os', 'user.sh'),
+          ]
+          missing = []
+          for parts in required:
+              p = files('pgprovision').joinpath(*parts)
+              with as_file(p) as f:
+                  print(f)
+                  if not os.path.exists(f):
+                      missing.append('/'.join(parts))
+          if missing:
+              print(f"Missing package artifacts: {missing}", file=sys.stderr)
+              sys.exit(1)
           PY
 
   rocky-smoke:
     name: Smoke (Rocky Linux 9)
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     container:
       image: rockylinux:9
@@ -93,8 +115,12 @@ jobs:
         env:
           SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
         run: python3 -m pip install .
-      - name: "Smoke: pgprovision --dry-run"
-        run: pgprovision --dry-run
+      - name: "Smoke: pgprovision dry-runs"
+        run: |
+          pgprovision --dry-run
+          pgprovision --user-mode --dry-run
+          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+            --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: "Artifact test (importlib.resources)"
         run: |
           python3 - <<'PY'
@@ -105,8 +131,10 @@ jobs:
               print(f)
               sys.exit(0 if os.path.exists(f) else 1)
           PY
+
   build:
     name: Build & check sdists/wheels
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -127,6 +155,9 @@ jobs:
           python -m pip install dist/*.whl
           pgprovision --help
           pgprovision --dry-run
+          pgprovision --user-mode --dry-run
+          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+            --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: Uninstall wheel
         run: python -m pip uninstall -y pg-provision || true
       - name: Install sdist and smoke
@@ -134,6 +165,9 @@ jobs:
           python -m pip install dist/*.tar.gz
           pgprovision --help
           pgprovision --dry-run
+          pgprovision --user-mode --dry-run
+          pgprovision --uninstall-cluster --uninstall-only --dry-run \
+            --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: Artifact test (importlib.resources, sdist)
         run: |
           python - <<'PY'
@@ -144,10 +178,184 @@ jobs:
               print(f)
               sys.exit(0 if os.path.exists(f) else 1)
           PY
+
+  integration-ubuntu-smoke:
+    name: Integration smoke (Ubuntu PGDG)
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    env:
+      PG_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && '18' || '16' }}
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+      - name: Provision, destroy, and preview uninstall
+        run: |
+          set -euxo pipefail
+          PGPROVISION_BIN="$(command -v pgprovision)"
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" --repo pgdg \
+            --create-db pgprov_ci_smoke
+          sudo -u postgres psql -XAt -c "SHOW server_version;" | grep -E "^${PG_VERSION}([.]|$)"
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --destroy-db pgprov_ci_smoke --dry-run
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --destroy-db pgprov_ci_smoke \
+            --confirm-destroy-db pgprov_ci_smoke --destroy-only
+          "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --uninstall-cluster --uninstall-only --dry-run
+
+  user-mode-smoke:
+    name: User-mode smoke (Ubuntu)
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    env:
+      PG_VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && '18' || '16' }}
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+      - name: Install PostgreSQL binaries
+        run: |
+          set -euxo pipefail
+          sudo -n install -d -m 0755 /etc/apt/keyrings
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+            | sudo -n gpg --dearmor -o /etc/apt/keyrings/postgresql.gpg
+          . /etc/os-release
+          echo "deb [signed-by=/etc/apt/keyrings/postgresql.gpg] https://apt.postgresql.org/pub/repos/apt ${VERSION_CODENAME}-pgdg main" \
+            | sudo -n tee /etc/apt/sources.list.d/pgdg.list >/dev/null
+          _apt_retry() {
+            local attempt
+            for attempt in 1 2 3; do
+              sudo -n apt-get update && return 0
+              if [ "$attempt" -lt 3 ]; then
+                sleep 10
+              fi
+            done
+            return 1
+          }
+          _apt_retry
+          sudo -n env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            "postgresql-${PG_VERSION}" "postgresql-client-${PG_VERSION}"
+      - name: Provision, stamp, destroy, and preview uninstall
+        run: |
+          set -euxo pipefail
+          PGPROVISION_BIN="$(command -v pgprovision)"
+          PG_BIN_DIR="/usr/lib/postgresql/${PG_VERSION}/bin"
+          SOCKET_GROUP="$(id -gn)"
+          BASE="$PWD/.pgprovision-ci-user"
+          rm -rf "$BASE"
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_VERSION" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --create-db pgprov_user_ci
+          test -f "$BASE/data/.pgprovision_provisioned.json"
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_VERSION" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --destroy-db pgprov_user_ci --dry-run
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_VERSION" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --destroy-db pgprov_user_ci \
+            --confirm-destroy-db pgprov_user_ci --destroy-only
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_VERSION" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --uninstall-cluster --uninstall-only --dry-run
+
+  integration-ubuntu-destructive:
+    name: Destructive uninstall (Ubuntu PGDG, PG ${{ matrix.pg }})
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pg: ['16', '18']
+    env:
+      PG_VERSION: ${{ matrix.pg }}
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+      - name: Preserve-PGDATA uninstall
+        run: |
+          set -euxo pipefail
+          PGPROVISION_BIN="$(command -v pgprovision)"
+          PRESERVE_DATA="/var/lib/postgresql/${PG_VERSION}/pgprov-preserve-ci"
+          PREVIEW_LOG="$PWD/pgprov-uninstall-preserve-preview.log"
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" --repo pgdg \
+            --data-dir "$PRESERVE_DATA" --create-db pgprov_uninstall_preserve
+          "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --uninstall-cluster --uninstall-only --dry-run | tee "$PREVIEW_LOG"
+          PRESERVE_TOKEN="$(sed -n 's/^confirm_token=//p' "$PREVIEW_LOG" | tail -n1)"
+          test -n "$PRESERVE_TOKEN"
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --uninstall-cluster --uninstall-only \
+            --confirm-uninstall "$PRESERVE_TOKEN"
+          test -d "$PRESERVE_DATA"
+          test -f "$PRESERVE_DATA/PG_VERSION"
+          test -f "$PRESERVE_DATA/global/pg_control"
+          ! pg_lsclusters --no-header | awk -v v="$PG_VERSION" '$1==v && $2=="main"{found=1} END{exit found?0:1}'
+          sudo -n rm -rf "$PRESERVE_DATA"
+      - name: Full package and PGDATA uninstall
+        run: |
+          set -euxo pipefail
+          PGPROVISION_BIN="$(command -v pgprovision)"
+          PREVIEW_LOG="$PWD/pgprov-uninstall-full-preview.log"
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" --repo pgdg \
+            --create-db pgprov_uninstall_full
+          "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --uninstall-cluster --uninstall-only --dry-run | tee "$PREVIEW_LOG"
+          TOKEN="$(sed -n 's/^confirm_token=//p' "$PREVIEW_LOG" | tail -n1)"
+          test -n "$TOKEN"
+          sudo -n "$PGPROVISION_BIN" --pg-version "$PG_VERSION" \
+            --uninstall-cluster --uninstall-only \
+            --remove-pgdata --purge-packages \
+            --confirm-uninstall "$TOKEN"
+          ! test -d "/var/lib/postgresql/${PG_VERSION}/main"
+          ! dpkg -l | grep -E "^ii[[:space:]]+postgresql-${PG_VERSION}([[:space:]]|$)"
+
   publish:
     name: Publish to PyPI (on tag)
-    if: startsWith(github.ref, 'refs/tags/v')   # only when pushing a v* tag
-    needs: [pre-commit, unit, rocky-smoke, build]  # gate on all the checks
+    if: github.event_name != 'schedule' && startsWith(github.ref, 'refs/tags/v')   # only when pushing a v* tag
+    needs: [pre-commit, unit, rocky-smoke, build, integration-ubuntu-smoke, user-mode-smoke]  # gate on all publish checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
