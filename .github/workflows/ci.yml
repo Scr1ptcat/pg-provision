@@ -85,9 +85,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: fedora:42
-    env:
-      PIP_DISABLE_PIP_VERSION_CHECK: '1'
-      PIP_CACHE_DIR: /tmp/pip-cache
     steps:
       - name: Install git before checkout (enables full clone)
         run: |
@@ -97,25 +94,32 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
       - name: Install Python and tools
         run: |
           set -euxo pipefail
-          dnf -y install python3 python3-pip sudo
-      - name: Install package
+          dnf -y install python3 sudo
+      - name: Install package via uv tool
         env:
           SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
         run: |
           set -euxo pipefail
-          python3 -m pip install .
+          uv tool install --force .
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: "Smoke: pgprovision dry-runs"
         run: |
+          set -euxo pipefail
           pgprovision --dry-run
           pgprovision --user-mode --dry-run
           pgprovision --uninstall-cluster --uninstall-only --dry-run \
             --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: "Artifact test (importlib.resources)"
         run: |
-          python3 - <<'PY'
+          set -euxo pipefail
+          TOOL_PYTHON="$(uv tool dir)/pg-provision/bin/python"
+          "$TOOL_PYTHON" - <<'PY'
           import os, sys
           from importlib.resources import files, as_file
           p = files('pgprovision').joinpath('_sh', 'provision.sh')
@@ -144,26 +148,33 @@ jobs:
           uv run twine check dist/*
       - name: Install wheel and smoke
         run: |
-          uv pip uninstall pg-provision
-          uv pip install dist/*.whl
-          uv run --no-sync pgprovision --help
-          uv run --no-sync pgprovision --dry-run
-          uv run --no-sync pgprovision --user-mode --dry-run
-          uv run --no-sync pgprovision --uninstall-cluster --uninstall-only --dry-run \
+          set -euxo pipefail
+          uv tool install --force dist/*.whl
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.local/bin:$PATH"
+          pgprovision --help
+          pgprovision --dry-run
+          pgprovision --user-mode --dry-run
+          pgprovision --uninstall-cluster --uninstall-only --dry-run \
             --data-dir "$PWD/.pgprovision-uninstall-smoke"
-      - name: Uninstall wheel
-        run: uv pip uninstall pg-provision
+      - name: Uninstall wheel tool
+        run: uv tool uninstall pg-provision
       - name: Install sdist and smoke
         run: |
-          uv pip install dist/*.tar.gz
-          uv run --no-sync pgprovision --help
-          uv run --no-sync pgprovision --dry-run
-          uv run --no-sync pgprovision --user-mode --dry-run
-          uv run --no-sync pgprovision --uninstall-cluster --uninstall-only --dry-run \
+          set -euxo pipefail
+          uv tool install --force dist/*.tar.gz
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.local/bin:$PATH"
+          pgprovision --help
+          pgprovision --dry-run
+          pgprovision --user-mode --dry-run
+          pgprovision --uninstall-cluster --uninstall-only --dry-run \
             --data-dir "$PWD/.pgprovision-uninstall-smoke"
       - name: Artifact test (importlib.resources, sdist)
         run: |
-          uv run --no-sync python - <<'PY'
+          set -euxo pipefail
+          TOOL_PYTHON="$(uv tool dir)/pg-provision/bin/python"
+          "$TOOL_PYTHON" - <<'PY'
           import os, sys
           from importlib.resources import files, as_file
           p = files('pgprovision').joinpath('_sh', 'provision.sh')
@@ -171,6 +182,94 @@ jobs:
               print(f)
               sys.exit(0 if os.path.exists(f) else 1)
           PY
+
+  fedora-user-mode-smoke:
+    name: User-mode smoke (Fedora 42)
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:42
+    steps:
+      - name: Install git before checkout (enables full clone)
+        run: |
+          set -euxo pipefail
+          dnf -y install git
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Install Python, sudo, PostgreSQL binaries, and CI user
+        run: |
+          set -euxo pipefail
+          dnf -y install python3 sudo shadow-utils postgresql-server postgresql
+          useradd -m -s /bin/bash pgprovci
+          chown -R pgprovci:pgprovci "$GITHUB_WORKSPACE"
+          psql --version
+      - name: Install package via uv tool
+        env:
+          SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION: 0.0.0.dev${{ github.run_number }}+g${{ github.sha }}
+        run: |
+          set -euxo pipefail
+          UV_BIN="$(command -v uv)"
+          sudo -u pgprovci env \
+            HOME=/home/pgprovci \
+            SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION="$SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION" \
+            "$UV_BIN" tool install --force .
+          echo "/home/pgprovci/.local/bin" >> "$GITHUB_PATH"
+      - name: Resolve PostgreSQL binary metadata
+        run: |
+          set -euxo pipefail
+          PG_MAJOR="$(psql --version | awk '{print $3}' | cut -d. -f1)"
+          case "$PG_MAJOR" in
+            ''|*[!0-9]*) echo "Unable to derive PostgreSQL major from psql --version" >&2; exit 1 ;;
+          esac
+          PG_BIN_DIR="$(dirname "$(command -v psql)")"
+          for name in postgres initdb pg_ctl psql; do
+            test -x "$PG_BIN_DIR/$name"
+          done
+          echo "PG_MAJOR=$PG_MAJOR" >> "$GITHUB_ENV"
+          echo "PG_BIN_DIR=$PG_BIN_DIR" >> "$GITHUB_ENV"
+      - name: Provision, stamp, destroy, and preview uninstall
+        run: |
+          set -euxo pipefail
+          sudo -u pgprovci env \
+            HOME=/home/pgprovci \
+            PATH="/home/pgprovci/.local/bin:$PATH" \
+            GITHUB_WORKSPACE="$GITHUB_WORKSPACE" \
+            PG_MAJOR="$PG_MAJOR" \
+            PG_BIN_DIR="$PG_BIN_DIR" \
+            bash -euxo pipefail <<'BASH'
+          cd "$GITHUB_WORKSPACE"
+          PGPROVISION_BIN="$(command -v pgprovision)"
+          SOCKET_GROUP="$(id -gn)"
+          BASE="$PWD/.pgprovision-ci-user"
+          rm -rf "$BASE"
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_MAJOR" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --create-db pgprov_user_ci
+          test -f "$BASE/data/.pgprovision_provisioned.json"
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_MAJOR" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --destroy-db pgprov_user_ci --dry-run
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_MAJOR" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --destroy-db pgprov_user_ci \
+            --confirm-destroy-db pgprov_user_ci --destroy-only
+          "$PGPROVISION_BIN" --user-mode --pg-version "$PG_MAJOR" \
+            --pg-bin-dir "$PG_BIN_DIR" \
+            --user-base-dir "$BASE" --data-dir "$BASE/data" \
+            --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+            --uninstall-cluster --uninstall-only --dry-run
+          BASH
 
   integration-ubuntu-smoke:
     name: Integration smoke (Ubuntu PGDG)
