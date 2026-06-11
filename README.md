@@ -6,9 +6,12 @@ Idempotent PostgreSQL provisioning as a Python package wrapping portable shell s
 
 ## Install
 
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv tool install pg-provision
 ```
-pip install pg-provision
-```
+
+Upgrade with `uv tool upgrade pg-provision`. To try the CLI without installing it permanently, use `uvx --from pg-provision pgprovision --dry-run`.
 
 ## Quick start
 
@@ -55,9 +58,9 @@ PostgreSQL 16 remains the default for this release. PostgreSQL 18 is explicitly 
 pgprovision --pg-version 18 --dry-run
 ```
 
-## Contributing
+## Development from source
 
-Use [uv](https://docs.astral.sh/uv/) for the contributor environment. The end-user install path remains `pip install pg-provision`.
+Use [uv](https://docs.astral.sh/uv/) for the clone-based contributor environment.
 
 ```bash
 uv sync --dev
@@ -295,25 +298,26 @@ On Ubuntu/Debian with PGDG, packaging normally creates a default `main` cluster.
 
 ### Self‑Heal on RHEL (PGDG)
 
-On RHEL family (RHEL/Rocky/Alma/Fedora/Amazon Linux), the provisioner preflights the cluster and will adopt an existing valid `PGDATA` by setting a systemd override (`Environment=PGDATA=…`) and ensuring permissions/SELinux context. If no valid data exists, it initializes a fresh cluster using packaging helpers (`postgresql-setup`) or `initdb`.
+On RHEL family (RHEL/Rocky/Alma/Fedora/Amazon Linux), the provisioner checks the cluster and will adopt an existing valid `PGDATA` by setting a systemd override (`Environment=PGDATA=…`) and ensuring permissions/SELinux context. If no valid data exists, it initializes a fresh cluster using packaging helpers (`postgresql-setup`) or `initdb`.
 
 - Non‑destructive: never deletes a directory that looks like a real PGDATA.
 - See `docs/test-plan-rhel.md` for self‑heal scenarios.
 
 ## CI and release gates
 
-| Job                              | Coverage                                                                         | Gates publish? |
-| -------------------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `pre-commit`                     | Repository hygiene hooks                                                         | Yes            |
-| `unit`                           | Python matrix plus packaged shell artifact and CLI dry-run checks                | Yes            |
-| `fedora-smoke`                   | Fedora 42 container dry-run smoke                                                | Yes            |
-| `build`                          | sdist/wheel build, install, and CLI dry-run smoke                                | Yes            |
-| `integration-ubuntu-smoke`       | Ubuntu PGDG provision, `SHOW server_version`, logical destroy, uninstall dry-run | No             |
-| `user-mode-smoke`                | Ubuntu user-mode provision/stamp/destroy and uninstall dry-run                   | No             |
-| `integration-ubuntu-destructive` | Nightly/manual preserve-PGDATA and full package/PGDATA uninstall for PG 16/18    | No             |
-| RHEL full integration            | Manual/self-hosted runner until RHEL-like systemd/PGDG coverage is stable        | No             |
+| Job                              | Coverage                                                                        | Gates publish? |
+| -------------------------------- | ------------------------------------------------------------------------------- | -------------- |
+| `pre-commit`                     | Repository hygiene hooks                                                        | Yes            |
+| `unit`                           | Python matrix plus packaged shell artifact and CLI dry-run checks               | Yes            |
+| `fedora-smoke`                   | Fedora 42 container dry-run smoke                                               | Yes            |
+| `build`                          | sdist/wheel build, install, and CLI dry-run smoke                               | Yes            |
+| `fedora-user-mode-smoke`         | Fedora 42 uv-tool install, user-mode provision/stamp/destroy, uninstall dry-run | Pending        |
+| `integration-ubuntu-smoke`       | Legacy schedule/manual Ubuntu PGDG provision and logical destroy                | No             |
+| `user-mode-smoke`                | Legacy schedule/manual Ubuntu user-mode provision/stamp/destroy                 | No             |
+| `integration-ubuntu-destructive` | Legacy schedule/manual Ubuntu package and PGDATA uninstall for PG 16/18         | No             |
+| RHEL full integration            | Manual/self-hosted runner until RHEL-like systemd/PGDG coverage is stable       | No             |
 
-Tag publishes require `pre-commit`, `unit`, `fedora-smoke`, and `build`. Ubuntu integration and full RHEL integration remain schedule/manual coverage and do not block release publication.
+Tag publishes require `pre-commit`, `unit`, `fedora-smoke`, and `build`; `fedora-user-mode-smoke` becomes a publish gate after its first green run on `main`. Ubuntu integration and full RHEL integration remain schedule/manual coverage and do not block release publication.
 
 ## Notes
 

@@ -1,6 +1,6 @@
 # PostgreSQL Provisioner – RHEL/Rocky/Alma Test Guide (pgprovision)
 
-This guide validates the **pg-provision** package on RHEL 8/9 (and Rocky/Alma). It assumes PGDG is used by default. It covers installation, service health, HBA policy, profiles, users/DBs, TLS, relocation, and SELinux/firewalld nuances.
+This guide validates the **pg-provision** package on RHEL 8/9 (and Rocky/Alma). It assumes PGDG is used by default for system-mode package provisioning. It covers installation, service health, user-mode operation, HBA policy, profiles, users/DBs, TLS, relocation, and SELinux/firewalld nuances.
 
 ______________________________________________________________________
 
@@ -8,20 +8,23 @@ ______________________________________________________________________
 
 - RHEL 8/9, Rocky 8/9, or Alma 8/9 VM with internet access.
 - Willingness to install PostgreSQL via PGDG. The default major is 16; set `PGV=18` to run the same guide against PostgreSQL 18.
-- Install the package (system or venv):
+- Install uv and the pg-provision tool in the shell that will invoke `pgprovision`:
   ```bash
-  pip install pg-provision
-  # sanity
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  export PATH="$HOME/.local/bin:$PATH"
+  uv tool install pg-provision
   pgprovision --help
   ```
+  Upgrade with `uv tool upgrade pg-provision`.
 
 **Recommended shell setup**
 
 ```bash
-sudo -s                           # run tests as root
 set -euxo pipefail
 export PGV="${PGV:-16}"
 ```
+
+For system-mode sections, run as root or as a user with passwordless sudo. If you switch to a root shell for the guide, install `pgprovision` with uv in that same shell first. Run user-mode sections as the unprivileged user that should own the PostgreSQL data directory.
 
 > If non-root, ensure passwordless sudo and that helpers writing under `$PGDATA` and `/var/lib/pgsql/...` use sudo.
 > **Important — CLI behavior:** `pgprovision` prints usage and exits if called with **no arguments**. Environment variables alone do **not** trigger execution. Include at least one flag. This guide uses **CLI flags that mirror defaults** (e.g., `--pg-version "${PGV}"`) to match `provision.sh` with no args.
@@ -35,6 +38,9 @@ export PGV="${PGV:-16}"
 - `--enable-tls` ⇄ `ENABLE_TLS=true`
 - `--data-dir PATH|auto` ⇄ `DATA_DIR=...`
 - `--create-user/--create-db/--create-password` ⇄ `CREATE_USER/CREATE_DB/CREATE_PASSWORD` (prefer `CREATE_PASSWORD_FILE` for secrets)
+- `--user-mode` ⇄ `PGPROVISION_MODE=user` or `USER_MODE=true`
+- `--pg-bin-dir` / `--user-base-dir` / `--user-runtime-dir` ⇄ `PG_BIN_DIR` / `PGPROVISION_USER_BASE_DIR` / `PGPROVISION_USER_RUNTIME_DIR`
+- `--bootstrap-tarball` / `--bootstrap-sha256` / `--bootstrap-only` ⇄ `PGPROVISION_BOOTSTRAP_TARBALL` / `PGPROVISION_BOOTSTRAP_SHA256` / `BOOTSTRAP_ONLY=true`
 - `--destroy-db/--destroy-user/--destroy-only` ⇄ `DESTROY_DB/DESTROY_USER/DESTROY_ONLY`; confirmation uses `PGPROVISION_CONFIRM_DESTROY_DB`
 - `--uninstall-cluster/--uninstall-only/--confirm-uninstall` ⇄ `UNINSTALL_CLUSTER/UNINSTALL_ONLY/PGPROVISION_CONFIRM_UNINSTALL`
 - `--remove-pgdata/--purge-packages/--remove-pgdg-repo` ⇄ `REMOVE_PGDATA/PURGE_PACKAGES/REMOVE_PGDG_REPO`
@@ -47,6 +53,70 @@ ______________________________________________________________________
 pgprovision --dry-run | tee ./pgprov_dryrun_rhel.log
 # Assert: dry-run must not try to install packages
 ! grep -qE '(^|[[:space:]])(dnf|yum)[[:space:]]+install([[:space:]]|$)' ./pgprov_dryrun_rhel.log
+```
+
+______________________________________________________________________
+
+## 1.5) User-mode smoke (no sudo)
+
+User mode uses PostgreSQL binaries already available to the invoking user and keeps PGDATA under a user-owned directory. It does not install packages, create system users/groups, or prepare PGDG/AppStream repositories. On Fedora/RHEL-family hosts with distro PostgreSQL packages available, install binaries separately and pass their directory explicitly:
+
+```bash
+sudo dnf -y install postgresql-server postgresql || sudo yum -y install postgresql-server postgresql
+PG_MAJOR="$(psql --version | awk '{print $3}' | cut -d. -f1)"
+PG_BIN_DIR="$(dirname "$(command -v psql)")"
+BASE="$HOME/.local/share/pgprovision/rhel-user-smoke"
+SOCKET_GROUP="$(id -gn)"
+rm -rf "$BASE"
+
+pgprovision --user-mode --pg-version "$PG_MAJOR" \
+  --pg-bin-dir "$PG_BIN_DIR" \
+  --user-base-dir "$BASE" --data-dir "$BASE/data" \
+  --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+  --create-db pgprov_user_smoke
+
+test -f "$BASE/data/.pgprovision_provisioned.json"
+
+pgprovision --user-mode --pg-version "$PG_MAJOR" \
+  --pg-bin-dir "$PG_BIN_DIR" \
+  --user-base-dir "$BASE" --data-dir "$BASE/data" \
+  --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+  --destroy-db pgprov_user_smoke --dry-run
+
+pgprovision --user-mode --pg-version "$PG_MAJOR" \
+  --pg-bin-dir "$PG_BIN_DIR" \
+  --user-base-dir "$BASE" --data-dir "$BASE/data" \
+  --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+  --destroy-db pgprov_user_smoke \
+  --confirm-destroy-db pgprov_user_smoke --destroy-only
+
+pgprovision --user-mode --pg-version "$PG_MAJOR" \
+  --pg-bin-dir "$PG_BIN_DIR" \
+  --user-base-dir "$BASE" --data-dir "$BASE/data" \
+  --port 55432 --repo none --unix-socket-group "$SOCKET_GROUP" \
+  --uninstall-cluster --uninstall-only --dry-run
+```
+
+### Optional: tarball bootstrap
+
+For environments without preinstalled PostgreSQL server packages, provide a trusted PostgreSQL tarball. The tarball must have a single common root containing executable `bin/postgres`, `bin/initdb`, `bin/pg_ctl`, and `bin/psql`; the SHA256 digest is mandatory for local and remote tarballs.
+
+```bash
+TARBALL="/path/to/postgresql.tar.gz"
+SHA256="<sha256>"
+BASE="$HOME/.local/share/pgprovision/rhel-user-tarball"
+
+pgprovision --user-mode \
+  --bootstrap-tarball "$TARBALL" \
+  --bootstrap-sha256 "$SHA256" \
+  --user-base-dir "$BASE" \
+  --bootstrap-only
+
+pgprovision --user-mode --pg-version "$PGV" \
+  --bootstrap-tarball "$TARBALL" \
+  --bootstrap-sha256 "$SHA256" \
+  --user-base-dir "$BASE" --data-dir "$BASE/data" \
+  --port 55432 --repo none
 ```
 
 ______________________________________________________________________
