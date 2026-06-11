@@ -1942,7 +1942,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L1",
       "id": "tests_test_runtime_py",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime.py"
     },
     {
@@ -1951,7 +1951,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L7",
       "id": "tests_test_runtime_test_runtime_system_psql_uses_sudo_u_postgres",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_system_psql_uses_sudo_u_postgres()"
     },
     {
@@ -1960,7 +1960,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L29",
       "id": "tests_test_runtime_test_runtime_user_psql_does_not_use_sudo",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_user_psql_does_not_use_sudo()"
     },
     {
@@ -1969,7 +1969,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L66",
       "id": "tests_test_runtime_test_runtime_user_mode_rejects_root_non_dry_run",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_user_mode_rejects_root_non_dry_run()"
     },
     {
@@ -1978,7 +1978,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L79",
       "id": "tests_test_runtime_test_runtime_dry_run_records_without_executing",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_dry_run_records_without_executing()"
     },
     {
@@ -1987,7 +1987,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L109",
       "id": "tests_test_runtime_test_dry_run_skips_self_heal_and_backend_mutations",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_dry_run_skips_self_heal_and_backend_mutations()"
     },
     {
@@ -1996,7 +1996,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L156",
       "id": "tests_test_runtime_test_runtime_write_file_atomic_preserves_mode",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_write_file_atomic_preserves_mode()"
     },
     {
@@ -2005,7 +2005,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L177",
       "id": "tests_test_runtime_test_runtime_resolves_pg_bin_dir",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_resolves_pg_bin_dir()"
     },
     {
@@ -2014,7 +2014,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L199",
       "id": "tests_test_runtime_test_runtime_resolve_prefers_postgres_binary_dir_over_psql_only_dir",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_runtime_resolve_prefers_postgres_binary_dir_over_psql_only_dir()"
     },
     {
@@ -2023,7 +2023,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L223",
       "id": "tests_test_runtime_test_assert_psql_major_uses_pg_bin_dir",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_assert_psql_major_uses_pg_bin_dir()"
     },
     {
@@ -2032,7 +2032,7 @@
       "source_file": "tests/test_runtime.py",
       "source_location": "L253",
       "id": "tests_test_runtime_test_load_os_module_requires_self_heal_after_phase4",
-      "community": 31,
+      "community": 46,
       "norm_label": "test_load_os_module_requires_self_heal_after_phase4()"
     },
     {
@@ -2666,19 +2666,19 @@
       "norm_label": "install"
     },
     {
-      "label": "code:block1 (pip install pg-provision)",
+      "label": "code:bash (curl -LsSf https://astral.sh/uv/install.sh | sh)",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L9",
       "id": "pg_provision_readme_codeblock_1",
       "community": 8,
-      "norm_label": "code:block1 (pip install pg-provision)"
+      "norm_label": "code:bash (curl -lssf https://astral.sh/uv/install.sh | sh)"
     },
     {
       "label": "Quick start",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L13",
+      "source_location": "L16",
       "id": "pg_provision_readme_quick_start",
       "community": 8,
       "norm_label": "quick start"
@@ -2687,7 +2687,7 @@
       "label": "code:bash (pgprovision --help)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L17",
+      "source_location": "L20",
       "id": "pg_provision_readme_codeblock_2",
       "community": 8,
       "norm_label": "code:bash (pgprovision --help)"
@@ -2696,7 +2696,7 @@
       "label": "code:bash (pgprovision --dry-run)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L23",
+      "source_location": "L26",
       "id": "pg_provision_readme_codeblock_3",
       "community": 8,
       "norm_label": "code:bash (pgprovision --dry-run)"
@@ -2705,7 +2705,7 @@
       "label": "code:bash (pgprovision --user-mode \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L31",
+      "source_location": "L34",
       "id": "pg_provision_readme_codeblock_4",
       "community": 8,
       "norm_label": "code:bash (pgprovision --user-mode \\)"
@@ -2714,7 +2714,7 @@
       "label": "code:bash (pgprovision --user-mode \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L43",
+      "source_location": "L46",
       "id": "pg_provision_readme_codeblock_5",
       "community": 8,
       "norm_label": "code:bash (pgprovision --user-mode \\)"
@@ -2723,25 +2723,25 @@
       "label": "code:bash (pgprovision --pg-version 18 --dry-run)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L54",
+      "source_location": "L57",
       "id": "pg_provision_readme_codeblock_6",
       "community": 8,
       "norm_label": "code:bash (pgprovision --pg-version 18 --dry-run)"
     },
     {
-      "label": "Contributing",
+      "label": "Development from source",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L58",
-      "id": "pg_provision_readme_contributing",
+      "source_location": "L61",
+      "id": "pg_provision_readme_development_from_source",
       "community": 8,
-      "norm_label": "contributing"
+      "norm_label": "development from source"
     },
     {
       "label": "code:bash (uv sync --dev)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L62",
+      "source_location": "L65",
       "id": "pg_provision_readme_codeblock_7",
       "community": 8,
       "norm_label": "code:bash (uv sync --dev)"
@@ -2750,7 +2750,7 @@
       "label": "code:bash (uv run pgprovision --dry-run)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L72",
+      "source_location": "L75",
       "id": "pg_provision_readme_codeblock_8",
       "community": 8,
       "norm_label": "code:bash (uv run pgprovision --dry-run)"
@@ -2759,7 +2759,7 @@
       "label": "Common scenarios (copy/paste)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L77",
+      "source_location": "L80",
       "id": "pg_provision_readme_common_scenarios_copy_paste",
       "community": 8,
       "norm_label": "common scenarios (copy/paste)"
@@ -2768,7 +2768,7 @@
       "label": "1) **Hardened (RHEL/Rocky/Alma): socket\u2011only, local peer auth**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L79",
+      "source_location": "L82",
       "id": "pg_provision_readme_1_hardened_rhel_rocky_alma_socket_only_local_peer_auth",
       "community": 8,
       "norm_label": "1) **hardened (rhel/rocky/alma): socket\u2010only, local peer auth**"
@@ -2777,7 +2777,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L83",
+      "source_location": "L86",
       "id": "pg_provision_readme_codeblock_9",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2786,7 +2786,7 @@
       "label": "code:bash (pgprovision --disable-postgres-login)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L104",
+      "source_location": "L107",
       "id": "pg_provision_readme_codeblock_10",
       "community": 8,
       "norm_label": "code:bash (pgprovision --disable-postgres-login)"
@@ -2795,7 +2795,7 @@
       "label": "2) **Hardened (RHEL/Rocky/Alma): loopback\u2011only TCP (localhost)**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L110",
+      "source_location": "L113",
       "id": "pg_provision_readme_2_hardened_rhel_rocky_alma_loopback_only_tcp_localhost",
       "community": 8,
       "norm_label": "2) **hardened (rhel/rocky/alma): loopback\u2010only tcp (localhost)**"
@@ -2804,7 +2804,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L114",
+      "source_location": "L117",
       "id": "pg_provision_readme_codeblock_11",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2813,7 +2813,7 @@
       "label": "3) **Permissive (Ubuntu): listen on all interfaces for a trusted LAN**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L125",
+      "source_location": "L128",
       "id": "pg_provision_readme_3_permissive_ubuntu_listen_on_all_interfaces_for_a_trusted_lan",
       "community": 8,
       "norm_label": "3) **permissive (ubuntu): listen on all interfaces for a trusted lan**"
@@ -2822,7 +2822,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L129",
+      "source_location": "L132",
       "id": "pg_provision_readme_codeblock_12",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2831,7 +2831,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L139",
+      "source_location": "L142",
       "id": "pg_provision_readme_codeblock_13",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2840,7 +2840,7 @@
       "label": "4) **TLS\u2011required server (certs pre\u2011positioned)**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L152",
+      "source_location": "L155",
       "id": "pg_provision_readme_4_tls_required_server_certs_pre_positioned",
       "community": 8,
       "norm_label": "4) **tls\u2010required server (certs pre\u2010positioned)**"
@@ -2849,7 +2849,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L156",
+      "source_location": "L159",
       "id": "pg_provision_readme_codeblock_14",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2858,7 +2858,7 @@
       "label": "5) **Reproducible runs via env\u2011file (no secrets)**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L167",
+      "source_location": "L170",
       "id": "pg_provision_readme_5_reproducible_runs_via_env_file_no_secrets",
       "community": 8,
       "norm_label": "5) **reproducible runs via env\u2010file (no secrets)**"
@@ -2867,7 +2867,7 @@
       "label": "code:bash (PG_VERSION=16  # set PG_VERSION=18 to target PostgreSQL 18 v)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L173",
+      "source_location": "L176",
       "id": "pg_provision_readme_codeblock_15",
       "community": 8,
       "norm_label": "code:bash (pg_version=16  # set pg_version=18 to target postgresql 18 v)"
@@ -2876,7 +2876,7 @@
       "label": "code:bash (pgprovision --env-file /etc/pgprovision.env)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L183",
+      "source_location": "L186",
       "id": "pg_provision_readme_codeblock_16",
       "community": 8,
       "norm_label": "code:bash (pgprovision --env-file /etc/pgprovision.env)"
@@ -2885,7 +2885,7 @@
       "label": "6) **Custom data directory + pg_stat_statements**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L191",
+      "source_location": "L194",
       "id": "pg_provision_readme_6_custom_data_directory_pg_stat_statements",
       "community": 8,
       "norm_label": "6) **custom data directory + pg_stat_statements**"
@@ -2894,7 +2894,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L193",
+      "source_location": "L196",
       "id": "pg_provision_readme_codeblock_17",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2903,7 +2903,7 @@
       "label": "7) **pgvector on PGDG PostgreSQL**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L205",
+      "source_location": "L208",
       "id": "pg_provision_readme_7_pgvector_on_pgdg_postgresql",
       "community": 8,
       "norm_label": "7) **pgvector on pgdg postgresql**"
@@ -2912,7 +2912,7 @@
       "label": "code:bash (pgprovision \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L209",
+      "source_location": "L212",
       "id": "pg_provision_readme_codeblock_18",
       "community": 8,
       "norm_label": "code:bash (pgprovision \\)"
@@ -2921,7 +2921,7 @@
       "label": "8) **Logical destroy: drop one database and optional role**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L222",
+      "source_location": "L225",
       "id": "pg_provision_readme_8_logical_destroy_drop_one_database_and_optional_role",
       "community": 8,
       "norm_label": "8) **logical destroy: drop one database and optional role**"
@@ -2930,7 +2930,7 @@
       "label": "code:bash (pgprovision --destroy-db old_app --dry-run)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L226",
+      "source_location": "L229",
       "id": "pg_provision_readme_codeblock_19",
       "community": 8,
       "norm_label": "code:bash (pgprovision --destroy-db old_app --dry-run)"
@@ -2939,7 +2939,7 @@
       "label": "9) **Cluster uninstall: remove service metadata, PGDATA, and packages**",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L236",
+      "source_location": "L239",
       "id": "pg_provision_readme_9_cluster_uninstall_remove_service_metadata_pgdata_and_packages",
       "community": 8,
       "norm_label": "9) **cluster uninstall: remove service metadata, pgdata, and packages**"
@@ -2948,7 +2948,7 @@
       "label": "code:bash (pgprovision --pg-version 16 --uninstall-cluster --uninstall-)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L240",
+      "source_location": "L243",
       "id": "pg_provision_readme_codeblock_20",
       "community": 8,
       "norm_label": "code:bash (pgprovision --pg-version 16 --uninstall-cluster --uninstall-)"
@@ -2957,7 +2957,7 @@
       "label": "code:bash (sudo pgprovision --pg-version 16 \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L249",
+      "source_location": "L252",
       "id": "pg_provision_readme_codeblock_21",
       "community": 8,
       "norm_label": "code:bash (sudo pgprovision --pg-version 16 \\)"
@@ -2966,7 +2966,7 @@
       "label": "code:bash (sudo pgprovision --pg-version 16 \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L257",
+      "source_location": "L260",
       "id": "pg_provision_readme_codeblock_22",
       "community": 8,
       "norm_label": "code:bash (sudo pgprovision --pg-version 16 \\)"
@@ -2975,7 +2975,7 @@
       "label": "code:bash (pgprovision --user-mode --pg-bin-dir /path/to/postgresql/bin)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L266",
+      "source_location": "L269",
       "id": "pg_provision_readme_codeblock_23",
       "community": 8,
       "norm_label": "code:bash (pgprovision --user-mode --pg-bin-dir /path/to/postgresql/bin)"
@@ -2984,7 +2984,7 @@
       "label": "OS Guides",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L282",
+      "source_location": "L285",
       "id": "pg_provision_readme_os_guides",
       "community": 8,
       "norm_label": "os guides"
@@ -2993,7 +2993,7 @@
       "label": "Self\u2011Heal on Ubuntu (PGDG)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L287",
+      "source_location": "L290",
       "id": "pg_provision_readme_self_heal_on_ubuntu_pgdg",
       "community": 8,
       "norm_label": "self\u2010heal on ubuntu (pgdg)"
@@ -3002,7 +3002,7 @@
       "label": "Self\u2011Heal on RHEL (PGDG)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L296",
+      "source_location": "L299",
       "id": "pg_provision_readme_self_heal_on_rhel_pgdg",
       "community": 8,
       "norm_label": "self\u2010heal on rhel (pgdg)"
@@ -3011,7 +3011,7 @@
       "label": "CI and release gates",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L303",
+      "source_location": "L306",
       "id": "pg_provision_readme_ci_and_release_gates",
       "community": 8,
       "norm_label": "ci and release gates"
@@ -3020,7 +3020,7 @@
       "label": "Notes",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L318",
+      "source_location": "L322",
       "id": "pg_provision_readme_notes",
       "community": 8,
       "norm_label": "notes"
@@ -3029,7 +3029,7 @@
       "label": "Secrets",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L323",
+      "source_location": "L327",
       "id": "pg_provision_readme_secrets",
       "community": 8,
       "norm_label": "secrets"
@@ -3038,7 +3038,7 @@
       "label": "code:block24 (CREATE_PASSWORD_FILE=/run/secrets/pgpass \\)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L327",
+      "source_location": "L331",
       "id": "pg_provision_readme_codeblock_24",
       "community": 8,
       "norm_label": "code:block24 (create_password_file=/run/secrets/pgpass \\)"
@@ -3047,7 +3047,7 @@
       "label": "Project Links",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L334",
+      "source_location": "L338",
       "id": "pg_provision_readme_project_links",
       "community": 8,
       "norm_label": "project links"
@@ -3103,149 +3103,185 @@
       "source_file": "docs/test-plan-rhel.md",
       "source_location": "L7",
       "id": "docs_test_plan_rhel_0_prerequisites",
-      "community": 53,
+      "community": 36,
       "norm_label": "0) prerequisites"
     },
     {
-      "label": "code:bash (pip install pg-provision)",
+      "label": "code:bash (curl -LsSf https://astral.sh/uv/install.sh | sh)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
       "source_location": "L12",
       "id": "docs_test_plan_rhel_codeblock_1",
-      "community": 53,
-      "norm_label": "code:bash (pip install pg-provision)"
+      "community": 36,
+      "norm_label": "code:bash (curl -lssf https://astral.sh/uv/install.sh | sh)"
     },
     {
-      "label": "code:bash (sudo -s                           # run tests as root)",
+      "label": "code:bash (set -euxo pipefail)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L20",
+      "source_location": "L22",
       "id": "docs_test_plan_rhel_codeblock_2",
-      "community": 53,
-      "norm_label": "code:bash (sudo -s                           # run tests as root)"
+      "community": 36,
+      "norm_label": "code:bash (set -euxo pipefail)"
     },
     {
       "label": "1) Dry\u2011run smoke test",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L44",
+      "source_location": "L50",
       "id": "docs_test_plan_rhel_1_dry_run_smoke_test",
-      "community": 69,
+      "community": 36,
       "norm_label": "1) dry\u2010run smoke test"
     },
     {
       "label": "code:bash (pgprovision --dry-run | tee ./pgprov_dryrun_rhel.log)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L46",
+      "source_location": "L52",
       "id": "docs_test_plan_rhel_codeblock_3",
-      "community": 69,
+      "community": 36,
       "norm_label": "code:bash (pgprovision --dry-run | tee ./pgprov_dryrun_rhel.log)"
+    },
+    {
+      "label": "1.5) User-mode smoke (no sudo)",
+      "file_type": "document",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L60",
+      "id": "docs_test_plan_rhel_1_5_user_mode_smoke_no_sudo",
+      "community": 36,
+      "norm_label": "1.5) user-mode smoke (no sudo)"
+    },
+    {
+      "label": "code:bash (sudo dnf -y install postgresql-server postgresql || sudo yum)",
+      "file_type": "document",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L64",
+      "id": "docs_test_plan_rhel_codeblock_4",
+      "community": 36,
+      "norm_label": "code:bash (sudo dnf -y install postgresql-server postgresql || sudo yum)"
+    },
+    {
+      "label": "Optional: tarball bootstrap",
+      "file_type": "document",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L100",
+      "id": "docs_test_plan_rhel_optional_tarball_bootstrap",
+      "community": 36,
+      "norm_label": "optional: tarball bootstrap"
+    },
+    {
+      "label": "code:bash (TARBALL=\"/path/to/postgresql.tar.gz\")",
+      "file_type": "document",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L104",
+      "id": "docs_test_plan_rhel_codeblock_5",
+      "community": 36,
+      "norm_label": "code:bash (tarball=\"/path/to/postgresql.tar.gz\")"
     },
     {
       "label": "2) Full install (PGDG repo, packages, cluster, service)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L54",
+      "source_location": "L124",
       "id": "docs_test_plan_rhel_2_full_install_pgdg_repo_packages_cluster_service",
-      "community": 54,
+      "community": 36,
       "norm_label": "2) full install (pgdg repo, packages, cluster, service)"
     },
     {
       "label": "code:bash (pgprovision --pg-version \"${PGV}\" | tee ./pgprov_install_rhe)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L65",
-      "id": "docs_test_plan_rhel_codeblock_4",
-      "community": 54,
+      "source_location": "L135",
+      "id": "docs_test_plan_rhel_codeblock_6",
+      "community": 36,
       "norm_label": "code:bash (pgprovision --pg-version \"${pgv}\" | tee ./pgprov_install_rhe)"
     },
     {
       "label": "code:bash (systemctl status \"postgresql-${PGV}\" --no-pager -l || true)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L74",
-      "id": "docs_test_plan_rhel_codeblock_5",
-      "community": 54,
+      "source_location": "L144",
+      "id": "docs_test_plan_rhel_codeblock_7",
+      "community": 36,
       "norm_label": "code:bash (systemctl status \"postgresql-${pgv}\" --no-pager -l || true)"
     },
     {
       "label": "3) HBA policy",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L90",
+      "source_location": "L160",
       "id": "docs_test_plan_rhel_3_hba_policy",
-      "community": 43,
+      "community": 36,
       "norm_label": "3) hba policy"
     },
     {
       "label": "code:bash (HBA=\"/var/lib/pgsql/${PGV}/data/pg_hba.conf\")",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L92",
-      "id": "docs_test_plan_rhel_codeblock_6",
-      "community": 43,
+      "source_location": "L162",
+      "id": "docs_test_plan_rhel_codeblock_8",
+      "community": 36,
       "norm_label": "code:bash (hba=\"/var/lib/pgsql/${pgv}/data/pg_hba.conf\")"
     },
     {
       "label": "Socket\u2011only posture",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L97",
+      "source_location": "L167",
       "id": "docs_test_plan_rhel_socket_only_posture",
-      "community": 43,
+      "community": 36,
       "norm_label": "socket\u2010only posture"
     },
     {
       "label": "code:bash (pgprovision --socket-only)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L99",
-      "id": "docs_test_plan_rhel_codeblock_7",
-      "community": 43,
+      "source_location": "L169",
+      "id": "docs_test_plan_rhel_codeblock_9",
+      "community": 36,
       "norm_label": "code:bash (pgprovision --socket-only)"
     },
     {
       "label": "Allow networks",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L104",
+      "source_location": "L174",
       "id": "docs_test_plan_rhel_allow_networks",
-      "community": 43,
+      "community": 36,
       "norm_label": "allow networks"
     },
     {
       "label": "code:bash (pgprovision --allow-network --allowed-cidr \"10.0.0.0/8, 192.)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L106",
-      "id": "docs_test_plan_rhel_codeblock_8",
-      "community": 43,
+      "source_location": "L176",
+      "id": "docs_test_plan_rhel_codeblock_10",
+      "community": 36,
       "norm_label": "code:bash (pgprovision --allow-network --allowed-cidr \"10.0.0.0/8, 192.)"
     },
     {
       "label": "4) Profiles (conf.d drop\u2011in)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L115",
+      "source_location": "L185",
       "id": "docs_test_plan_rhel_4_profiles_conf_d_drop_in",
-      "community": 70,
+      "community": 36,
       "norm_label": "4) profiles (conf.d drop\u2010in)"
     },
     {
       "label": "code:bash (mkdir -p profiles)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L119",
-      "id": "docs_test_plan_rhel_codeblock_9",
-      "community": 70,
+      "source_location": "L189",
+      "id": "docs_test_plan_rhel_codeblock_11",
+      "community": 36,
       "norm_label": "code:bash (mkdir -p profiles)"
     },
     {
       "label": "5) User and database creation",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L140",
+      "source_location": "L210",
       "id": "docs_test_plan_rhel_5_user_and_database_creation",
       "community": 36,
       "norm_label": "5) user and database creation"
@@ -3254,8 +3290,8 @@
       "label": "code:bash (pgprovision --create-user devuser --create-password 'pAs$123)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L142",
-      "id": "docs_test_plan_rhel_codeblock_10",
+      "source_location": "L212",
+      "id": "docs_test_plan_rhel_codeblock_12",
       "community": 36,
       "norm_label": "code:bash (pgprovision --create-user devuser --create-password 'pas$123)"
     },
@@ -3263,7 +3299,7 @@
       "label": "5.5) Logical destroy safety smoke",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L151",
+      "source_location": "L221",
       "id": "docs_test_plan_rhel_5_5_logical_destroy_safety_smoke",
       "community": 36,
       "norm_label": "5.5) logical destroy safety smoke"
@@ -3272,8 +3308,8 @@
       "label": "code:bash (DB=pgprov_destroy_smoke)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L155",
-      "id": "docs_test_plan_rhel_codeblock_11",
+      "source_location": "L225",
+      "id": "docs_test_plan_rhel_codeblock_13",
       "community": 36,
       "norm_label": "code:bash (db=pgprov_destroy_smoke)"
     },
@@ -3281,7 +3317,7 @@
       "label": "6) Socket group & local peer map",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L176",
+      "source_location": "L246",
       "id": "docs_test_plan_rhel_6_socket_group_local_peer_map",
       "community": 36,
       "norm_label": "6) socket group & local peer map"
@@ -3290,8 +3326,8 @@
       "label": "code:bash (ME=$(logname 2>/dev/null || echo \"$SUDO_USER\"))",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L178",
-      "id": "docs_test_plan_rhel_codeblock_12",
+      "source_location": "L248",
+      "id": "docs_test_plan_rhel_codeblock_14",
       "community": 36,
       "norm_label": "code:bash (me=$(logname 2>/dev/null || echo \"$sudo_user\"))"
     },
@@ -3299,7 +3335,7 @@
       "label": "6.5) pgvector extension (PGDG)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L189",
+      "source_location": "L259",
       "id": "docs_test_plan_rhel_6_5_pgvector_extension_pgdg",
       "community": 36,
       "norm_label": "6.5) pgvector extension (pgdg)"
@@ -3308,8 +3344,8 @@
       "label": "code:bash (DB=pgprov_vector_smoke)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L191",
-      "id": "docs_test_plan_rhel_codeblock_13",
+      "source_location": "L261",
+      "id": "docs_test_plan_rhel_codeblock_15",
       "community": 36,
       "norm_label": "code:bash (db=pgprov_vector_smoke)"
     },
@@ -3317,79 +3353,79 @@
       "label": "7) TLS guardrail and enablement",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L204",
+      "source_location": "L274",
       "id": "docs_test_plan_rhel_7_tls_guardrail_and_enablement",
-      "community": 46,
+      "community": 36,
       "norm_label": "7) tls guardrail and enablement"
     },
     {
       "label": "7.1 Guardrail",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L206",
+      "source_location": "L276",
       "id": "docs_test_plan_rhel_7_1_guardrail",
-      "community": 46,
+      "community": 36,
       "norm_label": "7.1 guardrail"
     },
     {
       "label": "code:bash (set +e)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L208",
-      "id": "docs_test_plan_rhel_codeblock_14",
-      "community": 46,
+      "source_location": "L278",
+      "id": "docs_test_plan_rhel_codeblock_16",
+      "community": 36,
       "norm_label": "code:bash (set +e)"
     },
     {
       "label": "7.2 Self-signed certs and TLS enablement",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L215",
+      "source_location": "L285",
       "id": "docs_test_plan_rhel_7_2_self_signed_certs_and_tls_enablement",
-      "community": 46,
+      "community": 36,
       "norm_label": "7.2 self-signed certs and tls enablement"
     },
     {
       "label": "code:bash (DATA_DIR=\"/var/lib/pgsql/${PGV}/data\")",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L217",
-      "id": "docs_test_plan_rhel_codeblock_15",
-      "community": 46,
+      "source_location": "L287",
+      "id": "docs_test_plan_rhel_codeblock_17",
+      "community": 36,
       "norm_label": "code:bash (data_dir=\"/var/lib/pgsql/${pgv}/data\")"
     },
     {
       "label": "8) Custom data directory relocation (SELinux aware)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L231",
+      "source_location": "L301",
       "id": "docs_test_plan_rhel_8_custom_data_directory_relocation_selinux_aware",
-      "community": 55,
+      "community": 36,
       "norm_label": "8) custom data directory relocation (selinux aware)"
     },
     {
       "label": "code:bash (NEW_DATA=\"/var/lib/pgsql/${PGV}/custom-data\")",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L235",
-      "id": "docs_test_plan_rhel_codeblock_16",
-      "community": 55,
+      "source_location": "L305",
+      "id": "docs_test_plan_rhel_codeblock_18",
+      "community": 36,
       "norm_label": "code:bash (new_data=\"/var/lib/pgsql/${pgv}/custom-data\")"
     },
     {
       "label": "code:bash (# install semanage if needed)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L243",
-      "id": "docs_test_plan_rhel_codeblock_17",
-      "community": 55,
+      "source_location": "L313",
+      "id": "docs_test_plan_rhel_codeblock_19",
+      "community": 36,
       "norm_label": "code:bash (# install semanage if needed)"
     },
     {
       "label": "9) Stamp file & permissions",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L256",
+      "source_location": "L326",
       "id": "docs_test_plan_rhel_9_stamp_file_permissions",
       "community": 36,
       "norm_label": "9) stamp file & permissions"
@@ -3398,8 +3434,8 @@
       "label": "code:bash (STAMP=\"${NEW_DATA:-/var/lib/pgsql/${PGV}/data}/.pgprovision_)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L258",
-      "id": "docs_test_plan_rhel_codeblock_18",
+      "source_location": "L328",
+      "id": "docs_test_plan_rhel_codeblock_20",
       "community": 36,
       "norm_label": "code:bash (stamp=\"${new_data:-/var/lib/pgsql/${pgv}/data}/.pgprovision_)"
     },
@@ -3407,144 +3443,144 @@
       "label": "10) Restart sanity",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L266",
+      "source_location": "L336",
       "id": "docs_test_plan_rhel_10_restart_sanity",
-      "community": 67,
+      "community": 36,
       "norm_label": "10) restart sanity"
     },
     {
       "label": "code:bash (systemctl restart \"postgresql-${PGV}\")",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L268",
-      "id": "docs_test_plan_rhel_codeblock_19",
-      "community": 67,
+      "source_location": "L338",
+      "id": "docs_test_plan_rhel_codeblock_21",
+      "community": 36,
       "norm_label": "code:bash (systemctl restart \"postgresql-${pgv}\")"
     },
     {
       "label": "Troubleshooting",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L276",
+      "source_location": "L346",
       "id": "docs_test_plan_rhel_troubleshooting",
-      "community": 71,
+      "community": 36,
       "norm_label": "troubleshooting"
     },
     {
       "label": "code:bash (systemctl status \"postgresql-${PGV}\" --no-pager -l)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L280",
-      "id": "docs_test_plan_rhel_codeblock_20",
-      "community": 71,
+      "source_location": "L350",
+      "id": "docs_test_plan_rhel_codeblock_22",
+      "community": 36,
       "norm_label": "code:bash (systemctl status \"postgresql-${pgv}\" --no-pager -l)"
     },
     {
       "label": "11) Self-heal: missing/invalid PGDATA (fresh create)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L287",
+      "source_location": "L357",
       "id": "docs_test_plan_rhel_11_self_heal_missing_invalid_pgdata_fresh_create",
-      "community": 68,
+      "community": 36,
       "norm_label": "11) self-heal: missing/invalid pgdata (fresh create)"
     },
     {
       "label": "code:bash (set -euxo pipefail)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L289",
-      "id": "docs_test_plan_rhel_codeblock_21",
-      "community": 68,
+      "source_location": "L359",
+      "id": "docs_test_plan_rhel_codeblock_23",
+      "community": 36,
       "norm_label": "code:bash (set -euxo pipefail)"
     },
     {
       "label": "12) Self-heal: adopt existing valid PGDATA",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L313",
+      "source_location": "L383",
       "id": "docs_test_plan_rhel_12_self_heal_adopt_existing_valid_pgdata",
-      "community": 51,
+      "community": 36,
       "norm_label": "12) self-heal: adopt existing valid pgdata"
     },
     {
       "label": "code:bash (set -euxo pipefail)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L315",
-      "id": "docs_test_plan_rhel_codeblock_22",
-      "community": 51,
+      "source_location": "L385",
+      "id": "docs_test_plan_rhel_codeblock_24",
+      "community": 36,
       "norm_label": "code:bash (set -euxo pipefail)"
     },
     {
       "label": "code:bash (getenforce)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L344",
-      "id": "docs_test_plan_rhel_codeblock_23",
-      "community": 51,
+      "source_location": "L414",
+      "id": "docs_test_plan_rhel_codeblock_25",
+      "community": 36,
       "norm_label": "code:bash (getenforce)"
     },
     {
       "label": "code:bash (firewall-cmd --add-service=postgresql --permanent)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L355",
-      "id": "docs_test_plan_rhel_codeblock_24",
-      "community": 51,
+      "source_location": "L425",
+      "id": "docs_test_plan_rhel_codeblock_26",
+      "community": 36,
       "norm_label": "code:bash (firewall-cmd --add-service=postgresql --permanent)"
     },
     {
       "label": "Cleanup (optional)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L366",
+      "source_location": "L436",
       "id": "docs_test_plan_rhel_cleanup_optional",
-      "community": 44,
+      "community": 36,
       "norm_label": "cleanup (optional)"
     },
     {
       "label": "Preserve PGDATA, remove service metadata",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L370",
+      "source_location": "L440",
       "id": "docs_test_plan_rhel_preserve_pgdata_remove_service_metadata",
-      "community": 44,
+      "community": 36,
       "norm_label": "preserve pgdata, remove service metadata"
     },
     {
       "label": "code:bash (PREVIEW_LOG=./pgprov_uninstall_preview_rhel.log)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L372",
-      "id": "docs_test_plan_rhel_codeblock_25",
-      "community": 44,
+      "source_location": "L442",
+      "id": "docs_test_plan_rhel_codeblock_27",
+      "community": 36,
       "norm_label": "code:bash (preview_log=./pgprov_uninstall_preview_rhel.log)"
     },
     {
       "label": "Full teardown, including PGDATA and packages",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L384",
+      "source_location": "L454",
       "id": "docs_test_plan_rhel_full_teardown_including_pgdata_and_packages",
-      "community": 44,
+      "community": 36,
       "norm_label": "full teardown, including pgdata and packages"
     },
     {
       "label": "code:bash (PREVIEW_LOG=./pgprov_uninstall_full_preview_rhel.log)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L386",
-      "id": "docs_test_plan_rhel_codeblock_26",
-      "community": 44,
+      "source_location": "L456",
+      "id": "docs_test_plan_rhel_codeblock_28",
+      "community": 36,
       "norm_label": "code:bash (preview_log=./pgprov_uninstall_full_preview_rhel.log)"
     },
     {
       "label": "code:bash (systemctl stop \"postgresql-${PGV}\" || systemctl stop postgre)",
       "file_type": "document",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L401",
-      "id": "docs_test_plan_rhel_codeblock_27",
-      "community": 44,
+      "source_location": "L471",
+      "id": "docs_test_plan_rhel_codeblock_29",
+      "community": 36,
       "norm_label": "code:bash (systemctl stop \"postgresql-${pgv}\" || systemctl stop postgre)"
     },
     {
@@ -5261,7 +5297,7 @@
       "label": "code:block1 (docs/plans/uv-migration-plan.md)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L17",
+      "source_location": "L19",
       "id": "prompts_2026_06_11_plan_uv_migration_codeblock_1",
       "community": 78,
       "norm_label": "code:block1 (docs/plans/uv-migration-plan.md)"
@@ -5270,7 +5306,7 @@
       "label": "Operator context (verified 2026-06-11 \u2014 re-verify before acting)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L39",
+      "source_location": "L41",
       "id": "prompts_2026_06_11_plan_uv_migration_operator_context_verified_2026_06_11_re_verify_before_acting",
       "community": 78,
       "norm_label": "operator context (verified 2026-06-11 \u2014 re-verify before acting)"
@@ -5279,7 +5315,7 @@
       "label": "Repository layout (starting points)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L64",
+      "source_location": "L66",
       "id": "prompts_2026_06_11_plan_uv_migration_repository_layout_starting_points",
       "community": 78,
       "norm_label": "repository layout (starting points)"
@@ -5288,7 +5324,7 @@
       "label": "Mission",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L79",
+      "source_location": "L81",
       "id": "prompts_2026_06_11_plan_uv_migration_mission",
       "community": 78,
       "norm_label": "mission"
@@ -5297,7 +5333,7 @@
       "label": "Design constraints (must appear in the plan)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L98",
+      "source_location": "L100",
       "id": "prompts_2026_06_11_plan_uv_migration_design_constraints_must_appear_in_the_plan",
       "community": 78,
       "norm_label": "design constraints (must appear in the plan)"
@@ -5306,7 +5342,7 @@
       "label": "Investigation checklist (complete before writing the plan)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L109",
+      "source_location": "L111",
       "id": "prompts_2026_06_11_plan_uv_migration_investigation_checklist_complete_before_writing_the_plan",
       "community": 78,
       "norm_label": "investigation checklist (complete before writing the plan)"
@@ -5315,7 +5351,7 @@
       "label": "Required plan structure",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L126",
+      "source_location": "L128",
       "id": "prompts_2026_06_11_plan_uv_migration_required_plan_structure",
       "community": 78,
       "norm_label": "required plan structure"
@@ -5324,7 +5360,7 @@
       "label": "CI guidance the plan must address",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L149",
+      "source_location": "L151",
       "id": "prompts_2026_06_11_plan_uv_migration_ci_guidance_the_plan_must_address",
       "community": 78,
       "norm_label": "ci guidance the plan must address"
@@ -5333,7 +5369,7 @@
       "label": "Local developer experience the plan must specify",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L168",
+      "source_location": "L170",
       "id": "prompts_2026_06_11_plan_uv_migration_local_developer_experience_the_plan_must_specify",
       "community": 78,
       "norm_label": "local developer experience the plan must specify"
@@ -5342,7 +5378,7 @@
       "label": "code:bash (# Example \u2014 plan should finalize exact commands)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L172",
+      "source_location": "L174",
       "id": "prompts_2026_06_11_plan_uv_migration_codeblock_2",
       "community": 78,
       "norm_label": "code:bash (# example \u2014 plan should finalize exact commands)"
@@ -5351,7 +5387,7 @@
       "label": "Verification gates (every phase in the plan)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L189",
+      "source_location": "L191",
       "id": "prompts_2026_06_11_plan_uv_migration_verification_gates_every_phase_in_the_plan",
       "community": 78,
       "norm_label": "verification gates (every phase in the plan)"
@@ -5360,7 +5396,7 @@
       "label": "code:bash (uv sync --dev)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L193",
+      "source_location": "L195",
       "id": "prompts_2026_06_11_plan_uv_migration_codeblock_3",
       "community": 78,
       "norm_label": "code:bash (uv sync --dev)"
@@ -5369,7 +5405,7 @@
       "label": "Deliverable quality bar",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L204",
+      "source_location": "L206",
       "id": "prompts_2026_06_11_plan_uv_migration_deliverable_quality_bar",
       "community": 78,
       "norm_label": "deliverable quality bar"
@@ -5378,7 +5414,7 @@
       "label": "Output reminder",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L219",
+      "source_location": "L221",
       "id": "prompts_2026_06_11_plan_uv_migration_output_reminder",
       "community": 78,
       "norm_label": "output reminder"
@@ -5387,10 +5423,235 @@
       "label": "code:block4 (docs/plans/uv-migration-plan.md)",
       "file_type": "document",
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
-      "source_location": "L223",
+      "source_location": "L225",
       "id": "prompts_2026_06_11_plan_uv_migration_codeblock_4",
       "community": 78,
       "norm_label": "code:block4 (docs/plans/uv-migration-plan.md)"
+    },
+    {
+      "label": "2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L1",
+      "id": "docs_prompts_2026_06_11_uv_user_install_rhel_orchestrator_md",
+      "community": 44,
+      "norm_label": "2026-06-11-uv-user-install-rhel-orchestrator.md"
+    },
+    {
+      "label": "Orchestrator \u2014 uv user install (RHEL/Fedora) (Phases 1\u20134)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L1",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "community": 44,
+      "norm_label": "orchestrator \u2014 uv user install (rhel/fedora) (phases 1\u20134)"
+    },
+    {
+      "label": "Mission",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L15",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_mission",
+      "community": 44,
+      "norm_label": "mission"
+    },
+    {
+      "label": "A. OPERATING DOCTRINE \u2014 context hygiene + delegation (read twice)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L34",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_a_operating_doctrine_context_hygiene_delegation_read_twice",
+      "community": 44,
+      "norm_label": "a. operating doctrine \u2014 context hygiene + delegation (read twice)"
+    },
+    {
+      "label": "code:block1 (SUBAGENT RESULT)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L57",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_1",
+      "community": 44,
+      "norm_label": "code:block1 (subagent result)"
+    },
+    {
+      "label": "B. Authoritative grounding (verified 2026-06-11 \u2014 trust but re-verify before acting)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L95",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_b_authoritative_grounding_verified_2026_06_11_trust_but_re_verify_before_acting",
+      "community": 44,
+      "norm_label": "b. authoritative grounding (verified 2026-06-11 \u2014 trust but re-verify before acting)"
+    },
+    {
+      "label": "C. Operator decisions",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L122",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_c_operator_decisions",
+      "community": 44,
+      "norm_label": "c. operator decisions"
+    },
+    {
+      "label": "D. Load-bearing corrections (read first, non-negotiable)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L151",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "community": 44,
+      "norm_label": "d. load-bearing corrections (read first, non-negotiable)"
+    },
+    {
+      "label": "HC-1 \u2014 `GITHUB_PATH` after `uv tool install` (silent `pgprovision: command not found`)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L153",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_1_github_path_after_uv_tool_install_silent_pgprovision_command_not_found",
+      "community": 44,
+      "norm_label": "hc-1 \u2014 `github_path` after `uv tool install` (silent `pgprovision: command not found`)"
+    },
+    {
+      "label": "HC-2 \u2014 `SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PG_PROVISION` for VCS installs",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L160",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_2_setuptools_scm_pretend_version_for_pg_provision_for_vcs_installs",
+      "community": 44,
+      "norm_label": "hc-2 \u2014 `setuptools_scm_pretend_version_for_pg_provision` for vcs installs"
+    },
+    {
+      "label": "HC-3 \u2014 Fedora user-mode smoke must not use `--repo pgdg`",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L169",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_3_fedora_user_mode_smoke_must_not_use_repo_pgdg",
+      "community": 44,
+      "norm_label": "hc-3 \u2014 fedora user-mode smoke must not use `--repo pgdg`"
+    },
+    {
+      "label": "HC-4 \u2014 Publish gate update only after proven green main run",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L178",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_4_publish_gate_update_only_after_proven_green_main_run",
+      "community": 44,
+      "norm_label": "hc-4 \u2014 publish gate update only after proven green main run"
+    },
+    {
+      "label": "HC-5 \u2014 No pip user path or compatibility shims in operator docs",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L188",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_5_no_pip_user_path_or_compatibility_shims_in_operator_docs",
+      "community": 44,
+      "norm_label": "hc-5 \u2014 no pip user path or compatibility shims in operator docs"
+    },
+    {
+      "label": "HC-6 \u2014 Do not mutate Ubuntu CI jobs or Ubuntu test plan",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L196",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_6_do_not_mutate_ubuntu_ci_jobs_or_ubuntu_test_plan",
+      "community": 44,
+      "norm_label": "hc-6 \u2014 do not mutate ubuntu ci jobs or ubuntu test plan"
+    },
+    {
+      "label": "HC-7 \u2014 `build` artifact smoke validates `uv tool install`, not `uv pip install`",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L204",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_7_build_artifact_smoke_validates_uv_tool_install_not_uv_pip_install",
+      "community": 44,
+      "norm_label": "hc-7 \u2014 `build` artifact smoke validates `uv tool install`, not `uv pip install`"
+    },
+    {
+      "label": "HC-8 \u2014 `importlib.resources` artifact test must still pass after install-path change",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L212",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_8_importlib_resources_artifact_test_must_still_pass_after_install_path_change",
+      "community": 44,
+      "norm_label": "hc-8 \u2014 `importlib.resources` artifact test must still pass after install-path change"
+    },
+    {
+      "label": "E. Phase-by-phase dispatch (detail lives in plan \u00a7Implementation Steps / \u00a7Testing)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L222",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_e_phase_by_phase_dispatch_detail_lives_in_plan_implementation_steps_testing",
+      "community": 44,
+      "norm_label": "e. phase-by-phase dispatch (detail lives in plan \u00a7implementation steps / \u00a7testing)"
+    },
+    {
+      "label": "code:bash (#!/usr/bin/env bash)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L237",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_2",
+      "community": 44,
+      "norm_label": "code:bash (#!/usr/bin/env bash)"
+    },
+    {
+      "label": "code:bash (uv sync --dev)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L249",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_3",
+      "community": 44,
+      "norm_label": "code:bash (uv sync --dev)"
+    },
+    {
+      "label": "F. Traceability: LEDGER + STATE.md (maintain continuously)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L258",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_f_traceability_ledger_state_md_maintain_continuously",
+      "community": 44,
+      "norm_label": "f. traceability: ledger + state.md (maintain continuously)"
+    },
+    {
+      "label": "code:block4 (# uv user install (RHEL/Fedora) \u2014 orchestrator STATE  (overw)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L268",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_4",
+      "community": 44,
+      "norm_label": "code:block4 (# uv user install (rhel/fedora) \u2014 orchestrator state  (overw)"
+    },
+    {
+      "label": "G. Hard constraints (apply to every slice)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L287",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_g_hard_constraints_apply_to_every_slice",
+      "community": 44,
+      "norm_label": "g. hard constraints (apply to every slice)"
+    },
+    {
+      "label": "H. Success criteria",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L309",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_h_success_criteria",
+      "community": 44,
+      "norm_label": "h. success criteria"
+    },
+    {
+      "label": "code:bash (uv sync --dev && uv run pytest -q && uv run pre-commit run -)",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L318",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_5",
+      "community": 44,
+      "norm_label": "code:bash (uv sync --dev && uv run pytest -q && uv run pre-commit run -)"
+    },
+    {
+      "label": "I. If you get blocked",
+      "file_type": "document",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L326",
+      "id": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_i_if_you_get_blocked",
+      "community": 44,
+      "norm_label": "i. if you get blocked"
     },
     {
       "label": "full-implementation-plan.md",
@@ -6755,7 +7016,7 @@
       "label": "Additional facts",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L49",
+      "source_location": "L50",
       "id": "plans_uv_migration_plan_additional_facts",
       "community": 39,
       "norm_label": "additional facts"
@@ -6764,7 +7025,7 @@
       "label": "Inferences",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L56",
+      "source_location": "L57",
       "id": "plans_uv_migration_plan_inferences",
       "community": 39,
       "norm_label": "inferences"
@@ -6773,7 +7034,7 @@
       "label": "Scope",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L66",
+      "source_location": "L67",
       "id": "plans_uv_migration_plan_scope",
       "community": 39,
       "norm_label": "scope"
@@ -6782,7 +7043,7 @@
       "label": "In Scope",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L68",
+      "source_location": "L69",
       "id": "plans_uv_migration_plan_in_scope",
       "community": 39,
       "norm_label": "in scope"
@@ -6791,7 +7052,7 @@
       "label": "Out of Scope",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "id": "plans_uv_migration_plan_out_of_scope",
       "community": 39,
       "norm_label": "out of scope"
@@ -6800,7 +7061,7 @@
       "label": "Requirements",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L95",
+      "source_location": "L96",
       "id": "plans_uv_migration_plan_requirements",
       "community": 39,
       "norm_label": "requirements"
@@ -6809,7 +7070,7 @@
       "label": "Implementation Steps",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L110",
+      "source_location": "L111",
       "id": "plans_uv_migration_plan_implementation_steps",
       "community": 39,
       "norm_label": "implementation steps"
@@ -6818,7 +7079,7 @@
       "label": "Phase 1 \u2014 Project metadata and lockfile",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L112",
+      "source_location": "L113",
       "id": "plans_uv_migration_plan_phase_1_project_metadata_and_lockfile",
       "community": 39,
       "norm_label": "phase 1 \u2014 project metadata and lockfile"
@@ -6827,7 +7088,7 @@
       "label": "code:bash (# After editing pyproject.toml)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L124",
+      "source_location": "L125",
       "id": "plans_uv_migration_plan_codeblock_1",
       "community": 39,
       "norm_label": "code:bash (# after editing pyproject.toml)"
@@ -6836,7 +7097,7 @@
       "label": "Phase 2 \u2014 Local developer experience and pre-commit hook",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L142",
+      "source_location": "L143",
       "id": "plans_uv_migration_plan_phase_2_local_developer_experience_and_pre_commit_hook",
       "community": 39,
       "norm_label": "phase 2 \u2014 local developer experience and pre-commit hook"
@@ -6845,7 +7106,7 @@
       "label": "code:bash (uv sync --dev)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L154",
+      "source_location": "L155",
       "id": "plans_uv_migration_plan_codeblock_2",
       "community": 39,
       "norm_label": "code:bash (uv sync --dev)"
@@ -6854,7 +7115,7 @@
       "label": "Phase 3 \u2014 CI core jobs (ubuntu-hosted, uv toolchain)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L173",
+      "source_location": "L174",
       "id": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
       "community": 39,
       "norm_label": "phase 3 \u2014 ci core jobs (ubuntu-hosted, uv toolchain)"
@@ -6863,7 +7124,7 @@
       "label": "code:yaml (- uses: actions/checkout@v4)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L186",
+      "source_location": "L187",
       "id": "plans_uv_migration_plan_codeblock_3",
       "community": 39,
       "norm_label": "code:yaml (- uses: actions/checkout@v4)"
@@ -6872,7 +7133,7 @@
       "label": "code:yaml (- uses: actions/checkout@v4)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L197",
+      "source_location": "L198",
       "id": "plans_uv_migration_plan_codeblock_4",
       "community": 39,
       "norm_label": "code:yaml (- uses: actions/checkout@v4)"
@@ -6881,7 +7142,7 @@
       "label": "code:yaml (- uses: actions/checkout@v4)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L218",
+      "source_location": "L219",
       "id": "plans_uv_migration_plan_codeblock_5",
       "community": 39,
       "norm_label": "code:yaml (- uses: actions/checkout@v4)"
@@ -6890,7 +7151,7 @@
       "label": "code:yaml (- uses: actions/checkout@v4)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L243",
+      "source_location": "L244",
       "id": "plans_uv_migration_plan_codeblock_6",
       "community": 39,
       "norm_label": "code:yaml (- uses: actions/checkout@v4)"
@@ -6899,7 +7160,7 @@
       "label": "code:bash (uv sync --dev)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L259",
+      "source_location": "L260",
       "id": "plans_uv_migration_plan_codeblock_7",
       "community": 39,
       "norm_label": "code:bash (uv sync --dev)"
@@ -6908,7 +7169,7 @@
       "label": "Phase 4 \u2014 Platform smoke realignment and publish gates",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L277",
+      "source_location": "L278",
       "id": "plans_uv_migration_plan_phase_4_platform_smoke_realignment_and_publish_gates",
       "community": 39,
       "norm_label": "phase 4 \u2014 platform smoke realignment and publish gates"
@@ -6917,7 +7178,7 @@
       "label": "code:bash (# Local YAML review)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L302",
+      "source_location": "L303",
       "id": "plans_uv_migration_plan_codeblock_8",
       "community": 39,
       "norm_label": "code:bash (# local yaml review)"
@@ -6926,7 +7187,7 @@
       "label": "Phase 5 \u2014 Documentation sweep and acceptance",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L322",
+      "source_location": "L323",
       "id": "plans_uv_migration_plan_phase_5_documentation_sweep_and_acceptance",
       "community": 39,
       "norm_label": "phase 5 \u2014 documentation sweep and acceptance"
@@ -6935,7 +7196,7 @@
       "label": "code:bash (uv sync --dev)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L337",
+      "source_location": "L338",
       "id": "plans_uv_migration_plan_codeblock_9",
       "community": 39,
       "norm_label": "code:bash (uv sync --dev)"
@@ -6944,7 +7205,7 @@
       "label": "Testing",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L359",
+      "source_location": "L360",
       "id": "plans_uv_migration_plan_testing",
       "community": 39,
       "norm_label": "testing"
@@ -6953,7 +7214,7 @@
       "label": "CI migration matrix",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L379",
+      "source_location": "L380",
       "id": "plans_uv_migration_plan_ci_migration_matrix",
       "community": 39,
       "norm_label": "ci migration matrix"
@@ -6962,7 +7223,7 @@
       "label": "Rollout / rollback",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L398",
+      "source_location": "L399",
       "id": "plans_uv_migration_plan_rollout_rollback",
       "community": 39,
       "norm_label": "rollout / rollback"
@@ -6971,7 +7232,7 @@
       "label": "Acceptance criteria",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L415",
+      "source_location": "L416",
       "id": "plans_uv_migration_plan_acceptance_criteria",
       "community": 39,
       "norm_label": "acceptance criteria"
@@ -6980,7 +7241,7 @@
       "label": "Open questions",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L432",
+      "source_location": "L433",
       "id": "plans_uv_migration_plan_open_questions",
       "community": 39,
       "norm_label": "open questions"
@@ -6989,7 +7250,7 @@
       "label": "Related follow-up (not this plan)",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L441",
+      "source_location": "L442",
       "id": "plans_uv_migration_plan_related_follow_up_not_this_plan",
       "community": 39,
       "norm_label": "related follow-up (not this plan)"
@@ -6998,9 +7259,297 @@
       "label": "Effort",
       "file_type": "document",
       "source_file": "docs/plans/uv-migration-plan.md",
-      "source_location": "L446",
+      "source_location": "L447",
       "id": "plans_uv_migration_plan_effort",
       "community": 39,
+      "norm_label": "effort"
+    },
+    {
+      "label": "uv-user-install-rhel-plan.md",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L1",
+      "id": "docs_plans_uv_user_install_rhel_plan_md",
+      "community": 43,
+      "norm_label": "uv-user-install-rhel-plan.md"
+    },
+    {
+      "label": "uv User Install Plan (RHEL/Fedora)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L1",
+      "id": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "community": 43,
+      "norm_label": "uv user install plan (rhel/fedora)"
+    },
+    {
+      "label": "Purpose",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L3",
+      "id": "plans_uv_user_install_rhel_plan_purpose",
+      "community": 43,
+      "norm_label": "purpose"
+    },
+    {
+      "label": "Facts",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L9",
+      "id": "plans_uv_user_install_rhel_plan_facts",
+      "community": 43,
+      "norm_label": "facts"
+    },
+    {
+      "label": "Post\u2013v1 baseline (verified 2026-06-11)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L11",
+      "id": "plans_uv_user_install_rhel_plan_post_v1_baseline_verified_2026_06_11",
+      "community": 43,
+      "norm_label": "post\u2013v1 baseline (verified 2026-06-11)"
+    },
+    {
+      "label": "NOT FOUND (this plan may add)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L41",
+      "id": "plans_uv_user_install_rhel_plan_not_found_this_plan_may_add",
+      "community": 43,
+      "norm_label": "not found (this plan may add)"
+    },
+    {
+      "label": "Inferences",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L47",
+      "id": "plans_uv_user_install_rhel_plan_inferences",
+      "community": 43,
+      "norm_label": "inferences"
+    },
+    {
+      "label": "Scope",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L57",
+      "id": "plans_uv_user_install_rhel_plan_scope",
+      "community": 43,
+      "norm_label": "scope"
+    },
+    {
+      "label": "In scope",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L59",
+      "id": "plans_uv_user_install_rhel_plan_in_scope",
+      "community": 43,
+      "norm_label": "in scope"
+    },
+    {
+      "label": "Out of scope",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L72",
+      "id": "plans_uv_user_install_rhel_plan_out_of_scope",
+      "community": 43,
+      "norm_label": "out of scope"
+    },
+    {
+      "label": "Requirements",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L85",
+      "id": "plans_uv_user_install_rhel_plan_requirements",
+      "community": 43,
+      "norm_label": "requirements"
+    },
+    {
+      "label": "code:bash (curl -LsSf https://astral.sh/uv/install.sh | sh)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L88",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_1",
+      "community": 43,
+      "norm_label": "code:bash (curl -lssf https://astral.sh/uv/install.sh | sh)"
+    },
+    {
+      "label": "Implementation Steps",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L108",
+      "id": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "community": 43,
+      "norm_label": "implementation steps"
+    },
+    {
+      "label": "Phase 1 \u2014 README and RHEL guide (docs)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L110",
+      "id": "plans_uv_user_install_rhel_plan_phase_1_readme_and_rhel_guide_docs",
+      "community": 43,
+      "norm_label": "phase 1 \u2014 readme and rhel guide (docs)"
+    },
+    {
+      "label": "code:bash (# doc review only \u2014 spot-check examples match flag names in )",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L134",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_2",
+      "community": 43,
+      "norm_label": "code:bash (# doc review only \u2014 spot-check examples match flag names in )"
+    },
+    {
+      "label": "Phase 2 \u2014 CI: `fedora-smoke` and `build` on `uv tool install`",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L145",
+      "id": "plans_uv_user_install_rhel_plan_phase_2_ci_fedora_smoke_and_build_on_uv_tool_install",
+      "community": 43,
+      "norm_label": "phase 2 \u2014 ci: `fedora-smoke` and `build` on `uv tool install`"
+    },
+    {
+      "label": "code:yaml (- uses: actions/checkout@v4)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L155",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_3",
+      "community": 43,
+      "norm_label": "code:yaml (- uses: actions/checkout@v4)"
+    },
+    {
+      "label": "code:yaml (- name: Install wheel and smoke)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L184",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_4",
+      "community": 43,
+      "norm_label": "code:yaml (- name: install wheel and smoke)"
+    },
+    {
+      "label": "Phase 3 \u2014 `fedora-user-mode-smoke` job",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L212",
+      "id": "plans_uv_user_install_rhel_plan_phase_3_fedora_user_mode_smoke_job",
+      "community": 43,
+      "norm_label": "phase 3 \u2014 `fedora-user-mode-smoke` job"
+    },
+    {
+      "label": "code:bash (PGPROVISION_BIN=\"$(command -v pgprovision)\")",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L233",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_5",
+      "community": 43,
+      "norm_label": "code:bash (pgprovision_bin=\"$(command -v pgprovision)\")"
+    },
+    {
+      "label": "Phase 4 \u2014 Doc sweep and stale references",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L257",
+      "id": "plans_uv_user_install_rhel_plan_phase_4_doc_sweep_and_stale_references",
+      "community": 43,
+      "norm_label": "phase 4 \u2014 doc sweep and stale references"
+    },
+    {
+      "label": "code:bash (rg 'pip install pg-provision' README.md docs/test-plan-rhel.)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L275",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_6",
+      "community": 43,
+      "norm_label": "code:bash (rg 'pip install pg-provision' readme.md docs/test-plan-rhel.)"
+    },
+    {
+      "label": "Phase 5 \u2014 Optional post-publish PyPI smoke",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L286",
+      "id": "plans_uv_user_install_rhel_plan_phase_5_optional_post_publish_pypi_smoke",
+      "community": 43,
+      "norm_label": "phase 5 \u2014 optional post-publish pypi smoke"
+    },
+    {
+      "label": "code:bash (uv tool install pg-provision==${TAG#v})",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L294",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_7",
+      "community": 43,
+      "norm_label": "code:bash (uv tool install pg-provision==${tag#v})"
+    },
+    {
+      "label": "CI matrix (target state)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L304",
+      "id": "plans_uv_user_install_rhel_plan_ci_matrix_target_state",
+      "community": 43,
+      "norm_label": "ci matrix (target state)"
+    },
+    {
+      "label": "Testing",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L318",
+      "id": "plans_uv_user_install_rhel_plan_testing",
+      "community": 43,
+      "norm_label": "testing"
+    },
+    {
+      "label": "Rollout",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L328",
+      "id": "plans_uv_user_install_rhel_plan_rollout",
+      "community": 43,
+      "norm_label": "rollout"
+    },
+    {
+      "label": "Acceptance criteria",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L338",
+      "id": "plans_uv_user_install_rhel_plan_acceptance_criteria",
+      "community": 43,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "code:bash (uv sync --dev)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L350",
+      "id": "plans_uv_user_install_rhel_plan_codeblock_8",
+      "community": 43,
+      "norm_label": "code:bash (uv sync --dev)"
+    },
+    {
+      "label": "Open questions",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L358",
+      "id": "plans_uv_user_install_rhel_plan_open_questions",
+      "community": 43,
+      "norm_label": "open questions"
+    },
+    {
+      "label": "Related follow-ups (not this plan)",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L367",
+      "id": "plans_uv_user_install_rhel_plan_related_follow_ups_not_this_plan",
+      "community": 43,
+      "norm_label": "related follow-ups (not this plan)"
+    },
+    {
+      "label": "Effort",
+      "file_type": "document",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L374",
+      "id": "plans_uv_user_install_rhel_plan_effort",
+      "community": 43,
       "norm_label": "effort"
     },
     {
@@ -7319,6 +7868,96 @@
       "norm_label": "required next action"
     },
     {
+      "label": "LEDGER.md",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/LEDGER.md",
+      "source_location": "L1",
+      "id": "docs_run_uv_user_install_rhel_ledger_md",
+      "community": 53,
+      "norm_label": "ledger.md"
+    },
+    {
+      "label": "uv user install (RHEL/Fedora) \u2014 LEDGER",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/LEDGER.md",
+      "source_location": "L1",
+      "id": "uv_user_install_rhel_ledger_uv_user_install_rhel_fedora_ledger",
+      "community": 53,
+      "norm_label": "uv user install (rhel/fedora) \u2014 ledger"
+    },
+    {
+      "label": "STATE.md",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/STATE.md",
+      "source_location": "L1",
+      "id": "docs_run_uv_user_install_rhel_state_md",
+      "community": 54,
+      "norm_label": "state.md"
+    },
+    {
+      "label": "uv user install (RHEL/Fedora) \u2014 orchestrator STATE (overwrite each phase boundary)",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/STATE.md",
+      "source_location": "L1",
+      "id": "uv_user_install_rhel_state_uv_user_install_rhel_fedora_orchestrator_state_overwrite_each_phase_boundary",
+      "community": 54,
+      "norm_label": "uv user install (rhel/fedora) \u2014 orchestrator state (overwrite each phase boundary)"
+    },
+    {
+      "label": "FINAL_REPORT.md",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L1",
+      "id": "docs_run_uv_user_install_rhel_final_report_md",
+      "community": 51,
+      "norm_label": "final_report.md"
+    },
+    {
+      "label": "uv user install (RHEL/Fedora) \u2014 FINAL REPORT",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L1",
+      "id": "uv_user_install_rhel_final_report_uv_user_install_rhel_fedora_final_report",
+      "community": 51,
+      "norm_label": "uv user install (rhel/fedora) \u2014 final report"
+    },
+    {
+      "label": "Outcome",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L3",
+      "id": "uv_user_install_rhel_final_report_outcome",
+      "community": 51,
+      "norm_label": "outcome"
+    },
+    {
+      "label": "Phase results",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L9",
+      "id": "uv_user_install_rhel_final_report_phase_results",
+      "community": 51,
+      "norm_label": "phase results"
+    },
+    {
+      "label": "Acceptance criteria",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L19",
+      "id": "uv_user_install_rhel_final_report_acceptance_criteria",
+      "community": 51,
+      "norm_label": "acceptance criteria"
+    },
+    {
+      "label": "Notes",
+      "file_type": "document",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L35",
+      "id": "uv_user_install_rhel_final_report_notes",
+      "community": 51,
+      "norm_label": "notes"
+    },
+    {
       "label": "06-11.md",
       "file_type": "document",
       "source_file": "docs/reviews/06-11.md",
@@ -7326,6 +7965,15 @@
       "id": "docs_reviews_06_11_md",
       "community": 76,
       "norm_label": "06-11.md"
+    },
+    {
+      "label": "Contributing",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L58",
+      "community": 8,
+      "norm_label": "contributing",
+      "id": "pg_provision_readme_contributing"
     },
     {
       "label": "Run `bash -lc` with provision.sh sourced, returning (stdout, stderr, rc).     De",
@@ -14078,10 +14726,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L58",
+      "source_location": "L61",
       "weight": 1.0,
       "source": "pg_provision_readme_pg_provision",
-      "target": "pg_provision_readme_contributing",
+      "target": "pg_provision_readme_development_from_source",
       "confidence_score": 1.0
     },
     {
@@ -14133,6 +14781,16 @@
       "confidence_score": 1.0,
       "source": "pg_provision_readme_pg_provision",
       "target": "pg_provision_readme_project_links"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L58",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "pg_provision_readme_pg_provision",
+      "target": "pg_provision_readme_contributing"
     },
     {
       "relation": "contains",
@@ -14198,9 +14856,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L62",
+      "source_location": "L65",
       "weight": 1.0,
-      "source": "pg_provision_readme_contributing",
+      "source": "pg_provision_readme_development_from_source",
       "target": "pg_provision_readme_codeblock_7",
       "confidence_score": 1.0
     },
@@ -14208,11 +14866,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
-      "source": "pg_provision_readme_contributing",
+      "source": "pg_provision_readme_development_from_source",
       "target": "pg_provision_readme_codeblock_8",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "pg_provision_readme_contributing",
+      "target": "pg_provision_readme_codeblock_7"
     },
     {
       "relation": "contains",
@@ -14223,6 +14891,16 @@
       "confidence_score": 1.0,
       "source": "pg_provision_readme_1_hardened_rhel_rocky_alma_socket_only_local_peer_auth",
       "target": "pg_provision_readme_codeblock_7"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "pg_provision_readme_contributing",
+      "target": "pg_provision_readme_codeblock_8"
     },
     {
       "relation": "contains",
@@ -14330,9 +15008,9 @@
       "source_file": "README.md",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_1_hardened_rhel_rocky_alma_socket_only_local_peer_auth",
-      "target": "pg_provision_readme_codeblock_9",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_9"
     },
     {
       "relation": "contains",
@@ -14340,9 +15018,9 @@
       "source_file": "README.md",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_1_hardened_rhel_rocky_alma_socket_only_local_peer_auth",
-      "target": "pg_provision_readme_codeblock_10",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_10"
     },
     {
       "relation": "contains",
@@ -14370,9 +15048,9 @@
       "source_file": "README.md",
       "source_location": "L114",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_2_hardened_rhel_rocky_alma_loopback_only_tcp_localhost",
-      "target": "pg_provision_readme_codeblock_11",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_11"
     },
     {
       "relation": "contains",
@@ -14390,9 +15068,9 @@
       "source_file": "README.md",
       "source_location": "L129",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_3_permissive_ubuntu_listen_on_all_interfaces_for_a_trusted_lan",
-      "target": "pg_provision_readme_codeblock_12",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_12"
     },
     {
       "relation": "contains",
@@ -14400,9 +15078,9 @@
       "source_file": "README.md",
       "source_location": "L139",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_3_permissive_ubuntu_listen_on_all_interfaces_for_a_trusted_lan",
-      "target": "pg_provision_readme_codeblock_13",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_13"
     },
     {
       "relation": "contains",
@@ -14430,9 +15108,9 @@
       "source_file": "README.md",
       "source_location": "L156",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_4_tls_required_server_certs_pre_positioned",
-      "target": "pg_provision_readme_codeblock_14",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_14"
     },
     {
       "relation": "contains",
@@ -14450,9 +15128,9 @@
       "source_file": "README.md",
       "source_location": "L173",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_5_reproducible_runs_via_env_file_no_secrets",
-      "target": "pg_provision_readme_codeblock_15",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_15"
     },
     {
       "relation": "contains",
@@ -14460,9 +15138,9 @@
       "source_file": "README.md",
       "source_location": "L183",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_5_reproducible_runs_via_env_file_no_secrets",
-      "target": "pg_provision_readme_codeblock_16",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_16"
     },
     {
       "relation": "contains",
@@ -14490,9 +15168,9 @@
       "source_file": "README.md",
       "source_location": "L193",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_6_custom_data_directory_pg_stat_statements",
-      "target": "pg_provision_readme_codeblock_17",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_17"
     },
     {
       "relation": "contains",
@@ -14510,9 +15188,9 @@
       "source_file": "README.md",
       "source_location": "L209",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_7_pgvector_on_pgdg_postgresql",
-      "target": "pg_provision_readme_codeblock_18",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_18"
     },
     {
       "relation": "contains",
@@ -14530,9 +15208,9 @@
       "source_file": "README.md",
       "source_location": "L226",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_8_logical_destroy_drop_one_database_and_optional_role",
-      "target": "pg_provision_readme_codeblock_19",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_19"
     },
     {
       "relation": "contains",
@@ -14570,9 +15248,9 @@
       "source_file": "README.md",
       "source_location": "L257",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_9_cluster_uninstall_remove_service_metadata_pgdata_and_packages",
-      "target": "pg_provision_readme_codeblock_22",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_22"
     },
     {
       "relation": "contains",
@@ -14580,9 +15258,9 @@
       "source_file": "README.md",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_9_cluster_uninstall_remove_service_metadata_pgdata_and_packages",
-      "target": "pg_provision_readme_codeblock_23",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_23"
     },
     {
       "relation": "contains",
@@ -14630,9 +15308,9 @@
       "source_file": "README.md",
       "source_location": "L327",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "pg_provision_readme_secrets",
-      "target": "pg_provision_readme_codeblock_24",
-      "confidence_score": 1.0
+      "target": "pg_provision_readme_codeblock_24"
     },
     {
       "relation": "contains",
@@ -14650,9 +15328,9 @@
       "source_file": "docs/pre-commit.md",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_pre_commit_pre_commit_hooks",
-      "target": "docs_pre_commit_codeblock_1",
-      "confidence_score": 1.0
+      "target": "docs_pre_commit_codeblock_1"
     },
     {
       "relation": "contains",
@@ -14683,6 +15361,16 @@
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_postgresql_provisioner_rhel_rocky_alma_test_guide_pgprovision",
       "target": "docs_test_plan_rhel_1_dry_run_smoke_test"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_postgresql_provisioner_rhel_rocky_alma_test_guide_pgprovision",
+      "target": "docs_test_plan_rhel_1_5_user_mode_smoke_no_sudo",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -14868,11 +15556,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_1_5_user_mode_smoke_no_sudo",
+      "target": "docs_test_plan_rhel_codeblock_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_1_5_user_mode_smoke_no_sudo",
+      "target": "docs_test_plan_rhel_optional_tarball_bootstrap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L65",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_2_full_install_pgdg_repo_packages_cluster_service",
       "target": "docs_test_plan_rhel_codeblock_4"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L104",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_optional_tarball_bootstrap",
+      "target": "docs_test_plan_rhel_codeblock_5",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -14888,11 +15606,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_2_full_install_pgdg_repo_packages_cluster_service",
+      "target": "docs_test_plan_rhel_codeblock_6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_2_full_install_pgdg_repo_packages_cluster_service",
+      "target": "docs_test_plan_rhel_codeblock_7",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L92",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_3_hba_policy",
       "target": "docs_test_plan_rhel_codeblock_6"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L99",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_test_plan_rhel_socket_only_posture",
+      "target": "docs_test_plan_rhel_codeblock_7"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_3_hba_policy",
+      "target": "docs_test_plan_rhel_codeblock_8",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -14918,21 +15676,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L99",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_test_plan_rhel_socket_only_posture",
-      "target": "docs_test_plan_rhel_codeblock_7"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L106",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_allow_networks",
       "target": "docs_test_plan_rhel_codeblock_8"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L169",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_socket_only_posture",
+      "target": "docs_test_plan_rhel_codeblock_9",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -14948,11 +15706,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L176",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_allow_networks",
+      "target": "docs_test_plan_rhel_codeblock_10",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L142",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_5_user_and_database_creation",
       "target": "docs_test_plan_rhel_codeblock_10"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L189",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_4_profiles_conf_d_drop_in",
+      "target": "docs_test_plan_rhel_codeblock_11",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -14968,6 +15746,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_5_user_and_database_creation",
+      "target": "docs_test_plan_rhel_codeblock_12",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L178",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -14978,11 +15766,61 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L225",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_5_5_logical_destroy_safety_smoke",
+      "target": "docs_test_plan_rhel_codeblock_13",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L191",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_6_5_pgvector_extension_pgdg",
       "target": "docs_test_plan_rhel_codeblock_13"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L248",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_6_socket_group_local_peer_map",
+      "target": "docs_test_plan_rhel_codeblock_14",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L208",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_test_plan_rhel_7_1_guardrail",
+      "target": "docs_test_plan_rhel_codeblock_14"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L261",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_6_5_pgvector_extension_pgdg",
+      "target": "docs_test_plan_rhel_codeblock_15",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L217",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_test_plan_rhel_7_2_self_signed_certs_and_tls_enablement",
+      "target": "docs_test_plan_rhel_codeblock_15"
     },
     {
       "relation": "contains",
@@ -15008,21 +15846,11 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L208",
+      "source_location": "L278",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_7_1_guardrail",
-      "target": "docs_test_plan_rhel_codeblock_14"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L217",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_test_plan_rhel_7_2_self_signed_certs_and_tls_enablement",
-      "target": "docs_test_plan_rhel_codeblock_15"
+      "target": "docs_test_plan_rhel_codeblock_16",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -15038,11 +15866,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L287",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_7_2_self_signed_certs_and_tls_enablement",
+      "target": "docs_test_plan_rhel_codeblock_17",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L243",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_8_custom_data_directory_relocation_selinux_aware",
       "target": "docs_test_plan_rhel_codeblock_17"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L305",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_8_custom_data_directory_relocation_selinux_aware",
+      "target": "docs_test_plan_rhel_codeblock_18",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L313",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_8_custom_data_directory_relocation_selinux_aware",
+      "target": "docs_test_plan_rhel_codeblock_19",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -15068,11 +15926,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L328",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_9_stamp_file_permissions",
+      "target": "docs_test_plan_rhel_codeblock_20",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L280",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_troubleshooting",
       "target": "docs_test_plan_rhel_codeblock_20"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L338",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_10_restart_sanity",
+      "target": "docs_test_plan_rhel_codeblock_21",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -15088,11 +15966,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L350",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_troubleshooting",
+      "target": "docs_test_plan_rhel_codeblock_22",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L315",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_12_self_heal_adopt_existing_valid_pgdata",
       "target": "docs_test_plan_rhel_codeblock_22"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L359",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_11_self_heal_missing_invalid_pgdata_fresh_create",
+      "target": "docs_test_plan_rhel_codeblock_23",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -15118,21 +16016,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L370",
+      "source_location": "L414",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_test_plan_rhel_cleanup_optional",
-      "target": "docs_test_plan_rhel_preserve_pgdata_remove_service_metadata"
+      "source": "docs_test_plan_rhel_12_self_heal_adopt_existing_valid_pgdata",
+      "target": "docs_test_plan_rhel_codeblock_25",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
-      "source_location": "L384",
+      "source_location": "L425",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_test_plan_rhel_cleanup_optional",
-      "target": "docs_test_plan_rhel_full_teardown_including_pgdata_and_packages"
+      "source": "docs_test_plan_rhel_12_self_heal_adopt_existing_valid_pgdata",
+      "target": "docs_test_plan_rhel_codeblock_26",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -15158,11 +16056,61 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L370",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_test_plan_rhel_cleanup_optional",
+      "target": "docs_test_plan_rhel_preserve_pgdata_remove_service_metadata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L384",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_test_plan_rhel_cleanup_optional",
+      "target": "docs_test_plan_rhel_full_teardown_including_pgdata_and_packages"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L442",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_preserve_pgdata_remove_service_metadata",
+      "target": "docs_test_plan_rhel_codeblock_27",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
       "source_location": "L401",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "docs_test_plan_rhel_full_teardown_including_pgdata_and_packages",
       "target": "docs_test_plan_rhel_codeblock_27"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L456",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_full_teardown_including_pgdata_and_packages",
+      "target": "docs_test_plan_rhel_codeblock_28",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/test-plan-rhel.md",
+      "source_location": "L471",
+      "weight": 1.0,
+      "source": "docs_test_plan_rhel_full_teardown_including_pgdata_and_packages",
+      "target": "docs_test_plan_rhel_codeblock_29",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -16970,9 +17918,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_prompts_2026_06_11_plan_uv_migration_md",
-      "target": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv"
     },
     {
       "relation": "contains",
@@ -16980,9 +17928,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_your_role",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_your_role"
     },
     {
       "relation": "contains",
@@ -16990,9 +17938,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_operator_context_verified_2026_06_11_re_verify_before_acting",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_operator_context_verified_2026_06_11_re_verify_before_acting"
     },
     {
       "relation": "contains",
@@ -17000,9 +17948,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_repository_layout_starting_points",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_repository_layout_starting_points"
     },
     {
       "relation": "contains",
@@ -17010,9 +17958,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_mission",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_mission"
     },
     {
       "relation": "contains",
@@ -17020,9 +17968,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L98",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_design_constraints_must_appear_in_the_plan",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_design_constraints_must_appear_in_the_plan"
     },
     {
       "relation": "contains",
@@ -17030,9 +17978,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L109",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_investigation_checklist_complete_before_writing_the_plan",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_investigation_checklist_complete_before_writing_the_plan"
     },
     {
       "relation": "contains",
@@ -17040,9 +17988,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L126",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_required_plan_structure",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_required_plan_structure"
     },
     {
       "relation": "contains",
@@ -17050,9 +17998,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L149",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_ci_guidance_the_plan_must_address",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_ci_guidance_the_plan_must_address"
     },
     {
       "relation": "contains",
@@ -17060,9 +18008,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L168",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_local_developer_experience_the_plan_must_specify",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_local_developer_experience_the_plan_must_specify"
     },
     {
       "relation": "contains",
@@ -17070,9 +18018,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L189",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_verification_gates_every_phase_in_the_plan",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_verification_gates_every_phase_in_the_plan"
     },
     {
       "relation": "contains",
@@ -17080,9 +18028,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L204",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_deliverable_quality_bar",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_deliverable_quality_bar"
     },
     {
       "relation": "contains",
@@ -17090,9 +18038,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L219",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_planning_prompt_migrate_pg_provision_development_and_ci_to_uv",
-      "target": "prompts_2026_06_11_plan_uv_migration_output_reminder",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_output_reminder"
     },
     {
       "relation": "contains",
@@ -17100,9 +18048,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_your_role",
-      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_1",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_1"
     },
     {
       "relation": "contains",
@@ -17110,9 +18058,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L172",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_local_developer_experience_the_plan_must_specify",
-      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_2",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_2"
     },
     {
       "relation": "contains",
@@ -17120,9 +18068,9 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L193",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_verification_gates_every_phase_in_the_plan",
-      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_3",
-      "confidence_score": 1.0
+      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_3"
     },
     {
       "relation": "contains",
@@ -17130,8 +18078,248 @@
       "source_file": "docs/prompts/2026-06-11-plan-uv-migration.md",
       "source_location": "L223",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "prompts_2026_06_11_plan_uv_migration_output_reminder",
-      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_4",
+      "target": "prompts_2026_06_11_plan_uv_migration_codeblock_4"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_prompts_2026_06_11_uv_user_install_rhel_orchestrator_md",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_mission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_a_operating_doctrine_context_hygiene_delegation_read_twice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_b_authoritative_grounding_verified_2026_06_11_trust_but_re_verify_before_acting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_c_operator_decisions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L151",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L222",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_e_phase_by_phase_dispatch_detail_lives_in_plan_implementation_steps_testing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L258",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_f_traceability_ledger_state_md_maintain_continuously",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L287",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_g_hard_constraints_apply_to_every_slice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L309",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_h_success_criteria",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L326",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_orchestrator_uv_user_install_rhel_fedora_phases_1_4",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_i_if_you_get_blocked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_a_operating_doctrine_context_hygiene_delegation_read_twice",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L153",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_1_github_path_after_uv_tool_install_silent_pgprovision_command_not_found",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_2_setuptools_scm_pretend_version_for_pg_provision_for_vcs_installs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L169",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_3_fedora_user_mode_smoke_must_not_use_repo_pgdg",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_4_publish_gate_update_only_after_proven_green_main_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L188",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_5_no_pip_user_path_or_compatibility_shims_in_operator_docs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L196",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_6_do_not_mutate_ubuntu_ci_jobs_or_ubuntu_test_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_7_build_artifact_smoke_validates_uv_tool_install_not_uv_pip_install",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_d_load_bearing_corrections_read_first_non_negotiable",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_hc_8_importlib_resources_artifact_test_must_still_pass_after_install_path_change",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L237",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_e_phase_by_phase_dispatch_detail_lives_in_plan_implementation_steps_testing",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L249",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_e_phase_by_phase_dispatch_detail_lives_in_plan_implementation_steps_testing",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L268",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_f_traceability_ledger_state_md_maintain_continuously",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/prompts/2026-06-11-uv-user-install-rhel-orchestrator.md",
+      "source_location": "L318",
+      "weight": 1.0,
+      "source": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_h_success_criteria",
+      "target": "prompts_2026_06_11_uv_user_install_rhel_orchestrator_codeblock_5",
       "confidence_score": 1.0
     },
     {
@@ -18570,9 +19758,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_plans_uv_migration_plan_md",
-      "target": "plans_uv_migration_plan_uv_migration_plan",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_uv_migration_plan"
     },
     {
       "relation": "contains",
@@ -18580,9 +19768,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_purpose",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_purpose"
     },
     {
       "relation": "contains",
@@ -18590,9 +19778,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_facts",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_facts"
     },
     {
       "relation": "contains",
@@ -18600,9 +19788,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_inferences",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_inferences"
     },
     {
       "relation": "contains",
@@ -18610,9 +19798,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_scope",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_scope"
     },
     {
       "relation": "contains",
@@ -18620,9 +19808,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L95",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_requirements",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_requirements"
     },
     {
       "relation": "contains",
@@ -18630,9 +19818,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_implementation_steps",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_implementation_steps"
     },
     {
       "relation": "contains",
@@ -18640,9 +19828,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L359",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_testing",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_testing"
     },
     {
       "relation": "contains",
@@ -18650,9 +19838,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L379",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_ci_migration_matrix",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_ci_migration_matrix"
     },
     {
       "relation": "contains",
@@ -18660,9 +19848,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L398",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_rollout_rollback",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_rollout_rollback"
     },
     {
       "relation": "contains",
@@ -18670,9 +19858,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L415",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_acceptance_criteria",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_acceptance_criteria"
     },
     {
       "relation": "contains",
@@ -18680,9 +19868,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L432",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_open_questions",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_open_questions"
     },
     {
       "relation": "contains",
@@ -18690,9 +19878,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L441",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_related_follow_up_not_this_plan",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_related_follow_up_not_this_plan"
     },
     {
       "relation": "contains",
@@ -18700,9 +19888,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L446",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_uv_migration_plan",
-      "target": "plans_uv_migration_plan_effort",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_effort"
     },
     {
       "relation": "contains",
@@ -18710,9 +19898,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_facts",
-      "target": "plans_uv_migration_plan_investigation_checklist_fact_not_found",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_investigation_checklist_fact_not_found"
     },
     {
       "relation": "contains",
@@ -18720,9 +19908,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_facts",
-      "target": "plans_uv_migration_plan_additional_facts",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_additional_facts"
     },
     {
       "relation": "contains",
@@ -18730,9 +19918,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L68",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_scope",
-      "target": "plans_uv_migration_plan_in_scope",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_in_scope"
     },
     {
       "relation": "contains",
@@ -18740,9 +19928,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_scope",
-      "target": "plans_uv_migration_plan_out_of_scope",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_out_of_scope"
     },
     {
       "relation": "contains",
@@ -18750,9 +19938,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_implementation_steps",
-      "target": "plans_uv_migration_plan_phase_1_project_metadata_and_lockfile",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_phase_1_project_metadata_and_lockfile"
     },
     {
       "relation": "contains",
@@ -18760,9 +19948,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L142",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_implementation_steps",
-      "target": "plans_uv_migration_plan_phase_2_local_developer_experience_and_pre_commit_hook",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_phase_2_local_developer_experience_and_pre_commit_hook"
     },
     {
       "relation": "contains",
@@ -18770,9 +19958,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L173",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_implementation_steps",
-      "target": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain"
     },
     {
       "relation": "contains",
@@ -18780,9 +19968,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L277",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_implementation_steps",
-      "target": "plans_uv_migration_plan_phase_4_platform_smoke_realignment_and_publish_gates",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_phase_4_platform_smoke_realignment_and_publish_gates"
     },
     {
       "relation": "contains",
@@ -18790,9 +19978,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L322",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_implementation_steps",
-      "target": "plans_uv_migration_plan_phase_5_documentation_sweep_and_acceptance",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_phase_5_documentation_sweep_and_acceptance"
     },
     {
       "relation": "contains",
@@ -18800,9 +19988,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L124",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_1_project_metadata_and_lockfile",
-      "target": "plans_uv_migration_plan_codeblock_1",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_1"
     },
     {
       "relation": "contains",
@@ -18810,9 +19998,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L154",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_2_local_developer_experience_and_pre_commit_hook",
-      "target": "plans_uv_migration_plan_codeblock_2",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_2"
     },
     {
       "relation": "contains",
@@ -18820,9 +20008,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L186",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
-      "target": "plans_uv_migration_plan_codeblock_3",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_3"
     },
     {
       "relation": "contains",
@@ -18830,9 +20018,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L197",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
-      "target": "plans_uv_migration_plan_codeblock_4",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_4"
     },
     {
       "relation": "contains",
@@ -18840,9 +20028,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L218",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
-      "target": "plans_uv_migration_plan_codeblock_5",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_5"
     },
     {
       "relation": "contains",
@@ -18850,9 +20038,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L243",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
-      "target": "plans_uv_migration_plan_codeblock_6",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_6"
     },
     {
       "relation": "contains",
@@ -18860,9 +20048,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L259",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_3_ci_core_jobs_ubuntu_hosted_uv_toolchain",
-      "target": "plans_uv_migration_plan_codeblock_7",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_7"
     },
     {
       "relation": "contains",
@@ -18870,9 +20058,9 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L302",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_4_platform_smoke_realignment_and_publish_gates",
-      "target": "plans_uv_migration_plan_codeblock_8",
-      "confidence_score": 1.0
+      "target": "plans_uv_migration_plan_codeblock_8"
     },
     {
       "relation": "contains",
@@ -18880,8 +20068,318 @@
       "source_file": "docs/plans/uv-migration-plan.md",
       "source_location": "L337",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "plans_uv_migration_plan_phase_5_documentation_sweep_and_acceptance",
-      "target": "plans_uv_migration_plan_codeblock_9",
+      "target": "plans_uv_migration_plan_codeblock_9"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_plans_uv_user_install_rhel_plan_md",
+      "target": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_purpose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_facts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_inferences",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_scope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L304",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_ci_matrix_target_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L318",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_testing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L328",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_rollout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L338",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_acceptance_criteria",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L358",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_open_questions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L367",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_related_follow_ups_not_this_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L374",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_uv_user_install_plan_rhel_fedora",
+      "target": "plans_uv_user_install_rhel_plan_effort",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_facts",
+      "target": "plans_uv_user_install_rhel_plan_post_v1_baseline_verified_2026_06_11",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_facts",
+      "target": "plans_uv_user_install_rhel_plan_not_found_this_plan_may_add",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_scope",
+      "target": "plans_uv_user_install_rhel_plan_in_scope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_scope",
+      "target": "plans_uv_user_install_rhel_plan_out_of_scope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_requirements",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "target": "plans_uv_user_install_rhel_plan_phase_1_readme_and_rhel_guide_docs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "target": "plans_uv_user_install_rhel_plan_phase_2_ci_fedora_smoke_and_build_on_uv_tool_install",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "target": "plans_uv_user_install_rhel_plan_phase_3_fedora_user_mode_smoke_job",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L257",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "target": "plans_uv_user_install_rhel_plan_phase_4_doc_sweep_and_stale_references",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L286",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_implementation_steps",
+      "target": "plans_uv_user_install_rhel_plan_phase_5_optional_post_publish_pypi_smoke",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L134",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_phase_1_readme_and_rhel_guide_docs",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L155",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_phase_2_ci_fedora_smoke_and_build_on_uv_tool_install",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L184",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_phase_2_ci_fedora_smoke_and_build_on_uv_tool_install",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L233",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_phase_3_fedora_user_mode_smoke_job",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L275",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_phase_4_doc_sweep_and_stale_references",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L294",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_phase_5_optional_post_publish_pypi_smoke",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_7",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/plans/uv-user-install-rhel-plan.md",
+      "source_location": "L350",
+      "weight": 1.0,
+      "source": "plans_uv_user_install_rhel_plan_acceptance_criteria",
+      "target": "plans_uv_user_install_rhel_plan_codeblock_8",
       "confidence_score": 1.0
     },
     {
@@ -19090,9 +20588,9 @@
       "source_file": "docs/run/phases-8-9-completion/FINAL_REPORT.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_run_phases_8_9_completion_final_report_md",
-      "target": "phases_8_9_completion_final_report_phases_8_9_completion_final_report",
-      "confidence_score": 1.0
+      "target": "phases_8_9_completion_final_report_phases_8_9_completion_final_report"
     },
     {
       "relation": "contains",
@@ -19100,9 +20598,9 @@
       "source_file": "docs/run/phases-8-9-completion/FINAL_REPORT.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "phases_8_9_completion_final_report_phases_8_9_completion_final_report",
-      "target": "phases_8_9_completion_final_report_outcome",
-      "confidence_score": 1.0
+      "target": "phases_8_9_completion_final_report_outcome"
     },
     {
       "relation": "contains",
@@ -19110,9 +20608,9 @@
       "source_file": "docs/run/phases-8-9-completion/FINAL_REPORT.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "phases_8_9_completion_final_report_phases_8_9_completion_final_report",
-      "target": "phases_8_9_completion_final_report_phase_results",
-      "confidence_score": 1.0
+      "target": "phases_8_9_completion_final_report_phase_results"
     },
     {
       "relation": "contains",
@@ -19120,9 +20618,9 @@
       "source_file": "docs/run/phases-8-9-completion/FINAL_REPORT.md",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "phases_8_9_completion_final_report_phases_8_9_completion_final_report",
-      "target": "phases_8_9_completion_final_report_acceptance_criteria",
-      "confidence_score": 1.0
+      "target": "phases_8_9_completion_final_report_acceptance_criteria"
     },
     {
       "relation": "contains",
@@ -19130,9 +20628,9 @@
       "source_file": "docs/run/phases-8-9-completion/FINAL_REPORT.md",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "phases_8_9_completion_final_report_phases_8_9_completion_final_report",
-      "target": "phases_8_9_completion_final_report_additional_maintenance",
-      "confidence_score": 1.0
+      "target": "phases_8_9_completion_final_report_additional_maintenance"
     },
     {
       "relation": "contains",
@@ -19140,8 +20638,78 @@
       "source_file": "docs/run/phases-8-9-completion/FINAL_REPORT.md",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "phases_8_9_completion_final_report_phases_8_9_completion_final_report",
-      "target": "phases_8_9_completion_final_report_required_next_action",
+      "target": "phases_8_9_completion_final_report_required_next_action"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/LEDGER.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_run_uv_user_install_rhel_ledger_md",
+      "target": "uv_user_install_rhel_ledger_uv_user_install_rhel_fedora_ledger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/STATE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_run_uv_user_install_rhel_state_md",
+      "target": "uv_user_install_rhel_state_uv_user_install_rhel_fedora_orchestrator_state_overwrite_each_phase_boundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_run_uv_user_install_rhel_final_report_md",
+      "target": "uv_user_install_rhel_final_report_uv_user_install_rhel_fedora_final_report",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "uv_user_install_rhel_final_report_uv_user_install_rhel_fedora_final_report",
+      "target": "uv_user_install_rhel_final_report_outcome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "uv_user_install_rhel_final_report_uv_user_install_rhel_fedora_final_report",
+      "target": "uv_user_install_rhel_final_report_phase_results",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "uv_user_install_rhel_final_report_uv_user_install_rhel_fedora_final_report",
+      "target": "uv_user_install_rhel_final_report_acceptance_criteria",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/run/uv-user-install-rhel/FINAL_REPORT.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "uv_user_install_rhel_final_report_uv_user_install_rhel_fedora_final_report",
+      "target": "uv_user_install_rhel_final_report_notes",
       "confidence_score": 1.0
     },
     {
@@ -20481,5 +22049,5 @@
       "source_file": "docs/plans/full-implementation-plan.md"
     }
   ],
-  "built_at_commit": "66c1f69cb7500d2ce6d9622520b95ae54a8b87d5"
+  "built_at_commit": "a24063805a170c5c47d1a6386e91d828fc2c6159"
 }

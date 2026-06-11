@@ -1,16 +1,16 @@
 # Graph Report - pg-provision  (2026-06-11)
 
 ## Corpus Check
-- 50 files · ~62,136 words
+- 55 files · ~69,451 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 911 nodes · 1142 edges · 81 communities (58 shown, 23 thin omitted)
-- Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 197 edges (avg confidence: 0.81)
+- 983 nodes · 1234 edges · 75 communities (55 shown, 20 thin omitted)
+- Extraction: 84% EXTRACTED · 16% INFERRED · 0% AMBIGUOUS · INFERRED: 197 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `66c1f69c`
+- Built from commit: `a2406380`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -68,7 +68,6 @@
 - [[_COMMUNITY_Community 52|Community 52]]
 - [[_COMMUNITY_Community 53|Community 53]]
 - [[_COMMUNITY_Community 54|Community 54]]
-- [[_COMMUNITY_Community 55|Community 55]]
 - [[_COMMUNITY_Community 56|Community 56]]
 - [[_COMMUNITY_Community 57|Community 57]]
 - [[_COMMUNITY_Community 58|Community 58]]
@@ -80,11 +79,6 @@
 - [[_COMMUNITY_Community 64|Community 64]]
 - [[_COMMUNITY_Community 65|Community 65]]
 - [[_COMMUNITY_Community 66|Community 66]]
-- [[_COMMUNITY_Community 67|Community 67]]
-- [[_COMMUNITY_Community 68|Community 68]]
-- [[_COMMUNITY_Community 69|Community 69]]
-- [[_COMMUNITY_Community 70|Community 70]]
-- [[_COMMUNITY_Community 71|Community 71]]
 - [[_COMMUNITY_Community 72|Community 72]]
 - [[_COMMUNITY_Community 73|Community 73]]
 - [[_COMMUNITY_Community 74|Community 74]]
@@ -96,14 +90,14 @@
 ## God Nodes (most connected - your core abstractions)
 1. `bash()` - 166 edges
 2. `_make_valid_pgdata()` - 22 edges
-3. `PostgreSQL Provisioner – RHEL/Rocky/Alma Test Guide (pgprovision)` - 18 edges
+3. `PostgreSQL Provisioner – RHEL/Rocky/Alma Test Guide (pgprovision)` - 19 edges
 4. `PostgreSQL Provisioner – Ubuntu Test Guide (pgprovision)` - 17 edges
 5. `Phases 8–9: Full Cluster Uninstall, CI, Docs, and Validation` - 14 edges
 6. `uv Migration Plan` - 14 edges
-7. `Planning prompt: migrate pg-provision development and CI to uv` - 13 edges
-8. `Phases 8–9 Completion Plan` - 13 edges
-9. `_fake_pg_bin()` - 12 edges
-10. `Resume Orchestrator — pg-provision full implementation (from Phase 3)` - 12 edges
+7. `uv User Install Plan (RHEL/Fedora)` - 14 edges
+8. `Planning prompt: migrate pg-provision development and CI to uv` - 13 edges
+9. `Phases 8–9 Completion Plan` - 13 edges
+10. `_fake_pg_bin()` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `test_hba_managed_header_top_singleton_preserves_vendor()` --calls--> `bash()`  [INFERRED]
@@ -125,7 +119,7 @@
 - **Cross-OS Validation Guides** — readme_self_heal_and_guides, ubuntu_test_guide, rhel_test_guide [EXTRACTED 1.00]
 - **Destructive Operations Safety Model** — full_plan_safety, full_plan_destroy, full_plan_uninstall, plan_prompt_scope_uninstall_ci [EXTRACTED 1.00]
 
-## Communities (81 total, 23 thin omitted)
+## Communities (75 total, 20 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.33
@@ -161,7 +155,7 @@ Nodes (5): NamedTuple, BashResult, _candidate_provision_paths(), provision_sh(),
 
 ### Community 8 - "Community 8"
 Cohesion: 0.06
-Nodes (45): 1) **Hardened (RHEL/Rocky/Alma): socket‑only, local peer auth**, 2) **Hardened (RHEL/Rocky/Alma): loopback‑only TCP (localhost)**, 3) **Permissive (Ubuntu): listen on all interfaces for a trusted LAN**, 4) **TLS‑required server (certs pre‑positioned)**, 5) **Reproducible runs via env‑file (no secrets)**, 6) **Custom data directory + pg_stat_statements**, 7) **pgvector on PGDG PostgreSQL**, 8) **Logical destroy: drop one database and optional role** (+37 more)
+Nodes (46): 1) **Hardened (RHEL/Rocky/Alma): socket‑only, local peer auth**, 2) **Hardened (RHEL/Rocky/Alma): loopback‑only TCP (localhost)**, 3) **Permissive (Ubuntu): listen on all interfaces for a trusted LAN**, 4) **TLS‑required server (certs pre‑positioned)**, 5) **Reproducible runs via env‑file (no secrets)**, 6) **Custom data directory + pg_stat_statements**, 7) **pgvector on PGDG PostgreSQL**, 8) **Logical destroy: drop one database and optional role** (+38 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.33
@@ -224,8 +218,8 @@ Cohesion: 0.1
 Nodes (20): A. OPERATING DOCTRINE — context hygiene + delegation (read twice), B. Authoritative grounding (verified 2026-06-10 — trust but re-verify before acting), C. Operator decisions, code:block1 (SUBAGENT RESULT), code:block2 (# pg-provision full implementation — orchestrator STATE  (ov), D. Load-bearing corrections (read first, non-negotiable), E. Phase-by-phase dispatch (detail lives in plan §5), F. Traceability: LEDGER + STATE.md (maintain continuously) (+12 more)
 
 ### Community 31 - "Community 31"
-Cohesion: 0.11
-Nodes (30): bash(), Run `bash -lc` with provision.sh sourced, returning (stdout, stderr, rc).     De, Run `bash -lc` with provision.sh sourced, returning (stdout, stderr, rc).     De, test_cli_user_mode_cannot_be_disabled_by_env_file(), test_destroy_cli_destroy_only_cannot_be_disabled_by_env_file(), test_destroy_cli_dry_run_cannot_be_disabled_by_env_file(), test_destroy_continue_validates_profile_before_sql(), test_destroy_dry_run_continue_validates_profile_before_manifest() (+22 more)
+Cohesion: 0.17
+Nodes (20): bash(), Run `bash -lc` with provision.sh sourced, returning (stdout, stderr, rc).     De, Run `bash -lc` with provision.sh sourced, returning (stdout, stderr, rc).     De, test_cli_user_mode_cannot_be_disabled_by_env_file(), test_destroy_cli_destroy_only_cannot_be_disabled_by_env_file(), test_destroy_cli_dry_run_cannot_be_disabled_by_env_file(), test_destroy_continue_validates_profile_before_sql(), test_destroy_dry_run_continue_validates_profile_before_manifest() (+12 more)
 
 ### Community 32 - "Community 32"
 Cohesion: 0.11
@@ -244,8 +238,8 @@ Cohesion: 0.14
 Nodes (13): code:bash (# Repo root), Investigation checklist (do this before writing the report), Investigation prompt: user-mode backend + PG 18 + pgvector + destroy DB, Out of scope for this investigation, Required output format, Scope (four workstreams), Starter commands for the investigator, Success criteria (+5 more)
 
 ### Community 36 - "Community 36"
-Cohesion: 0.17
-Nodes (11): 5.5) Logical destroy safety smoke, 5) User and database creation, 6.5) pgvector extension (PGDG), 6) Socket group & local peer map, 9) Stamp file & permissions, code:bash (pgprovision --create-user devuser --create-password 'pAs$123), code:bash (DB=pgprov_destroy_smoke), code:bash (ME=$(logname 2>/dev/null || echo "$SUDO_USER")) (+3 more)
+Cohesion: 0.05
+Nodes (55): 0) Prerequisites, 10) Restart sanity, 11) Self-heal: missing/invalid PGDATA (fresh create), 12) Self-heal: adopt existing valid PGDATA, 1.5) User-mode smoke (no sudo), 1) Dry‑run smoke test, 2) Full install (PGDG repo, packages, cluster, service), 3) HBA policy (+47 more)
 
 ### Community 37 - "Community 37"
 Cohesion: 0.18
@@ -272,20 +266,20 @@ Cohesion: 0.33
 Nodes (5): Acceptance criteria, Evidence, pg-provision Phases 8-9 final report, Remaining operator action, Status
 
 ### Community 43 - "Community 43"
-Cohesion: 0.33
-Nodes (6): 3) HBA policy, Allow networks, code:bash (HBA="/var/lib/pgsql/${PGV}/data/pg_hba.conf"), code:bash (pgprovision --socket-only), code:bash (pgprovision --allow-network --allowed-cidr "10.0.0.0/8, 192.), Socket‑only posture
+Cohesion: 0.06
+Nodes (31): Acceptance criteria, CI matrix (target state), code:bash (curl -LsSf https://astral.sh/uv/install.sh | sh), code:bash (# doc review only — spot-check examples match flag names in ), code:yaml (- uses: actions/checkout@v4), code:yaml (- name: Install wheel and smoke), code:bash (PGPROVISION_BIN="$(command -v pgprovision)"), code:bash (rg 'pip install pg-provision' README.md docs/test-plan-rhel.) (+23 more)
 
 ### Community 44 - "Community 44"
-Cohesion: 0.33
-Nodes (6): Cleanup (optional), code:bash (PREVIEW_LOG=./pgprov_uninstall_preview_rhel.log), code:bash (PREVIEW_LOG=./pgprov_uninstall_full_preview_rhel.log), code:bash (systemctl stop "postgresql-${PGV}" || systemctl stop postgre), Full teardown, including PGDATA and packages, Preserve PGDATA, remove service metadata
+Cohesion: 0.08
+Nodes (24): A. OPERATING DOCTRINE — context hygiene + delegation (read twice), B. Authoritative grounding (verified 2026-06-11 — trust but re-verify before acting), C. Operator decisions, code:block1 (SUBAGENT RESULT), code:bash (#!/usr/bin/env bash), code:bash (uv sync --dev), code:block4 (# uv user install (RHEL/Fedora) — orchestrator STATE  (overw), code:bash (uv sync --dev && uv run pytest -q && uv run pre-commit run -) (+16 more)
 
 ### Community 45 - "Community 45"
 Cohesion: 0.33
 Nodes (6): Cleanup (optional), code:bash (PREVIEW_LOG=./pgprov_uninstall_preview.log), code:bash (PREVIEW_LOG=./pgprov_uninstall_full_preview.log), code:bash (systemctl stop "postgresql@${PGV}-main" || true), Full teardown, including PGDATA and packages, Preserve PGDATA, remove cluster service metadata
 
 ### Community 46 - "Community 46"
-Cohesion: 0.4
-Nodes (5): 7.1 Guardrail, 7.2 Self-signed certs and TLS enablement, 7) TLS guardrail and enablement, code:bash (set +e), code:bash (DATA_DIR="/var/lib/pgsql/${PGV}/data")
+Cohesion: 0.18
+Nodes (10): test_assert_psql_major_uses_pg_bin_dir(), test_dry_run_skips_self_heal_and_backend_mutations(), test_load_os_module_requires_self_heal_after_phase4(), test_runtime_dry_run_records_without_executing(), test_runtime_resolve_prefers_postgres_binary_dir_over_psql_only_dir(), test_runtime_resolves_pg_bin_dir(), test_runtime_system_psql_uses_sudo_u_postgres(), test_runtime_user_mode_rejects_root_non_dry_run() (+2 more)
 
 ### Community 47 - "Community 47"
 Cohesion: 0.4
@@ -304,24 +298,12 @@ Cohesion: 0.4
 Nodes (4): Security behavior tests for secret handling in create_db_and_user.  Ensures pass, test_create_db_without_create_user_omits_owner(), test_create_user_password_from_file(), test_create_user_password_not_in_argv()
 
 ### Community 51 - "Community 51"
-Cohesion: 0.5
-Nodes (4): 12) Self-heal: adopt existing valid PGDATA, code:bash (set -euxo pipefail), code:bash (getenforce), code:bash (firewall-cmd --add-service=postgresql --permanent)
+Cohesion: 0.33
+Nodes (5): Acceptance criteria, Notes, Outcome, Phase results, uv user install (RHEL/Fedora) — FINAL REPORT
 
 ### Community 52 - "Community 52"
 Cohesion: 0.83
 Nodes (3): _make_stub(), test_os_enable_and_start_fallback_without_systemd(), test_os_restart_fallback_without_systemd()
-
-### Community 53 - "Community 53"
-Cohesion: 0.67
-Nodes (3): 0) Prerequisites, code:bash (pip install pg-provision), code:bash (sudo -s                           # run tests as root)
-
-### Community 54 - "Community 54"
-Cohesion: 0.67
-Nodes (3): 2) Full install (PGDG repo, packages, cluster, service), code:bash (pgprovision --pg-version "${PGV}" | tee ./pgprov_install_rhe), code:bash (systemctl status "postgresql-${PGV}" --no-pager -l || true)
-
-### Community 55 - "Community 55"
-Cohesion: 0.67
-Nodes (3): 8) Custom data directory relocation (SELinux aware), code:bash (NEW_DATA="/var/lib/pgsql/${PGV}/custom-data"), code:bash (# install semanage if needed)
 
 ### Community 56 - "Community 56"
 Cohesion: 0.67
@@ -344,24 +326,24 @@ Cohesion: 0.29
 Nodes (6): Acceptance criteria, Additional maintenance, Outcome, Phase results, Phases 8-9 completion FINAL REPORT, Required next action
 
 ## Knowledge Gaps
-- **399 isolated node(s):** `Return the absolute path to a packaged shell helper script.`, `Return true when args or root-routing env request user-mode execution.`, `Return true when a forwarded env file requests user-mode root routing.`, `Return true when a system-mode invocation needs sudo wrapping.      User-mode ne`, `Run a packaged shell script, adding sudo only for system-mode actions.` (+394 more)
+- **422 isolated node(s):** `Return the absolute path to a packaged shell helper script.`, `Return true when args or root-routing env request user-mode execution.`, `Return true when a forwarded env file requests user-mode root routing.`, `Return true when a system-mode invocation needs sudo wrapping.      User-mode ne`, `Run a packaged shell script, adding sudo only for system-mode actions.` (+417 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `bash()` connect `Community 31` to `Community 0`, `Community 3`, `Community 5`, `Community 7`, `Community 10`, `Community 11`, `Community 15`, `Community 23`, `Community 26`, `Community 27`, `Community 32`, `Community 38`, `Community 48`, `Community 49`, `Community 50`, `Community 52`, `Community 58`, `Community 59`, `Community 60`?**
-  _High betweenness centrality (0.076) - this node is a cross-community bridge._
+- **Why does `bash()` connect `Community 31` to `Community 0`, `Community 3`, `Community 5`, `Community 7`, `Community 10`, `Community 11`, `Community 15`, `Community 23`, `Community 26`, `Community 27`, `Community 32`, `Community 38`, `Community 46`, `Community 48`, `Community 49`, `Community 50`, `Community 52`, `Community 58`, `Community 59`, `Community 60`?**
+  _High betweenness centrality (0.065) - this node is a cross-community bridge._
 - **Why does `PostgreSQL Provisioner – Ubuntu Test Guide (pgprovision)` connect `Community 34` to `Community 40`, `Community 41`, `Community 73`, `Community 75`, `Community 74`, `Community 72`, `Community 45`, `Community 47`, `Community 56`, `Community 57`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `PostgreSQL Provisioner – RHEL/Rocky/Alma Test Guide (pgprovision)` connect `Community 36` to `Community 67`, `Community 68`, `Community 69`, `Community 70`, `Community 71`, `Community 43`, `Community 44`, `Community 46`, `Community 51`, `Community 53`, `Community 54`, `Community 55`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Are the 163 inferred relationships involving `bash()` (e.g. with `test_include_dir_idempotent()` and `test_tls_dropin_writes_ssl_options()`) actually correct?**
   _`bash()` has 163 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Return the absolute path to a packaged shell helper script.`, `Return true when args or root-routing env request user-mode execution.`, `Return true when a forwarded env file requests user-mode root routing.` to the rest of the system?**
-  _399 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _422 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.09 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
+- **Should `Community 3` be split into smaller, more focused modules?**
+  _Cohesion score 0.06 - nodes in this community are weakly interconnected._
