@@ -745,8 +745,8 @@ def test_user_stop_cluster_treats_missing_datadir_as_stopped(tmp_path, bash):
     pg_ctl = bin_dir / "pg_ctl"
     pg_ctl.write_text(
         "#!/usr/bin/env bash\n"
-        "if [[ \"$*\" == *status* ]]; then exit 4; fi\n"
-        "echo unexpected pg_ctl \"$@\"\n"
+        'if [[ "$*" == *status* ]]; then exit 4; fi\n'
+        'echo unexpected pg_ctl "$@"\n'
         "exit 99\n",
         encoding="utf-8",
     )

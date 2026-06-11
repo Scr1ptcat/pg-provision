@@ -28,6 +28,14 @@ classifiers = [
 [project.scripts]
 pgprovision = "pgprovision.cli:main"
 
+[dependency-groups]
+dev = [
+  "build",
+  "pre-commit",
+  "pytest",
+  "twine",
+]
+
 [project.urls]
 Homepage = "https://github.com/scr1ptcat/pg-provision"
 Repository = "https://github.com/scr1ptcat/pg-provision"

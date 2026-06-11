@@ -63,6 +63,7 @@ repos:
     hooks:
       - id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
+        exclude: ^graphify-out/
         stages: [pre-commit]
 
   - repo: https://github.com/hukkin/mdformat
@@ -76,8 +77,7 @@ repos:
     hooks:
       - id: pytest
         name: pytest
-        entry: pytest -q
-        language: python
-        additional_dependencies: [pytest]
+        entry: uv run pytest -q
+        language: system
         pass_filenames: false
         types: [python]
