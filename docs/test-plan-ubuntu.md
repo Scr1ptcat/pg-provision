@@ -7,7 +7,7 @@ ______________________________________________________________________
 ## 0) Prerequisites
 
 - Ubuntu VM with internet access.
-- Willingness to install PostgreSQL via PGDG. The default major is 16; set `PGV=18` to run the same guide against PostgreSQL 18.
+- Willingness to install PostgreSQL via PGDG. The default major is 18; set `PGV=16` to run the same guide against PostgreSQL 16.
 - Install the package (system or venv):
 
 ```bash
@@ -28,7 +28,7 @@ ______________________________________________________________________
 sudo -s                                 # run tests as root for a quiet session
 set -euxo pipefail
 export DEBIAN_FRONTEND=noninteractive
-export PGV="${PGV:-16}"
+export PGV="${PGV:-18}"
 ```
 
 > Non-root runs require passwordless sudo and helpers that use sudo for writes under `/etc/postgresql/...`.

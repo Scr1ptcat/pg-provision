@@ -7,7 +7,7 @@ ______________________________________________________________________
 ## 0) Prerequisites
 
 - RHEL 8/9, Rocky 8/9, or Alma 8/9 VM with internet access.
-- Willingness to install PostgreSQL via PGDG. The default major is 16; set `PGV=18` to run the same guide against PostgreSQL 18.
+- Willingness to install PostgreSQL via PGDG. The default major is 18; set `PGV=16` to run the same guide against PostgreSQL 16.
 - Install uv and the pg-provision tool in the shell that will invoke `pgprovision`:
   ```bash
   curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -21,7 +21,7 @@ ______________________________________________________________________
 
 ```bash
 set -euxo pipefail
-export PGV="${PGV:-16}"
+export PGV="${PGV:-18}"
 ```
 
 For system-mode sections, run as root or as a user with passwordless sudo. If you switch to a root shell for the guide, install `pgprovision` with uv in that same shell first. Run user-mode sections as the unprivileged user that should own the PostgreSQL data directory.

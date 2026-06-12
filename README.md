@@ -34,8 +34,8 @@ User mode (no sudo) uses `postgres`, `initdb`, `pg_ctl`, and `psql` binaries alr
 ```bash
 pgprovision --user-mode \
   --pg-bin-dir /path/to/postgresql/bin \
-  --user-base-dir "$HOME/.local/share/pgprovision/pg16" \
-  --data-dir "$HOME/.local/share/pgprovision/pg16/data" \
+  --user-base-dir "$HOME/.local/share/pgprovision/pg18" \
+  --data-dir "$HOME/.local/share/pgprovision/pg18/data" \
   --port 55432
 ```
 
@@ -52,10 +52,11 @@ pgprovision --user-mode \
 
 Equivalent env knobs: `PGPROVISION_BOOTSTRAP_TARBALL`, `PGPROVISION_BOOTSTRAP_SHA256`, `PGPROVISION_BOOTSTRAP_DIR` (default: `$PGPROVISION_USER_BASE_DIR/binaries`), and `BOOTSTRAP_ONLY=true`.
 
-PostgreSQL 16 remains the default for this release. PostgreSQL 18 is explicitly supported through PGDG by passing `--pg-version 18` or setting `PG_VERSION=18` in an env file:
+PostgreSQL 18 is the default major version. Pass `--pg-version 16` or set `PG_VERSION=16` to target PostgreSQL 16:
 
 ```bash
-pgprovision --pg-version 18 --dry-run
+pgprovision --pg-version 16 --dry-run
+pgprovision --dry-run   # implicit PG 18
 ```
 
 ## Development from source
@@ -174,7 +175,7 @@ Keep knobs in a file. Any flag‑backed var can live here.
 `/etc/pgprovision.env`:
 
 ```bash
-PG_VERSION=16  # set PG_VERSION=18 to target PostgreSQL 18 via PGDG
+PG_VERSION=18  # pass PG_VERSION=16 to target PostgreSQL 16 via PGDG
 REPO_KIND=pgdg
 LISTEN_ADDRESSES=localhost
 PORT=5432
@@ -268,14 +269,14 @@ User-mode uninstall only removes user-owned paths; pass the same user-mode paths
 
 ```bash
 pgprovision --user-mode --pg-bin-dir /path/to/postgresql/bin \
-  --user-base-dir "$HOME/.local/share/pgprovision/pg16" \
-  --data-dir "$HOME/.local/share/pgprovision/pg16/data" \
+  --user-base-dir "$HOME/.local/share/pgprovision/pg18" \
+  --data-dir "$HOME/.local/share/pgprovision/pg18/data" \
   --uninstall-cluster --uninstall-only --dry-run \
   | tee ./pgprov-user-uninstall-preview.log
 TOKEN="$(sed -n 's/^confirm_token=//p' ./pgprov-user-uninstall-preview.log | tail -n1)"
 pgprovision --user-mode --pg-bin-dir /path/to/postgresql/bin \
-  --user-base-dir "$HOME/.local/share/pgprovision/pg16" \
-  --data-dir "$HOME/.local/share/pgprovision/pg16/data" \
+  --user-base-dir "$HOME/.local/share/pgprovision/pg18" \
+  --data-dir "$HOME/.local/share/pgprovision/pg18/data" \
   --uninstall-cluster --uninstall-only --remove-pgdata \
   --confirm-uninstall "$TOKEN"
 ```
