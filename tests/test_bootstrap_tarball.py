@@ -166,7 +166,7 @@ def test_bootstrap_only_exits_before_provision(tmp_path, bash):
       sudo() {{ echo "sudo called"; return 99; }}
       os_detect() {{ echo "os_detect called"; return 99; }}
       load_os_module() {{ echo "load_os_module called"; return 99; }}
-      main --user-mode \
+      main --user-mode --pg-version 16 \
         --bootstrap-tarball "${{TARBALL:?}}" \
         --bootstrap-sha256 "${{SHA256:?}}" \
         --bootstrap-dir "${{BOOTDIR:?}}" \

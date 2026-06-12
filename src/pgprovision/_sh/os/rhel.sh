@@ -2,7 +2,7 @@
 #NOTE: this file is sourced by provision.sh
 
 # Expect these from the caller: run(), err(), and variables PG_VERSION, REPO_KIND
-: "${PG_VERSION:=16}"
+: "${PG_VERSION:=$PGPROVISION_DEFAULT_PG_VERSION}"
 : "${REPO_KIND:=pgdg}"
 
 _pkgmgr() {

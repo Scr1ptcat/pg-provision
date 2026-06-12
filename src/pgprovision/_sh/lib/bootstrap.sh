@@ -33,7 +33,7 @@ bootstrap_cache_dir() {
 	local hash="${1:-${PGPROVISION_BOOTSTRAP_SHA256:-}}" base
 	hash="$(bootstrap_normalize_sha256 "$hash")" || return $?
 	base="$(bootstrap_default_dir)"
-	printf '%s/%s/%s\n' "$base" "${PG_VERSION:-16}" "$hash"
+	printf '%s/%s/%s\n' "$base" "${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}" "$hash"
 }
 
 bootstrap_source_is_url() {
@@ -238,7 +238,7 @@ bootstrap_binary_major() {
 }
 
 bootstrap_validate_major() {
-	local bin_dir="${1:?bin_dir}" expected="${2:-${PG_VERSION:-16}}" name major
+	local bin_dir="${1:?bin_dir}" expected="${2:-${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}}" name major
 	bootstrap_validate_required_binaries "$bin_dir" || return $?
 	for name in postgres initdb pg_ctl psql; do
 		major="$(bootstrap_binary_major "${bin_dir}/${name}")" || {
@@ -273,7 +273,7 @@ bootstrap_apply_if_requested() {
 	bootstrap_verify_sha256 "$tarball" "${PGPROVISION_BOOTSTRAP_SHA256:-}" || return $?
 	extract_dir="$(bootstrap_extract_to_cache "$tarball" "${PGPROVISION_BOOTSTRAP_SHA256:-}")" || return $?
 	bin_dir="$(bootstrap_find_pg_bin_dir "$extract_dir")" || return $?
-	bootstrap_validate_major "$bin_dir" "${PG_VERSION:-16}" || return $?
+	bootstrap_validate_major "$bin_dir" "${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}" || return $?
 	PG_BIN_DIR="$bin_dir"
 	PGPROVISION_BOOTSTRAPPED_PG_BIN_DIR="$bin_dir"
 	export PG_BIN_DIR PGPROVISION_BOOTSTRAPPED_PG_BIN_DIR

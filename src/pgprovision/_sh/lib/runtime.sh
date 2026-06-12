@@ -32,9 +32,9 @@ runtime_user_base_dir() {
 	if [[ -n "${PGPROVISION_USER_BASE_DIR:-}" ]]; then
 		printf '%s\n' "$PGPROVISION_USER_BASE_DIR"
 	elif [[ -n "${XDG_DATA_HOME:-}" ]]; then
-		printf '%s\n' "${XDG_DATA_HOME}/pgprovision/pg${PG_VERSION:-16}"
+		printf '%s\n' "${XDG_DATA_HOME}/pgprovision/pg${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}"
 	else
-		printf '%s\n' "${HOME}/.local/share/pgprovision/pg${PG_VERSION:-16}"
+		printf '%s\n' "${HOME}/.local/share/pgprovision/pg${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}"
 	fi
 }
 
@@ -42,7 +42,7 @@ runtime_user_runtime_dir() {
 	if [[ -n "${PGPROVISION_USER_RUNTIME_DIR:-}" ]]; then
 		printf '%s\n' "$PGPROVISION_USER_RUNTIME_DIR"
 	elif [[ -n "${XDG_RUNTIME_DIR:-}" ]]; then
-		printf '%s\n' "${XDG_RUNTIME_DIR}/pgprovision/pg${PG_VERSION:-16}"
+		printf '%s\n' "${XDG_RUNTIME_DIR}/pgprovision/pg${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}"
 	else
 		printf '%s\n' "$(runtime_user_base_dir)/run"
 	fi
@@ -227,7 +227,7 @@ runtime_resolve_pg_bin() {
 		return 0
 	fi
 	local dir
-	for dir in "/usr/lib/postgresql/${PG_VERSION:-16}/bin" "/usr/pgsql-${PG_VERSION:-16}/bin"; do
+	for dir in "/usr/lib/postgresql/${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}/bin" "/usr/pgsql-${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}/bin"; do
 		if [[ -x "$dir/psql" || -x "$dir/postgres" ]]; then
 			printf '%s\n' "$dir"
 			return 0
@@ -259,8 +259,8 @@ runtime_pg_share_candidates() {
 		share="$(cd "${bin_dir}/.." 2>/dev/null && pwd)/share"
 		[[ "$share" != "/share" ]] && printf '%s\n' "$share"
 	fi
-	printf '%s\n' "/usr/share/postgresql/${PG_VERSION:-16}"
-	printf '%s\n' "/usr/pgsql-${PG_VERSION:-16}/share"
+	printf '%s\n' "/usr/share/postgresql/${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}"
+	printf '%s\n' "/usr/pgsql-${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}/share"
 }
 
 runtime_resolve_pg_share() {

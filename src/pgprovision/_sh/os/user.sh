@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # User-mode backend for preinstalled PostgreSQL binaries.
 
-: "${PG_VERSION:=16}"
+: "${PG_VERSION:=$PGPROVISION_DEFAULT_PG_VERSION}"
 : "${REPO_KIND:=none}"
 
 _user_base_dir() {

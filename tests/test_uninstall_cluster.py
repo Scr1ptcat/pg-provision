@@ -53,7 +53,7 @@ def test_uninstall_dry_run_prints_manifest_and_token(tmp_path, bash):
       pg_lsclusters() {
         printf '16 main 5432 down postgres %s log\\n' "${DATA:?}"
       }
-      main --uninstall-cluster --uninstall-only --dry-run
+      main --uninstall-cluster --uninstall-only --pg-version 16 --dry-run
         """,
         env={"DATA": str(data)},
     )
@@ -102,7 +102,7 @@ def test_uninstall_confirmation_validated_after_env_file(tmp_path, bash):
 
     r = bash(
         """
-      parse_args --uninstall-cluster --uninstall-only \
+      parse_args --uninstall-cluster --uninstall-only --pg-version 16 \
         --confirm-uninstall "uninstall:16:ubuntu:${CLI_DATA:?}" \
         --data-dir "${CLI_DATA:?}" --env-file "${ENVF:?}"
       load_env_file

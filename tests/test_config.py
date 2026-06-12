@@ -334,6 +334,21 @@ def test_parse_args_flags_and_unknown(tmp_path, bash):
 
 
 @pytest.mark.unit
+def test_parse_args_default_pg_version(bash):
+    """
+    parse_args should default PG_VERSION to the current implicit major (18).
+    """
+    r = bash(
+        """
+      parse_args --dry-run
+      echo "PG_VERSION=${PG_VERSION}"
+        """
+    )
+    assert r.rc == 0, r.stderr
+    assert r.stdout.strip() == "PG_VERSION=18"
+
+
+@pytest.mark.unit
 def test_parse_args_pg_version_sets_major(bash):
     """
     parse_args should accept an explicit PostgreSQL major version.

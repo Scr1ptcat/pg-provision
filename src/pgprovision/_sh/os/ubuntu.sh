@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Ubuntu 22.04/24.04 + PGDG helpers
 
-: "${PG_VERSION:=16}"
+: "${PG_VERSION:=$PGPROVISION_DEFAULT_PG_VERSION}"
 
 _apt_update_once_done="false"
 _cnf_hook="/etc/apt/apt.conf.d/50command-not-found"

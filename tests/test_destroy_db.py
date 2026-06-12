@@ -532,6 +532,7 @@ cat >> "${{SQLCAP:?}}"
         esac
       }
       main --user-mode --pg-bin-dir "${BINDIR:?}" --user-runtime-dir "${RUNTIME:?}" \
+        --pg-version 16 \
         --destroy-db appdb --confirm-destroy-db appdb --init-pgvector
         """,
         env={
@@ -579,6 +580,7 @@ cat >> "${{SQLCAP:?}}"
         esac
       }
       main --user-mode --pg-bin-dir "${BINDIR:?}" \
+        --pg-version 16 \
         --user-base-dir "${BLOCKED:?}/base" --data-dir "${BLOCKED:?}/base/data" \
         --destroy-db appdb --confirm-destroy-db appdb
         """,
@@ -654,6 +656,7 @@ cat >> "${{SQLCAP:?}}"
       }
       chgrp() { echo "chgrp $*" >&2; return 5; }
       main --user-mode --pg-bin-dir "${BINDIR:?}" --user-base-dir "${BASE:?}" \
+        --pg-version 16 \
         --unix-socket-group pgclients \
         --destroy-db appdb --confirm-destroy-db appdb
         """,

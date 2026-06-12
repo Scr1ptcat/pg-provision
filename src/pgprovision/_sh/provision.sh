@@ -4,6 +4,9 @@ umask 077
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+PGPROVISION_DEFAULT_PG_VERSION="${PGPROVISION_DEFAULT_PG_VERSION:-18}"
+export PGPROVISION_DEFAULT_PG_VERSION
+
 # shellcheck source=src/pgprovision/_sh/lib/common.sh
 . "${SCRIPT_DIR}/lib/common.sh"
 
@@ -148,7 +151,7 @@ PGPROVISION_BOOTSTRAP_TARBALL=${PGPROVISION_BOOTSTRAP_TARBALL:-}
 PGPROVISION_BOOTSTRAP_SHA256=${PGPROVISION_BOOTSTRAP_SHA256:-}
 PGPROVISION_BOOTSTRAP_DIR=${PGPROVISION_BOOTSTRAP_DIR:-}
 BOOTSTRAP_ONLY=${BOOTSTRAP_ONLY:-false}
-PG_VERSION=${PG_VERSION:-16}
+PG_VERSION=${PG_VERSION:-$PGPROVISION_DEFAULT_PG_VERSION}
 REPO_KIND=${REPO_KIND:-} # system default pgdg; user-mode default none
 PORT=${PORT:-5432}
 LISTEN_ADDRESSES=${LISTEN_ADDRESSES:-localhost}
@@ -207,11 +210,11 @@ Usage: $0 \
 
 Examples:
   sudo $0 --repo pgdg --listen-addresses '*' --allowed-cidr 10.0.0.0/8 --allow-network
-  $0 --user-mode --pg-bin-dir /path/to/postgres/bin --user-base-dir ~/.local/share/pgprovision/pg16
+  $0 --user-mode --pg-bin-dir /path/to/postgres/bin --user-base-dir ~/.local/share/pgprovision/pg18
   $0 --user-mode --bootstrap-tarball ./postgresql.tar.gz --bootstrap-sha256 <sha256> --bootstrap-only
   sudo $0 --destroy-db old_app --destroy-user old_app --confirm-destroy-db old_app --destroy-only
   $0 --uninstall-cluster --uninstall-only --dry-run
-  sudo $0 --uninstall-cluster --uninstall-only --confirm-uninstall uninstall:16:ubuntu:/var/lib/postgresql/16/main
+  sudo $0 --uninstall-cluster --uninstall-only --confirm-uninstall uninstall:18:ubuntu:/var/lib/postgresql/18/main
 USAGE
 }
 
